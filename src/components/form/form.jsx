@@ -1,52 +1,65 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
+import {connect} from 'react-redux';
+import validate from "./validate";
 import { addProduct } from '../store/action/add-product-action';
 
 class Form extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      description: "",
-      price: ""
-    };
-  }
+  renderError = ({ touched, error }) => {
+    if (touched && error) {
+      return <div> {error} </div>;
+    }
+  };
 
-  clickProductHandler = () => {
-      const { addProduct } = this.props;
-      const { name, description, price } = this.state;
-      let requestBody= {
-          name,
-          description,
-          price
-      };
-      addProduct (requestBody)
+  renderField = ({ input, label, type, meta }) => {
+    return (
+      <div>
+        <label> {label} </label>
+        <div>
+          <input {...input} type={type} placeholder={label} />
+          {this.renderError(meta)}
+        </div>
+      </div>
+    );
+  };
+
+  formSubmit = formValue => {
+    console.log(formValue);
+    const {addProduct} = this.props;
+    addProduct(formValue);
   };
 
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <div>
-        <h3> Product Form </h3>
-        <input
-          onChange={(e) => this.setState({ name: e.target.value })}
-          placeholder="name"
-        />{" "}
-        <br /> <br/>
-        <input
-          onChange={(e) => this.setState({ description: e.target.value })}
-          placeholder="discription"
-        />{" "}
-        <br /> <br/>
-        <input
-          onChange={(e) => this.setState({ price: e.target.value })}
-          placeholder="price"
-        /> {" "}
-        <br /> <br/>
-        <button onClick={this.clickProductHandler} >Add Product</button>
-
-      </div>
+      <form onSubmit={handleSubmit(this.formSubmit)}>
+        <Field
+          name="productName"
+          component={this.renderField}
+          type="text"
+          label="Product-Name"
+        />
+        <Field
+          name="description"
+          component={this.renderField}
+          type="text"
+          label="Description"
+        />
+        <Field
+          name="price"
+          component={this.renderField}
+          type="number"
+          label="Price"
+        />
+        <button>AddProduct</button>
+      </form>
     );
   }
 }
 
-export default connect(null, { addProduct } )(Form);
+const productForm =  reduxForm({
+  form: "addProduct",
+  validate
+})(Form);
+
+export default connect(null, { addProduct })(productForm);

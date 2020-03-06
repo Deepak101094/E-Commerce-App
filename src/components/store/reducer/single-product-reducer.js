@@ -1,25 +1,25 @@
 import {
-  ADD_PRODUCT_INIT,
-  ADD_PRODUCT_SUCCESS,
-  ADD_PRODUCT_FAIL
+  SINGLE_PRODUCT_INIT,
+  SINGLE_PRODUCT_SUCCESS,
+  SINGLE_PRODUCT_FAIL
 } from "../action/actionType";
 
-const addProductReducer = (state = {}, action) => {
+const singleProduct = (state = {}, action) => {
   const { type, product } = action;
   switch (type) {
-    case ADD_PRODUCT_INIT:
+    case SINGLE_PRODUCT_INIT:
       return {
         ...state,
         type,
         product
       };
-    case ADD_PRODUCT_SUCCESS:
+    case SINGLE_PRODUCT_SUCCESS:
       return {
         ...state,
         type,
         product
       };
-    case ADD_PRODUCT_FAIL:
+    case SINGLE_PRODUCT_FAIL:
       return {
         ...state,
         type,
@@ -30,4 +30,4 @@ const addProductReducer = (state = {}, action) => {
   }
 };
 
-export default addProductReducer;
+export default singleProduct;

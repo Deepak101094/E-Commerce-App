@@ -1,33 +1,32 @@
 import {
-  ADD_PRODUCT_INIT,
-  ADD_PRODUCT_SUCCESS,
-  ADD_PRODUCT_FAIL
+  SINGLE_PRODUCT_INIT,
+  SINGLE_PRODUCT_SUCCESS,
+  SINGLE_PRODUCT_FAIL
 } from "./actionType";
-import api from "../../../API/productApi";
-import _get from "lodash/get";
-import _isEmpty from "lodash/isEmpty";
+import api from '../../../API/productApi';
+import _get from 'lodash/get';
+import _isEmpty from 'lodash/isEmpty';
 
-export const addProduct = formValue => {
+export const singleProduct = id => {
   return async dispatch => {
     dispatch({
-      type: ADD_PRODUCT_INIT,
+      type: SINGLE_PRODUCT_INIT,
       product: {
-        data: [],
+        data: {},
         isLoading: true,
         success: undefined,
         error: false
       }
     });
     try {
-      const response = await api.post("/add-product", formValue);
-      const product = _get(response, "data", []);
-     // console.log(product);
+      const response = await api.get(`/product${id}`);
+      const product = _get(response, "data", {});
       let success = false;
       if (product && Array.isArray(product) && !_isEmpty(product)) {
         success = true;
       }
       dispatch({
-        type: ADD_PRODUCT_SUCCESS,
+        type: SINGLE_PRODUCT_SUCCESS,
         product: {
           data: product,
           isLoading: false,
@@ -36,11 +35,11 @@ export const addProduct = formValue => {
         }
       });
     } catch (err) {
-      const error = _get(err, "err.message", "something went wrong!");
+      const error = _get(err, "err.message", "some error occurred!");
       dispatch({
-        type: ADD_PRODUCT_FAIL,
+        type: SINGLE_PRODUCT_FAIL,
         product: {
-          data: [],
+          data: {},
           isLoading: false,
           success: false,
           error
