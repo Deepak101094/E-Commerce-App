@@ -2,11 +2,10 @@ import {
   FETCH_PRODUCTS_INIT,
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_FAIL
-} from "./actionType";
-import axios from "../../../utility/axios/axiosInstance";
+} from "../actionTypes";
+import axios from "../../utility/axios/axiosInstance";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
-//import axios from 'axios';
 
 export const fetchProducts = () => {
   return async dispatch => {

@@ -3,12 +3,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 //? Utilities
-import validate from "../../../utility/validate/validate";
+import validate from "../utility/validate";
 //? Material UI
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 //? Actions
-import { addProduct } from "../../store/actions/add-product";
+import { addProduct } from "../store/actions/add-product";
 
 class AddProduct extends Component {
   renderError = ({ touched, error }) => {

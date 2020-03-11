@@ -3,7 +3,7 @@ import {
   ADD_PRODUCT_SUCCESS,
   ADD_PRODUCT_FAIL
 } from "../actionTypes";
-import axios from "../../../utility/axios/axiosInstance";
+import axios from "../../utility/axios/axiosInstance";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
 

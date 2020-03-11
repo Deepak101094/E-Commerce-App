@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Product from "../components/products/Product";
 import { connect } from "react-redux";
-import { fetchProducts } from "../../store/actions/fetch-products";
+import { fetchProducts } from "../store/actions/fetch-products";
 import { CircularProgress } from "@material-ui/core";
 import _get from "lodash/get";
 

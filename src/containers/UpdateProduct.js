@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
-import validate from "../validate/validate";
+import validate from "../utility/validate";
 
 class UpdateProduct extends Component {
   renderError = ({ touched, error }) => {
