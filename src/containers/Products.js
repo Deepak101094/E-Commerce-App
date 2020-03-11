@@ -1,31 +1,60 @@
 import React, { Component } from "react";
-import Product from "../components/products/Product";
+import Product from "../components/Product";
 import { connect } from "react-redux";
 import { fetchProducts } from "../store/actions/fetch-products";
 import { CircularProgress } from "@material-ui/core";
 import _get from "lodash/get";
 
 class Products extends Component {
+  state = {
+    data: [],
+    success: undefined,
+    isLoading: false,
+    errorMsg: ""
+  };
   componentDidMount() {
     const { fetchProducts } = this.props;
-    fetchProducts();
+    fetchProducts(this.responseHandler);
   }
+
+  responseHandler = ({ data, success, isLoading, errorMsg }) => {
+    this.setState({
+      data,
+      success,
+      isLoading,
+      errorMsg
+    });
+  };
+
   render() {
-    const { productData, isLoading, success, error } = this.props;
+    const { data, success, isLoading, errorMsg } = this.state;
     return (
-      <div>
+      <div className="container">
+        <style>{`
+          .products {
+            display: flex;
+            margin-top: 50px;
+          }
+          .loader {
+            position: fixed; /* or absolute */
+            top: 40%;
+            left: 50%;
+          }
+        `}</style>
         {isLoading ? (
-          <div>
-            <CircularProgress color="secondary" />
+          <div className="loader">
+            <CircularProgress color="primary" />
           </div>
         ) : (
-          <div className="container">
+          <div className="products">
             {success ? (
-              (productData || []).map(product => {
-                return <Product product={product} />;
+              (data || []).map(product => {
+                return (
+                  <Product key={_get(product, "_id", "")} product={product} />
+                );
               })
             ) : (
-              <p> {error} </p>
+              <p>{errorMsg}</p>
             )}
           </div>
         )}
@@ -34,18 +63,4 @@ class Products extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { products } = state.products;
-  const productData = _get(products, "data", []);
-  const isLoading = _get(products, "isLoading", false);
-  const success = _get(products, "success", false);
-  const error = _get(products, "error", "some error occurred!");
-  return {
-    productData,
-    isLoading,
-    success,
-    error
-  };
-};
-
-export default connect(mapStateToProps, { fetchProducts })(Products);
+export default connect(null, { fetchProducts })(Products);

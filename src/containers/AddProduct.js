@@ -9,6 +9,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 //? Actions
 import { addProduct } from "../store/actions/add-product";
+//? Layout
+import Layout from "../Hoc/Layout";
 
 class AddProduct extends Component {
   renderError = ({ touched, error }) => {
@@ -85,4 +87,4 @@ const productForm = reduxForm({
   validate
 })(AddProduct);
 
-export default connect(null, { addProduct })(productForm);
+export default connect(null, { addProduct })(Layout(productForm));
