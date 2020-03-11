@@ -1,16 +1,16 @@
 const validate = formValue => {
     const error = {};
     if (!formValue.productName) {
-      error.productName = "you must enter the product-name";
+      error.productName = "enter the product-name";
     }
     if (!formValue.description) {
-      error.description = "you must enter product description";
+      error.description = "enter product description";
     }
     if (!formValue.price) {
-      error.price = "you must enter product-price";
+      error.price = "enter product-price";
     }
     if(!formValue.imageURL) {
-      error.imageURL = "you must set your product-image"
+      error.imageURL = "set your product-image"
     }
     return error;
   };

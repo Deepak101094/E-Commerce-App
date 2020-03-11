@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 import validate from "../validate/validate";
-import { addProduct } from '../store/action/add-product-action';
-//import TextField from '@material-ui/core/TextField';
+import { addProduct } from "../store/action/add-product-action";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
 
 class AddProduct extends Component {
   renderError = ({ touched, error }) => {
     if (touched && error) {
-      return <div> {error} </div>;
+      return <div style={{ margin: "10px", color: "red" }}> {error} </div>;
     }
   };
 
@@ -17,7 +19,7 @@ class AddProduct extends Component {
       <div>
         <label> {label} </label>
         <div>
-          <input {...input} type={type} placeholder={label} />
+          <TextField {...input} type={type} placeholder={label} />
           {this.renderError(meta)}
         </div>
       </div>
@@ -26,7 +28,7 @@ class AddProduct extends Component {
 
   formSubmit = formValue => {
     console.log(formValue);
-    const {addProduct} = this.props;
+    const { addProduct } = this.props;
     addProduct(formValue);
   };
 
@@ -38,7 +40,7 @@ class AddProduct extends Component {
           name="productName"
           component={this.renderField}
           type="text"
-          label="Product-Name" 
+          label="Product-Name"
         />
         <Field
           name="description"
@@ -53,18 +55,18 @@ class AddProduct extends Component {
           label="Price"
         />
         <Field
-        name="imageURL"
-        component={this.renderField}
-        type="text"
-        label="image"
-      />
-        <button>AddProduct</button>
+          name="imageURL"
+          component={this.renderField}
+          type="text"
+          label="image"
+        />
+        <Button color="secondary"> Add Product </Button>
       </form>
     );
   }
 }
 
-const productForm =  reduxForm({
+const productForm = reduxForm({
   form: "addProduct",
   validate
 })(AddProduct);

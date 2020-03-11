@@ -16,7 +16,7 @@ class Products extends Component {
       <div>
         {isLoading ? (
           <div>
-            <CircularProgress />
+            <CircularProgress color= "secondary" />
           </div>
         ) : (
           <div className="container">
