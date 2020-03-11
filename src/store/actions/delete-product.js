@@ -4,7 +4,7 @@ import {
   DELETE_PRODUCT_FAIL,
   FETCH_PRODUCTS_SUCCESS
 } from "./actionType";
-import api from "../../../API/productApi";
+import axios from "../../../utility/axios/axiosInstance";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
 
@@ -20,7 +20,7 @@ export const deleteProduct = id => {
       }
     });
     try {
-      const response = await api.delete(`/product${id}`);
+      const response = await axios.delete(`/product${id}`);
       const product = _get(response, "data", {});
       let success = false;
       if (product && Array.isArray(product) && !_isEmpty(product)) {

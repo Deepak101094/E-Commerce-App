@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Product from './product';
+import Product from "../components/products/Product";
 import { connect } from "react-redux";
-import { fetchProducts } from "../store/action/fetch-products-action";
-import _get from "lodash/get";
+import { fetchProducts } from "../../store/actions/fetch-products";
 import { CircularProgress } from "@material-ui/core";
+import _get from "lodash/get";
 
 class Products extends Component {
   componentDidMount() {
@@ -16,7 +16,7 @@ class Products extends Component {
       <div>
         {isLoading ? (
           <div>
-            <CircularProgress color= "secondary" />
+            <CircularProgress color="secondary" />
           </div>
         ) : (
           <div className="container">

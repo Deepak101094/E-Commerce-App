@@ -1,23 +1,36 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
+//? Redux
 import { connect } from "react-redux";
-import validate from "../validate/validate";
-import { addProduct } from "../store/action/add-product-action";
+import { Field, reduxForm } from "redux-form";
+//? Utilities
+import validate from "../../../utility/validate/validate";
+//? Material UI
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
+//? Actions
+import { addProduct } from "../../store/actions/add-product";
 
 class AddProduct extends Component {
   renderError = ({ touched, error }) => {
     if (touched && error) {
-      return <div style={{ margin: "10px", color: "red" }}> {error} </div>;
+      return (
+        <div className="error">
+          <style jsx>{`
+            .error {
+              margin: 10px 0px;
+              color: red;
+            }
+          `}</style>
+          {error}
+        </div>
+      );
     }
   };
 
   renderField = ({ input, label, type, meta }) => {
     return (
       <div>
-        <label> {label} </label>
+        <label>{label}</label>
         <div>
           <TextField {...input} type={type} placeholder={label} />
           {this.renderError(meta)}
@@ -27,7 +40,6 @@ class AddProduct extends Component {
   };
 
   formSubmit = formValue => {
-    console.log(formValue);
     const { addProduct } = this.props;
     addProduct(formValue);
   };
@@ -58,16 +70,18 @@ class AddProduct extends Component {
           name="imageURL"
           component={this.renderField}
           type="text"
-          label="image"
+          label="Image"
         />
-        <Button color="secondary"> Add Product </Button>
+        <Button variant="contained" color="primary" size="medium">
+          Add Product
+        </Button>
       </form>
     );
   }
 }
 
 const productForm = reduxForm({
-  form: "addProduct",
+  form: "addProductForm",
   validate
 })(AddProduct);
 

@@ -1,17 +1,18 @@
 import {
-  UPDATE_PRODUCT_INIT,
-  UPDATE_PRODUCT_SUCCESS,
-  UPDATE_PRODUCT_FAIL
+  FETCH_PRODUCTS_INIT,
+  FETCH_PRODUCTS_SUCCESS,
+  FETCH_PRODUCTS_FAIL
 } from "./actionType";
-import api from "../../../API/productApi";
+import axios from "../../../utility/axios/axiosInstance";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
+//import axios from 'axios';
 
-export const updateProduct = (id, formValue) => {
+export const fetchProducts = () => {
   return async dispatch => {
     dispatch({
-      type: UPDATE_PRODUCT_INIT,
-      product: {
+      type: FETCH_PRODUCTS_INIT,
+      products: {
         data: [],
         isLoading: true,
         success: undefined,
@@ -19,16 +20,17 @@ export const updateProduct = (id, formValue) => {
       }
     });
     try {
-      const response = await api.put(`/update-product${id}`, formValue);
-      const product = _get(response, "data", []);
+      const response = await axios.get("/products");
+      const products = _get(response, "data", []);
+      console.log(products);
       let success = false;
-      if (product && Array.isArray(product) && !_isEmpty(product)) {
+      if (products && Array.isArray(products) && !_isEmpty(products)) {
         success = true;
       }
       dispatch({
-        type: UPDATE_PRODUCT_SUCCESS,
-        product: {
-          data: product,
+        type: FETCH_PRODUCTS_SUCCESS,
+        products: {
+          data: products,
           isLoading: false,
           success,
           error: false
@@ -37,8 +39,8 @@ export const updateProduct = (id, formValue) => {
     } catch (err) {
       const error = _get(err, "err.message", "some error occurred!");
       dispatch({
-        type: UPDATE_PRODUCT_FAIL,
-        product: {
+        type: FETCH_PRODUCTS_FAIL,
+        products: {
           data: [],
           isLoading: false,
           success: false,

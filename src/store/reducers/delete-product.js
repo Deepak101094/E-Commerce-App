@@ -3,9 +3,9 @@ import {
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAIL,
   FETCH_PRODUCTS_SUCCESS
-} from "../action/actionType";
+} from "../actionTypes";
 
-const deleteReducer = (state = {}, action) => {
+const deleteProductReducer = (state = {}, action) => {
   const { type, product, products } = action;
   switch (type) {
     case DELETE_PRODUCT_INIT:
@@ -37,4 +37,4 @@ const deleteReducer = (state = {}, action) => {
   }
 };
 
-export default deleteReducer;
+export default deleteProductReducer;
