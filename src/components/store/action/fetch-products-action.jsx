@@ -6,6 +6,7 @@ import {
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
 import api from "../../../API/productApi";
+//import axios from 'axios';
 
 export const fetchProducts = () => {
   return async dispatch => {
@@ -21,6 +22,7 @@ export const fetchProducts = () => {
     try {
       const response = await api.get("/products");
       const products = _get(response, "data", []);
+      console.log(products);
       let success = false;
       if (products && Array.isArray(products) && !_isEmpty(products)) {
         success = true;

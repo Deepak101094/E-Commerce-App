@@ -1,30 +1,60 @@
-import { DELETE_PRODUCT } from "./actionType";
+import {
+  DELETE_PRODUCT_INIT,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAIL,
+  FETCH_PRODUCTS_SUCCESS
+} from "./actionType";
 import api from "../../../API/productApi";
-
-// export const deletePost = id => {
-//     return async (dispatch, getState) => {
-//       const state = getState();
-//       let posts = state.posts.data;
-//       let index = _findIndex(posts, ["id", id]);
-//       posts.splice(index, 1);
-//       dispatch({
-//         type: DELETE_POST,
-//         posts
-//       });
-//     };
-//   };
+import _get from "lodash/get";
+import _isEmpty from "lodash/isEmpty";
 
 export const deleteProduct = id => {
-  return async (dispatch, getState) => {
-    const state = getState();
-    let products = state.products.data;
-    let index = _findIndex(products, ["id, id"]);
-    products.splice(index, i);
-
-    await api.delete(`/delete-product${id}`);
+  return async dispatch => {
     dispatch({
-      type: DELETE_PRODUCT,
-      products
+      type: DELETE_PRODUCT_INIT,
+      product: {
+        data: {},
+        isloading: true,
+        success: undefined,
+        error: false
+      }
     });
+    try {
+      const response = await api.delete(`/product${id}`);
+      const product = _get(response, "data", {});
+      let success = false;
+      if (product && Array.isArray(product) && !_isEmpty(product)) {
+        success = true;
+      }
+      dispatch({
+        type: DELETE_PRODUCT_SUCCESS,
+        product: {
+          data: product,
+          success,
+          isloading: false,
+          error: false
+        }
+      });
+      dispatch({
+        type: FETCH_PRODUCTS_SUCCESS,
+        products: {
+          data: products,
+          isloading: false,
+          success: true,
+          error: false
+        }
+      });
+    } catch (err) {
+      const error = _get(err, "response.err", "something went wrong");
+      dispatch({
+        type: DELETE_PRODUCT_FAIL,
+        product: {
+          data: {},
+          isloading: false,
+          success: false,
+          error
+        }
+      });
+    }
   };
 };

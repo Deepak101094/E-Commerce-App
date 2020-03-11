@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import './App.css';
-import Form from './components/form/form';
+import AddProduct from "./components/products/addProduct";
+//import UpdateProduct from "./components/products/updateProduct";
+import Products from './components/products/products';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div >
         <h1> E-Commerce-App</h1>
-          <Form />
+          <AddProduct />
+          <Products />
       </div>
     );
   }

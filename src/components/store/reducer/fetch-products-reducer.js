@@ -4,7 +4,7 @@ import {
   FETCH_PRODUCTS_FAIL,
 } from "../action/actionType";
 
-const fetchProductsReducer = () => {
+const productsReducer = (state={}, action) => {
   const { type, products } = action;
   switch (type) {
     case FETCH_PRODUCTS_INIT:
@@ -29,4 +29,4 @@ const fetchProductsReducer = () => {
       return state;
   }
 };
-export default fetchProductsReducer;
+export default productsReducer;
