@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
-import validate from '../validate/validate';
-
-
+import validate from "../utility/validate";
+import Layout from "../Hoc/Layout";
 class UpdateProduct extends Component {
   renderError = ({ touched, error }) => {
     if (touched && error) {
@@ -23,7 +22,7 @@ class UpdateProduct extends Component {
   };
 
   formSubmit = formValue => {
-    console.log(formValue);    
+    console.log(formValue);
   };
 
   render() {
@@ -34,7 +33,7 @@ class UpdateProduct extends Component {
           name="productName"
           component={this.renderField}
           type="text"
-          label="Product-Name" 
+          label="Product-Name"
         />
         <Field
           name="description"
@@ -54,8 +53,7 @@ class UpdateProduct extends Component {
   }
 }
 
-export default  reduxForm({
+export default reduxForm({
   form: "updateProduct",
   validate
-})(UpdateProduct);
-
+})(Layout(UpdateProduct));

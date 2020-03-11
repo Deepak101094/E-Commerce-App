@@ -1,25 +1,25 @@
 import {
-  UPDATE_PRODUCT_INIT,
-  UPDATE_PRODUCT_SUCCESS,
-  UPDATE_PRODUCT_FAIL
-} from "../action/actionType";
+  FETCH_SINGLE_PRODUCT_INIT,
+  FETCH_SINGLE_PRODUCT_SUCCESS,
+  FETCH_SINGLE_PRODUCT_FAIL
+} from "../actionTypes";
 
-const updateProductReducer = (state = {}, action) => {
+const fetchSingleProduct = (state = {}, action) => {
   const { type, product } = action;
   switch (type) {
-    case UPDATE_PRODUCT_INIT:
+    case FETCH_SINGLE_PRODUCT_INIT:
       return {
         ...state,
         type,
         product
       };
-    case UPDATE_PRODUCT_SUCCESS:
+    case FETCH_SINGLE_PRODUCT_SUCCESS:
       return {
         ...state,
         type,
         product
       };
-    case UPDATE_PRODUCT_FAIL:
+    case FETCH_SINGLE_PRODUCT_FAIL:
       return {
         ...state,
         type,
@@ -30,4 +30,4 @@ const updateProductReducer = (state = {}, action) => {
   }
 };
 
-export default updateProductReducer;
+export default fetchSingleProduct;
