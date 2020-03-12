@@ -3,9 +3,9 @@ import {
   SINGLE_PRODUCT_SUCCESS,
   SINGLE_PRODUCT_FAIL
 } from "./actionType";
-import api from '../../../API/productApi';
-import _get from 'lodash/get';
-import _isEmpty from 'lodash/isEmpty';
+import axios from "../../utility/axios/axiosInstance";
+import _get from "lodash/get";
+import _isEmpty from "lodash/isEmpty";
 
 export const singleProduct = id => {
   return async dispatch => {
@@ -19,7 +19,7 @@ export const singleProduct = id => {
       }
     });
     try {
-      const response = await api.get(`/product${id}`);
+      const response = await axios.get(`/product${id}`);
       const product = _get(response, "data", {});
       let success = false;
       if (product && Array.isArray(product) && !_isEmpty(product)) {

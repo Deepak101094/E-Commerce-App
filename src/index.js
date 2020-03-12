@@ -1,27 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./Home";
+import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-import { reducer as formReducer } from "redux-form";
-import addProductReducer from "./components/store/reducer/add-product-reducer";
-import updateProductReducer from "./components/store/reducer/update-product-reducer";
-import deleteProductReducer from "./components/store/reducer/delete-product-reducer";
-import productsReducer from "./components/store/reducer/fetch-products-reducer"; 
-import productReducer from "./components/store/reducer/single-product-reducer";
+import rootReducer from "./store/reducers";
+import "./index.css";
+
+//? Components
+import AddProduct from "../src/containers/AddProduct";
+import UpdateProduct from "../src/containers/UpdateProduct";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const rootReducer = combineReducers({
-  form: formReducer,
-  addProduct: addProductReducer,
-  updateProduct: updateProductReducer,
-  deleteProduct: deleteProductReducer,
-  products: productsReducer,
-  product: productReducer
-});
 
 const store = createStore(
   rootReducer,
@@ -30,7 +21,19 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/add-product">
+          <AddProduct />
+        </Route>
+        <Route path="/update-product">
+          <UpdateProduct />
+        </Route>
+      </Switch>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
