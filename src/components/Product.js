@@ -40,6 +40,9 @@ const Product = props => {
           <Button size="small" color="primary" variant="contained">
             Add to cart
           </Button>
+          <Button size="small"  color="red" variant="contained">
+          Delete Product
+          </Button>
         </CardActions>
       </Card>
     </div>

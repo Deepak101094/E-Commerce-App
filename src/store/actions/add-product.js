@@ -21,6 +21,7 @@ export const addProduct = (reqBody, cb) => {
     try {
       const response = await axios.post("/add-product", reqBody);
       const product = _get(response, "data", {});
+      console.log(product);
       let success = false;
       if (product && Array.isArray(product) && !_isEmpty(product)) {
         success = true;

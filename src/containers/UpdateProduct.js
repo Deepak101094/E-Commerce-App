@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import validate from "../utility/validate";
 import Layout from "../Hoc/Layout";
+
+
 class UpdateProduct extends Component {
   renderError = ({ touched, error }) => {
     if (touched && error) {

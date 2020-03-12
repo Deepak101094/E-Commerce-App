@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { reducer as toastrReducer } from "react-redux-toastr";
+//import { reducer as toastrReducer } from "react-redux-toastr";
 import { reducer as formReducer } from "redux-form";
 import addProduct from "./add-product";
 import updateProduct from "./update-product";

@@ -12,7 +12,7 @@ export const updateProduct = (id, formValue) => {
     dispatch({
       type: UPDATE_PRODUCT_INIT,
       product: {
-        data: [],
+        data: {},
         isLoading: true,
         success: undefined,
         error: false
@@ -39,7 +39,7 @@ export const updateProduct = (id, formValue) => {
       dispatch({
         type: UPDATE_PRODUCT_FAIL,
         product: {
-          data: [],
+          data: {},
           isLoading: false,
           success: false,
           error

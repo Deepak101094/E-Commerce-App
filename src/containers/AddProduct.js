@@ -13,7 +13,7 @@ import { addProduct } from "../store/actions/add-product";
 import Layout from "../Hoc/Layout";
 
 class AddProduct extends Component {
-  renderError = ({ touched, error }) => {
+  renderError = ({ touched, error }) => { 
     if (touched && error) {
       return (
         <div className="error">
@@ -41,9 +41,10 @@ class AddProduct extends Component {
     );
   };
 
-  formSubmit = formValue => {
+  formSubmit = reqBody => {
     const { addProduct } = this.props;
-    addProduct(formValue);
+    console.log(reqBody );
+    addProduct(reqBody);
   };
 
   render() {
@@ -74,7 +75,7 @@ class AddProduct extends Component {
           type="text"
           label="Image"
         />
-        <Button variant="contained" color="primary" size="medium">
+        <Button type="submit" variant="contained" color="primary" size="medium">
           Add Product
         </Button>
       </form>
