@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import DeleteIcon from "@material-ui/icons/DeleteOutline";
 import _get from "lodash/get";
 
 const useStyles = makeStyles({
@@ -15,6 +16,11 @@ const useStyles = makeStyles({
   },
   media: {
     height: 300
+  },
+
+  cardActions: {
+    display: "flex",
+    justifyContent: "space-between"
   }
 });
 
@@ -36,13 +42,11 @@ const Product = props => {
             <Typography>Rs. {price}</Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        <CardActions className={classes.cardActions}>
           <Button size="small" color="primary" variant="contained">
             Add to cart
           </Button>
-          <Button size="small"  color="red" variant="contained">
-          Delete Product
-          </Button>
+          <DeleteIcon />
         </CardActions>
       </Card>
     </div>
