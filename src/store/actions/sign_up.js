@@ -4,6 +4,10 @@ import _get from "lodash/get";
 import axios from "../../utility/axios/axiosInstance";
 
 export const userSignUp = reqBody => {
+  reqBody = {
+    ...reqBody,
+    userType: Number(reqBody.userType)
+  };
   return async dispatch => {
     dispatch({
       type: SIGN_UP_INIT,
@@ -16,9 +20,9 @@ export const userSignUp = reqBody => {
     });
     try {
       const response = axios.post("/signup", reqBody);
-      console.log(response)
+      console.log(response);
       const data = _get(response, "data", {});
-      let success = _get(response, "status", "") === 200 ? true:false
+      let success = _get(response, "status", "") === 200 ? true : false;
       dispatch({
         type: SIGN_UP_SUCCESS,
         reqBody: {

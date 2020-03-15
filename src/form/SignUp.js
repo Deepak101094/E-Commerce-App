@@ -73,7 +73,7 @@ class SignUp extends Component {
               name="email"
               type="email"
               component={this.renderField}
-              label= "Email"
+              label="Email"
             />
             <Field
               name="password"
@@ -81,15 +81,11 @@ class SignUp extends Component {
               component={this.renderField}
               label="Password"
             />
-            <Field
-              name="userType"
-              component="select"
-              label="UserType"
-            >
+            <Field name="userType" component="select" label="UserType">
               <option />
               <option value=""> select your usertype</option>
-              <option value="admin">admin</option>
-              <option value="normal user">normal user</option>
+              <option value="1">admin</option>
+              <option value="2">normal user</option>
             </Field>
             <Button
               type="submit"
