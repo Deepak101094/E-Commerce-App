@@ -12,6 +12,18 @@ const validate = formValue => {
     if(!formValue.imageURL) {
       error.imageURL = "set your product-image"
     }
+    if(!formValue.name) {
+      error.name = "enter your name"
+    }
+    if(!formValue.email) {
+      error.email = "enter your email"
+    }
+    if(!formValue.password) {
+      error.password = "enter your password"
+    }
+    if(!formValue.userType) {
+      error.userType = "enter your userType"
+    }
     return error;
   };
   

@@ -19,16 +19,18 @@ export const addProduct = (reqBody, cb) => {
       }
     });
     try {
-      const response = await axios.post("/add-product", reqBody);
-      const product = _get(response, "data", {});
-      let success = false;
-      if (product && Array.isArray(product) && !_isEmpty(product)) {
-        success = true;
-      }
+      const response = await axios.post("/admin/add-product", reqBody);
+      console.log(response);
+      const data = _get(response, "data", {});
+      // let success = false;
+      // if (data && Array.isArray(data) && !_isEmpty(data)) {
+      //   success = true;
+      // }
+      let success = _get(response, "status" , "") === 200 ? true: false;
       dispatch({
         type: ADD_PRODUCT_SUCCESS,
         addProduct: {
-          data: product,
+          data,
           isLoading: false,
           success,
           error: false

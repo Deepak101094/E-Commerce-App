@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-//? Redux
+//?redux
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-//? Utilities
-import validate from "../utility/validate";
-//? Material UI
+//Material import
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import MUCard from "@material-ui/core/Card";
 import { styled } from "@material-ui/styles";
-//? Actions
-import { addProduct } from "../store/actions/add-product";
+//?utility
+import validate from "../utility/validate";
+//? actions
+import { userSignUp } from "../store/actions/sign_up";
 //? Layout
 import Layout from "../Hoc/Layout";
 
@@ -18,8 +18,7 @@ const Card = styled(MUCard)({
   padding: "30px",
   margin: "30px"
 });
-
-class AddProduct extends Component {
+class SignUp extends Component {
   renderError = ({ touched, error }) => {
     if (touched && error) {
       return (
@@ -36,10 +35,10 @@ class AddProduct extends Component {
     }
   };
 
-  renderField = ({ input, label, type, meta }) => {
+  renderField = ({ input, type, label, meta }) => {
     return (
       <div>
-        <label>{label}</label>
+        <label> {label} </label>
         <div>
           <TextField
             {...input}
@@ -53,12 +52,11 @@ class AddProduct extends Component {
     );
   };
 
-  formSubmit = (reqBody) => { 
-    const { addProduct } = this.props;
-    reqBody.userid = "5e6c1c97b8f50b0727592457"
-    addProduct({reqBody})  
+  formSubmit = reqBody => {
+    const { userSignUp } = this.props;
+    console.log(reqBody);
+    userSignUp(reqBody);
   };
- 
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -67,35 +65,39 @@ class AddProduct extends Component {
           <form onSubmit={handleSubmit(this.formSubmit)}>
             <Field
               name="name"
-              component={this.renderField}
               type="text"
-              label="Product-Name"
+              component={this.renderField}
+              label="Name"
             />
             <Field
-              name="description"
+              name="email"
+              type="email"
               component={this.renderField}
-              type="text"
-              label="Description"
+              label= "Email"
             />
             <Field
-              name="price"
+              name="password"
+              type="password"
               component={this.renderField}
-              type="number"
-              label="Price"
+              label="Password"
             />
             <Field
-              name="imageUrl"
-              component={this.renderField}
-              type="text"
-              label="Image"
-            />
+              name="userType"
+              component="select"
+              label="UserType"
+            >
+              <option />
+              <option value=""> select your usertype</option>
+              <option value="admin">admin</option>
+              <option value="normal user">normal user</option>
+            </Field>
             <Button
               type="submit"
-              variant="contained"
               color="primary"
+              variant="contained"
               size="medium"
             >
-              Add Product
+              SignUp
             </Button>
           </form>
         </Card>
@@ -104,11 +106,10 @@ class AddProduct extends Component {
   }
 }
 
-AddProduct = connect(null, { addProduct })(AddProduct);
-
-const ProductForm = reduxForm({
-  form: "addProductForm",
+const signUp = connect(null, { userSignUp })(SignUp);
+const signUpForm = reduxForm({
+  form: "signUpForm",
   validate
-})(AddProduct);
+})(signUp);
 
-export default Layout(ProductForm);
+export default Layout(signUpForm);

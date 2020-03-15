@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 //? NextJs imports
 import { useHistory } from "react-router-dom";
 
@@ -44,6 +45,22 @@ export default function ButtonAppBar() {
             Products
           </Typography>
           <Button
+          color="inherit"
+          onClick={() => {
+           history.push("/signup")
+          }}
+         >
+           SignUp
+         </Button>
+          <Button
+           color="inherit"
+           onClick={() => {
+            history.push("/login")
+           }}
+          >
+            Login
+          </Button>
+          <Button
             onClick={() => {
               history.push("/add-product");
             }}
@@ -59,6 +76,7 @@ export default function ButtonAppBar() {
           >
             Products
           </Button>
+         <ShoppingCartIcon />
         </Toolbar>
       </AppBar>
     </div>

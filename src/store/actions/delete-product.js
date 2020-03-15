@@ -1,14 +1,13 @@
 import {
   DELETE_PRODUCT_INIT,
   DELETE_PRODUCT_SUCCESS,
-  DELETE_PRODUCT_FAIL,
-  FETCH_PRODUCTS_SUCCESS
-} from "./actionType";
+  DELETE_PRODUCT_FAIL
+} from "../actionTypes/index";
 import axios from "../../utility/axios/axiosInstance";
 import _get from "lodash/get";
-import _isEmpty from "lodash/isEmpty";
+//import _isEmpty from "lodash/isEmpty";
 
-export const deleteProduct = id => {
+export const deleteProduct = _id => {
   return async dispatch => {
     dispatch({
       type: DELETE_PRODUCT_INIT,
@@ -20,30 +19,19 @@ export const deleteProduct = id => {
       }
     });
     try {
-      const response = await axios.delete(`/product${id}`);
-      const product = _get(response, "data", {});
-      let success = false;
-      if (product && Array.isArray(product) && !_isEmpty(product)) {
-        success = true;
-      }
+      const response = await axios.delete(`/admin/delete-product?_id=${_id}`);
+      console.log(response);     
+      const product = _get(response, "data.status", {});
       dispatch({
         type: DELETE_PRODUCT_SUCCESS,
         product: {
           data: product,
-          success,
-          isloading: false,
-          error: false
-        }
-      });
-      dispatch({
-        type: FETCH_PRODUCTS_SUCCESS,
-        products: {
-          data: products,
-          isloading: false,
           success: true,
+          isloading: false,
           error: false
         }
       });
+    
     } catch (err) {
       const error = _get(err, "response.err", "something went wrong");
       dispatch({

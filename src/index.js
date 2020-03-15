@@ -11,6 +11,8 @@ import "./index.css";
 //? Components
 import AddProduct from "../src/containers/AddProduct";
 import UpdateProduct from "../src/containers/UpdateProduct";
+import Login from "../src/form/Login";
+import SignUp from "../src/form/SignUp";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -25,6 +27,12 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="/add-product">
           <AddProduct />

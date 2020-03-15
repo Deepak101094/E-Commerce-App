@@ -3,14 +3,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 //? Utilities
-import validate from "../utility/validate";
+import validate from "../utility/validate/index";
+//? action
+import { loginUser } from "../store/actions/login";
 //? Material UI
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import MUCard from "@material-ui/core/Card";
 import { styled } from "@material-ui/styles";
 //? Actions
-import { addProduct } from "../store/actions/add-product";
+
 //? Layout
 import Layout from "../Hoc/Layout";
 
@@ -19,7 +21,7 @@ const Card = styled(MUCard)({
   margin: "30px"
 });
 
-class AddProduct extends Component {
+class Login extends Component {
   renderError = ({ touched, error }) => {
     if (touched && error) {
       return (
@@ -54,9 +56,9 @@ class AddProduct extends Component {
   };
 
   formSubmit = (reqBody) => { 
-    const { addProduct } = this.props;
-    reqBody.userid = "5e6c1c97b8f50b0727592457"
-    addProduct({reqBody})  
+ const { loginUser } = this.props;
+  console.log(reqBody); 
+  loginUser(reqBody);
   };
  
   render() {
@@ -66,36 +68,25 @@ class AddProduct extends Component {
         <Card>
           <form onSubmit={handleSubmit(this.formSubmit)}>
             <Field
-              name="name"
+              name="email"
               component={this.renderField}
-              type="text"
-              label="Product-Name"
+              type="email"
+              label="Email"
             />
             <Field
-              name="description"
+              name="password"
               component={this.renderField}
-              type="text"
-              label="Description"
+              type="password"
+              label="Password"
             />
-            <Field
-              name="price"
-              component={this.renderField}
-              type="number"
-              label="Price"
-            />
-            <Field
-              name="imageUrl"
-              component={this.renderField}
-              type="text"
-              label="Image"
-            />
+           
             <Button
               type="submit"
               variant="contained"
               color="primary"
               size="medium"
             >
-              Add Product
+              Login
             </Button>
           </form>
         </Card>
@@ -104,11 +95,11 @@ class AddProduct extends Component {
   }
 }
 
-AddProduct = connect(null, { addProduct })(AddProduct);
+Login = connect(null, { loginUser })(Login);
 
 const ProductForm = reduxForm({
   form: "addProductForm",
   validate
-})(AddProduct);
+})(Login);
 
 export default Layout(ProductForm);

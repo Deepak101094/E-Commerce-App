@@ -21,10 +21,10 @@ export const singleProduct = id => {
     try {
       const response = await axios.get(`/product${id}`);
       const product = _get(response, "data", {});
-      let success = false;
-      if (product && Array.isArray(product) && !_isEmpty(product)) {
-        success = true;
-      }
+      // let success = false;
+      // if (product && Array.isArray(product) && !_isEmpty(product)) {
+      //   success = true;
+      // }
       dispatch({
         type: SINGLE_PRODUCT_SUCCESS,
         product: {
