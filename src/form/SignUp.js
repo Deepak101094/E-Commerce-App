@@ -81,9 +81,7 @@ class SignUp extends Component {
               component={this.renderField}
               label="Password"
             />
-            <Field name="userType" component="select" label="UserType">
-              <option />
-              <option value=""> select your usertype</option>
+            <Field name="userType" component="select" label="UserType" >
               <option value="1">admin</option>
               <option value="2">normal user</option>
             </Field>

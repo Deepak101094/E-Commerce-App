@@ -20,7 +20,7 @@ export const addProduct = (reqBody, cb) => {
     });
     try {
       const response = await axios.post("/admin/add-product", reqBody);
-      console.log(response);
+      console.log(response.data);
       const data = _get(response, "data", {});
       // let success = false;
       // if (data && Array.isArray(data) && !_isEmpty(data)) {

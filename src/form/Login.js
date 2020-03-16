@@ -56,8 +56,8 @@ class Login extends Component {
   };
 
   formSubmit = (reqBody) => { 
- const { loginUser } = this.props;
-  console.log(reqBody); 
+   const { loginUser } = this.props;
+ // console.log(reqBody); 
   loginUser(reqBody);
   };
  

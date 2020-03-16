@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 const Product = props => { 
 
   const deleteProduct = (_id) => {
-  const { deleteProduct } = props;
+  const { deleteProduct } = props;  
   deleteProduct(_id);
   }
 

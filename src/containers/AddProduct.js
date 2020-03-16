@@ -55,8 +55,8 @@ class AddProduct extends Component {
 
   formSubmit = (reqBody) => { 
     const { addProduct } = this.props;
-    reqBody.userid = "5e6c1c97b8f50b0727592457"
-    addProduct({reqBody})  
+    reqBody.userid = "5e6ef5096a1248001708b5e5"
+    addProduct(reqBody)  
   };
  
   render() {

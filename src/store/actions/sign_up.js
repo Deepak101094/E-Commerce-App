@@ -19,8 +19,8 @@ export const userSignUp = reqBody => {
       }
     });
     try {
-      const response = axios.post("/signup", reqBody);
-      console.log(response);
+      const response = await axios.post("/signup", reqBody);
+      console.log(response.data);
       const data = _get(response, "data", {});
       let success = _get(response, "status", "") === 200 ? true : false;
       dispatch({

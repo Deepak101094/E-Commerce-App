@@ -20,7 +20,7 @@ export const deleteProduct = _id => {
     });
     try {
       const response = await axios.delete(`/admin/delete-product?_id=${_id}`);
-      console.log(response);     
+      console.log(response.data.status);     
       const product = _get(response, "data.status", {});
       dispatch({
         type: DELETE_PRODUCT_SUCCESS,
