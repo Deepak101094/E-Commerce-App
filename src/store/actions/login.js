@@ -16,7 +16,7 @@ export const loginUser = reqBody => {
     });
     try {
       const response = await axios.post("/admin/login", reqBody);
-      console.log(response);
+      console.log(response.data);
       const data = _get(response, "data", {});
       let success = _get(response, "status" , "") === 200 ? true : false
       dispatch({
