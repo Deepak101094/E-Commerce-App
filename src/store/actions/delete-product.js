@@ -7,7 +7,7 @@ import axios from "../../utility/axios/axiosInstance";
 import _get from "lodash/get";
 //import _isEmpty from "lodash/isEmpty";
 
-export const deleteProduct = _id => {
+export const deleteProduct = abcd => {  
   return async dispatch => {
     dispatch({
       type: DELETE_PRODUCT_INIT,
@@ -19,8 +19,8 @@ export const deleteProduct = _id => {
       }
     });
     try {
-      const response = await axios.delete(`/admin/delete-product?_id=${_id}`);
-      console.log(response.data.status);     
+      const response = await axios.get(`/admin/delete-product?id=${abcd}`);
+      console.log(response.data);     
       const product = _get(response, "data.status", {});
       dispatch({
         type: DELETE_PRODUCT_SUCCESS,

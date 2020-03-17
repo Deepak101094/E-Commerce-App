@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 //? Redux
-import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 //? Utilities
 import validate from "../utility/validate/index";
-//? action
-import { updateProduct } from "../store/actions/update-product";
+
 //? Material UI
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -21,7 +19,7 @@ const Card = styled(MUCard)({
   margin: "30px"
 });
 
-class UpdateProduct extends Component {
+class SimpleForm extends Component {
   renderError = ({ touched, error }) => {
     if (touched && error) {
       return (
@@ -57,9 +55,7 @@ class UpdateProduct extends Component {
 
   formSubmit = (reqBody) => { 
   console.log(reqBody);
-  const { updateProduct } = this.props
-  updateProduct(reqBody)
-  }
+  };
  
   render() {
     const { handleSubmit } = this.props;
@@ -91,7 +87,7 @@ class UpdateProduct extends Component {
               color="primary"
               size="medium"
             >
-              UpdateProduct
+              Submit
             </Button>
           </form>
         </Card>
@@ -100,17 +96,10 @@ class UpdateProduct extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const {products} = state.products;
-  const initialValues = products;
-  return { initialValues }
-}
-
-UpdateProduct = connect(mapStateToProps, { updateProduct })(UpdateProduct);
 
 const ProductForm = reduxForm({
   form: "addProductForm",
   validate
-})(UpdateProduct);
+})(SimpleForm);
 
 export default Layout(ProductForm);
