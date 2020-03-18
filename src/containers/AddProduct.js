@@ -53,12 +53,12 @@ class AddProduct extends Component {
     );
   };
 
-  formSubmit = (reqBody) => { 
+  formSubmit = reqBody => {
     const { addProduct } = this.props;
-    reqBody.userid = "5e6ef5096a1248001708b5e5"
-    addProduct(reqBody)  
+    reqBody.userid = "5e6ef5096a1248001708b5e5";
+    addProduct(reqBody);
   };
- 
+
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -104,11 +104,23 @@ class AddProduct extends Component {
   }
 }
 
-AddProduct = connect(null, { addProduct })(AddProduct);
+const mapStateToProps = state => {
+  let initialValues = {
+    name: "Shubham",
+    price: "413",
+    description: "Nay data",
+    imageUrl: "https://url"
+  };
+  return {
+    initialValues
+  };
+};
 
-const ProductForm = reduxForm({
-  form: "addProductForm",
-  validate
-})(AddProduct);
-
-export default Layout(ProductForm);
+export default Layout(
+  connect(mapStateToProps, { addProduct })(
+    reduxForm({
+      form: "addProductForm",
+      validate
+    })(AddProduct)
+  )
+);

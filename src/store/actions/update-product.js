@@ -2,7 +2,7 @@ import {
   UPDATE_PRODUCT_INIT,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_FAIL
-} from "./actionType";
+} from "../actionTypes";
 import axios from "../../utility/axios/axiosInstance";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
