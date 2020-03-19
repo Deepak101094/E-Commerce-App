@@ -20,6 +20,7 @@ export const updateProduct = (id, formValue) => {
     });
     try {
       const response = await axios.put(`/update-product${id}`, formValue);
+     // console.log(response)
       const product = _get(response, "data", []);
       let success = false;
       if (product && Array.isArray(product) && !_isEmpty(product)) {

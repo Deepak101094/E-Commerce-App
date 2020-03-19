@@ -37,7 +37,7 @@ ReactDOM.render(
         <Route path="/add-product">
           <AddProduct />
         </Route>
-        <Route path="/update-product">
+        <Route path="/update-product/:id">
           <UpdateProduct />
         </Route>
       </Switch>

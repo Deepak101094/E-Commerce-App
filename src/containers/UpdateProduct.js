@@ -4,17 +4,19 @@ import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 //? Utilities
 import validate from "../utility/validate/index";
-//? action
+//? Actions
 import { updateProduct } from "../store/actions/update-product";
+import { fetchProducts } from "../store/actions/fetch-products";
 //? Material UI
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import MUCard from "@material-ui/core/Card";
 import { styled } from "@material-ui/styles";
-//? Actions
-
 //? Layout
 import Layout from "../Hoc/Layout";
+//?lodash
+import _get from "lodash/get";
+
 
 const Card = styled(MUCard)({
   padding: "30px",
@@ -22,6 +24,10 @@ const Card = styled(MUCard)({
 });
 
 class UpdateProduct extends Component {
+  // componentDidMount () {
+  //   const { fetchProducts } = this.props;
+  //   fetchProducts()
+  // }
   renderError = ({ touched, error }) => {
     if (touched && error) {
       return (
@@ -55,7 +61,7 @@ class UpdateProduct extends Component {
     );
   };
 
-  formSubmit = (reqBody) => { 
+  formSubmit = ( reqBody) => { 
   console.log(reqBody);
   const { updateProduct } = this.props
   updateProduct(reqBody)
@@ -67,6 +73,12 @@ class UpdateProduct extends Component {
       <div className="container">
         <Card>
           <form onSubmit={handleSubmit(this.formSubmit)}>
+            <Field
+             name="id"
+             component={this.renderField}
+             type="text"
+             label="Product-id"
+            />
             <Field
               name="name"
               component={this.renderField}
@@ -102,14 +114,17 @@ class UpdateProduct extends Component {
 
 const mapStateToProps = state => {
   const {products} = state.products;
-  const initialValues = products;
+  console.log(products);
+  const productData = _get(products,"data", {});
+  const {name, price, description, _id} = productData;
+  let initialValues = {name, price, description, _id}
   return { initialValues }
 }
 
-UpdateProduct = connect(mapStateToProps, { updateProduct })(UpdateProduct);
+UpdateProduct = connect(mapStateToProps, { updateProduct, fetchProducts })(UpdateProduct);
 
 const ProductForm = reduxForm({
-  form: "addProductForm",
+  form: "updateProductForm",
   validate
 })(UpdateProduct);
 

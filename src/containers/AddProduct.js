@@ -108,7 +108,7 @@ const mapStateToProps = state => {
   let initialValues = {
     name: "Shubham",
     price: "413",
-    description: "Nay data",
+    description: "New data",
     imageUrl: "https://url"
   };
   return {
