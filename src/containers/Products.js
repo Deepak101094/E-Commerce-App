@@ -27,6 +27,7 @@ class Products extends Component {
   };
 
   render() {
+   // console.log(this.props);
     const { data, success, isLoading, errorMsg } = this.state;
     return (
       <div className="container">

@@ -68,17 +68,18 @@ class UpdateProduct extends Component {
   }
  
   render() {
+   // console.log(this.props);
     const { handleSubmit } = this.props;
     return (
       <div className="container">
         <Card>
           <form onSubmit={handleSubmit(this.formSubmit)}>
-            <Field
-             name="id"
-             component={this.renderField}
-             type="text"
-             label="Product-id"
-            />
+             <Field
+              name="id"
+              component={this.renderField}
+              type="text"
+              label="Product-id"
+             />
             <Field
               name="name"
               component={this.renderField}
@@ -112,12 +113,12 @@ class UpdateProduct extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+ // console.log(ownProps);
   const {products} = state.products;
-  console.log(products);
   const productData = _get(products,"data", {});
-  const {name, price, description, _id} = productData;
-  let initialValues = {name, price, description, _id}
+  const {name, price, description} = productData;
+  let initialValues = {name, price, description}
   return { initialValues }
 }
 

@@ -7,7 +7,8 @@ import axios from "../../utility/axios/axiosInstance";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
 
-export const updateProduct = (id, formValue) => {
+
+export const updateProduct = (id, reqBody) => {
   return async dispatch => {
     dispatch({
       type: UPDATE_PRODUCT_INIT,
@@ -19,7 +20,7 @@ export const updateProduct = (id, formValue) => {
       }
     });
     try {
-      const response = await axios.put(`/update-product${id}`, formValue);
+      const response = await axios.put(`/admine/update-product${id}`, reqBody);
      // console.log(response)
       const product = _get(response, "data", []);
       let success = false;

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 //? Action
 import { deleteProduct } from '../store/actions/delete-product';
 import { addToCartAction } from '../store/actions/add-to-cart';
-import { updateProduct } from "../store/actions/update-product";
 //?material ui
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -48,10 +47,6 @@ const Product = props => {
   addToCartAction(_id)
   }
   
-  const editHandler = (_id) => {
-    const { updateProduct} = props;
-    updateProduct(_id)
-  }
 
   const classes = useStyles();
   const { name, price, description, imageUrl , _id } = _get(props, "product", {});
@@ -77,7 +72,7 @@ const Product = props => {
             Add to cart
           </Button>
           <DeleteIcon  onClick = {() => deleteProduct(_id)} />
-          <Link onClick = {() => editHandler(`/update-product/${_id}`)}>
+          <Link to = {`/update-product/${_id}`}>
           <EditIcon />
           </Link> 
         </CardActions>
@@ -86,4 +81,4 @@ const Product = props => {
   );
 };
 
-export default connect( null, {deleteProduct, addToCartAction, updateProduct })(Product);
+export default connect( null, {deleteProduct, addToCartAction })(Product);

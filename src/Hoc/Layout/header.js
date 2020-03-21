@@ -45,6 +45,13 @@ export default function ButtonAppBar() {
             Products
           </Typography>
           <Button
+          color="inherit"
+          onClick = {() => {
+            history.push("/products");
+          }}
+          >
+          </Button>
+          <Button
             color="inherit"
             onClick={() => {
               history.push("/signup");
