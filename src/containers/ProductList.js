@@ -1,40 +1,47 @@
 import React, { Component } from "react";
-import MaterialTable from "@material-ui/core/MaterailTable";
+import MaterialTable from "material-table";
 import axios from "../utility/axios/axiosInstance";
 import _get from "lodash/get";
 
 class ProductList extends Component {
+  tableColumns = [
+    { title: "Name", field: "name" },
+    { title: "Price", field: "price" },
+    { title: "Description", field: "description" }
+  ];
   render() {
-   const  tableColumns = [
-      { title: "Name", field: "name" },
-      { title: "Price", field: "price" },
-      { title: "Description", field: "description" }
-    ];
     return (
       <div>
-      {
-        <MaterialTable
-          title="Products List"
-          columns={tableColumns}
-          data={query =>
-            new Promise((resolve, reject) => {
-              axios({
-                method: "GET",
-                url: "/admine/products",
-                headers: {
-                  userid: "5e6ef5096a1248001708b5e5"
-                }
-              }).then(response => {
+        {
+          <MaterialTable
+            title="Products List"
+            options={{
+              search: false,
+              pageSize: 10,
+              pageSizeOptions: [5, 10, 15, 20, 25, 30]
+            }}
+            columns={this.tableColumns}
+            data={query =>
+              new Promise((resolve, reject) => {
                 let productData = [];
-                productData = _get(response , "data", []);
-              });
-              resolve({
-                data: productData
-              });
-            })
-          }
-        />
-      }
+                axios({
+                  method: "GET",
+                  url: "/admin/products",
+                  headers: {
+                    userid: "5e6ef5096a1248001708b5e5"
+                  }
+                }).then(response => {
+                  productData = [..._get(response, "data", [])];
+                  resolve({
+                    data: productData,
+                    page: _get(query, "page", 1),
+                    totalCount: productData.length
+                  });
+                });
+              })
+            }
+          />
+        }
       </div>
     );
   }
