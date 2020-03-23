@@ -5,25 +5,25 @@ import {
 } from "../actionTypes";
 
 const addToCartReducer = (state = {}, action) => {
-  const { type, items } = action;
+  const { type, item } = action;
   switch (type) {
     case ADD_TO_CART_INIT:
       return {
         ...state,
         type,
-        items
+        item
       };
     case ADD_TO_CART_SUCCESS:
       return {
         ...state,
         type,
-        items
+        item
       };
     case ADD_TO_CART_FAIL:
       return {
         ...state,
         type,
-        items
+        item
       };
     default:
       return state;

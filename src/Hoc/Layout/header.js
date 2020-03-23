@@ -45,13 +45,6 @@ export default function ButtonAppBar() {
             Products
           </Typography>
           <Button
-          color="inherit"
-          onClick = {() => {
-            history.push("/products");
-          }}
-          >
-          </Button>
-          <Button
             color="inherit"
             onClick={() => {
               history.push("/signup");
@@ -75,7 +68,14 @@ export default function ButtonAppBar() {
           >
             Add Product
           </Button>
-          
+          <Button
+            color="inherit"
+            onClick={() => {
+              history.push("/products");
+            }}
+          >
+            ProductList
+          </Button>
           <Button
             color="inherit"
             onClick={() => {

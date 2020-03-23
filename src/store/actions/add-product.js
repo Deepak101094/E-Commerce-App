@@ -5,7 +5,7 @@ import {
 } from "../actionTypes";
 import axios from "../../utility/axios/axiosInstance";
 import _get from "lodash/get";
-import _isEmpty from "lodash/isEmpty";
+//import _isEmpty from "lodash/isEmpty";
 
 export const addProduct = (reqBody, cb) => {
   return async dispatch => {
@@ -22,10 +22,7 @@ export const addProduct = (reqBody, cb) => {
       const response = await axios.post("/admin/add-product", reqBody);
       console.log(response.data);
       const data = _get(response, "data", {});
-      // let success = false;
-      // if (data && Array.isArray(data) && !_isEmpty(data)) {
-      //   success = true;
-      // }
+  
       let success = _get(response, "status" , "") === 200 ? true: false;
       dispatch({
         type: ADD_PRODUCT_SUCCESS,

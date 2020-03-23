@@ -4,10 +4,11 @@ import {
   SINGLE_PRODUCT_FAIL
 } from "./actionType";
 import axios from "../../utility/axios/axiosInstance";
+//? lodash 
 import _get from "lodash/get";
-import _isEmpty from "lodash/isEmpty";
+//import _isEmpty from "lodash/isEmpty";
 
-export const singleProduct = id => {
+export const singleProduct = productId => {
   return async dispatch => {
     dispatch({
       type: SINGLE_PRODUCT_INIT,
@@ -19,16 +20,13 @@ export const singleProduct = id => {
       }
     });
     try {
-      const response = await axios.get(`/product${id}`);
-      const product = _get(response, "data", {});
-      // let success = false;
-      // if (product && Array.isArray(product) && !_isEmpty(product)) {
-      //   success = true;
-      // }
+      const response = await axios.get(`/admin/product?id=${productId}`);
+      const productData = _get(response, "data", {});
+      let success = _get(response, "status", "") === 200 ? true : false
       dispatch({
         type: SINGLE_PRODUCT_SUCCESS,
         product: {
-          data: product,
+          data: productData,
           isLoading: false,
           success,
           error: false

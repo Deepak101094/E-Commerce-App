@@ -7,7 +7,9 @@ class ProductList extends Component {
   tableColumns = [
     { title: "Name", field: "name" },
     { title: "Price", field: "price" },
-    { title: "Description", field: "description" }
+    { title: "Description", field: "description" },
+    { title: "Edit" , field: "update"},
+    { title: "Delete" , field: "delete"}
   ];
   render() {
     return (
