@@ -33,7 +33,7 @@ export const singleProduct = productId => {
         }
       });
     } catch (err) {
-      const error = _get(err, "err.message", "some error occurred!");
+      const error = _get(err, "response.data.message", "some error occurred!");
       dispatch({
         type: SINGLE_PRODUCT_FAIL,
         product: {

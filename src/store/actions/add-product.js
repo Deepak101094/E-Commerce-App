@@ -22,8 +22,8 @@ export const addProduct = (reqBody, cb) => {
       const response = await axios.post("/admin/add-product", reqBody);
       console.log(response.data);
       const data = _get(response, "data", {});
-  
-      let success = _get(response, "status" , "") === 200 ? true: false;
+
+      let success = _get(response, "status", "") === 200 ? true : false;
       dispatch({
         type: ADD_PRODUCT_SUCCESS,
         addProduct: {
@@ -34,7 +34,7 @@ export const addProduct = (reqBody, cb) => {
         }
       });
     } catch (err) {
-      const error = _get(err, "err.message", "something went wrong!");
+      const error = _get(err, "response.data.message", "something went wrong!");
       dispatch({
         type: ADD_PRODUCT_FAIL,
         addProduct: {

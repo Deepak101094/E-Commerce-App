@@ -14,6 +14,7 @@ import UpdateProduct from "../src/containers/UpdateProduct";
 import Login from "../src/form/Login";
 import SignUp from "../src/form/SignUp";
 import ProductList from "../src/containers/ProductList";
+import CartItems from "../src/containers/Cart-Items";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -43,6 +44,9 @@ ReactDOM.render(
         </Route>
         <Route path="/update-product/:id">
         <UpdateProduct />
+        </Route>
+        <Route path="/cart-item">
+        <CartItems />
         </Route>
       </Switch>
     </Router>

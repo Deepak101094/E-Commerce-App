@@ -7,9 +7,12 @@ import updateProduct from "./update-product";
 import deleteProduct from "./delete-product";
 import fetchProducts from "./fetch-products";
 import fetchProductById from "./fetch-single-product";
-import addTocartReducer from "./add-to-cart";
 import login from "./login";
 import signUp from "./sign_up";
+//?shop
+import addTocartReducer from "./add-to-cart";
+import removeItemFromCart from "./remove-item-from-cart";
+import fetchCartItems from "./fetch-cart-items";
 
 export default combineReducers({
   form: formReducer,
@@ -18,7 +21,9 @@ export default combineReducers({
   deleteProduct,
   products: fetchProducts,
   product: fetchProductById,
-  cart: addTocartReducer,
   login,
-  signUp
+  signUp,
+  cart: addTocartReducer,
+  removeItemFromCart,
+  cartItems: fetchCartItems
 });
