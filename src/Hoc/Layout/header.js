@@ -22,6 +22,12 @@ const useStyles = makeStyles(theme => ({
   },
   links: {
     color: "#fff"
+  },
+  shop: {
+    cursor: "pointer",
+    "& :hover" : {
+      backgroundColor: "#fff"
+    }
   }
 }));
 
@@ -44,14 +50,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Products
           </Typography>
-          <Button
-          color="inherit"
-          onClick={() => {
-            history.push("/cart-item");
-          }}
-        >
-          Cart-Item
-        </Button>
+
           <Button
             color="inherit"
             onClick={() => {
@@ -92,7 +91,12 @@ export default function ButtonAppBar() {
           >
             Products
           </Button>
-          <ShoppingCartIcon />
+          <ShoppingCartIcon
+          className={classes.shop}
+            onClick={() => {
+              history.push("/cart-item");
+            }}
+          />
         </Toolbar>
       </AppBar>
     </div>

@@ -17,10 +17,10 @@ import _get from "lodash/get";
 
 const Style = makeStyles({
     root: {
-      maxWidth: 345
+      maxWidth: 300
     },
     media: {
-      height: 300
+      height: 220
     },
   });
   

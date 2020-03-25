@@ -104,20 +104,20 @@ class AddProduct extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  let initialValues = {
-    name: "Shubham",
-    price: "413",
-    description: "New data",
-    imageUrl: "https://url"
-  };
-  return {
-    initialValues
-  };
-};
+// const mapStateToProps = state => {
+//   let initialValues = {
+//     name: "Shubham",
+//     price: "413",
+//     description: "New data",
+//     imageUrl: "https://url"
+//   };
+//   return {
+//     initialValues
+//   };
+// };
 
 export default Layout(
-  connect(mapStateToProps, { addProduct })(
+  connect(null, { addProduct })(
     reduxForm({
       form: "addProductForm",
       validate

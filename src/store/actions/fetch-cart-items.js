@@ -21,8 +21,8 @@ export const fetchCartItems = () => {
     });
     try {
       const response = await axios.get("/fetch-cart-items");
-      //console.log(response);
-      const items = _get(response, "data", []);
+      console.log(response);
+      const items = _get(response, "data.item", []);
       let success = _get(response, "status", "") === 200 ? true : false;
       dispatch({
         type: FETCH_CART_ITEMS_SUCCESS,
