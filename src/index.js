@@ -30,7 +30,7 @@ ReactDOM.render(
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/products">
+        <Route path="/products-list">
         <ProductList />
         </Route>
         <Route path="/signup">

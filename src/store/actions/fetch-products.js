@@ -7,7 +7,7 @@ import axios from "../../utility/axios/axiosInstance";
 import _get from "lodash/get";
 //import _isEmpty from "lodash/isEmpty";
 
-export const fetchProducts = cb => {
+export const fetchProducts = callback => {
   return async dispatch => {
     let products = {};
     products = {
@@ -20,10 +20,10 @@ export const fetchProducts = cb => {
       type: FETCH_PRODUCTS_INIT,
       products: { ...products }
     });
-    cb(products);
+    callback(products);
     try {
       const response = await axios.get("/products");
-     // console.log(response);
+      // console.log(response);
       const data = _get(response, "data", []);
       let success = _get(response, "status", "") === 200 ? true : false;
       products = {
@@ -32,13 +32,13 @@ export const fetchProducts = cb => {
         isLoading: false,
         errorMsg: ""
       };
-      cb(products);
       dispatch({
         type: FETCH_PRODUCTS_SUCCESS,
         products: {
           ...products
         }
       });
+      callback(products);
     } catch (err) {
       const errorMsg = _get(
         err,
@@ -51,11 +51,11 @@ export const fetchProducts = cb => {
         success: false,
         errorMsg
       };
-      cb(products);
       dispatch({
         type: FETCH_PRODUCTS_FAIL,
         products: { ...products }
       });
+      callback(products);
     }
   };
 };

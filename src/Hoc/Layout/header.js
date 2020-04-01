@@ -78,7 +78,7 @@ export default function ButtonAppBar() {
           <Button
             color="inherit"
             onClick={() => {
-              history.push("/products");
+              history.push("/products-list");
             }}
           >
             ProductList
