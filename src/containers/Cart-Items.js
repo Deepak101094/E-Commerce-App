@@ -1,44 +1,59 @@
 import React, { Component } from "react";
 import CartItem from "../components/Cart-item";
+//? redux
 import { connect } from "react-redux";
-//?action
+//? action
 import { fetchCartItems } from "../store/actions/fetch-cart-items";
 //? lodash
 import _get from "lodash/get";
-//?materail-ui
-import { CircularProgress } from "@material-ui/core";
+//? material ui
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class CartItems extends Component {
+  state = {
+    data: [],
+    isLoading: false,
+    success: undefined,
+    error: false
+  };
   componentDidMount() {
     const { fetchCartItems } = this.props;
-    fetchCartItems();
+    fetchCartItems(this.cartItemsResponseHandler);
   }
+  cartItemsResponseHandler = ({ data, isLoading, success, error }) => {
+    this.setState({
+      data,
+      isLoading,
+      success,
+      error
+    });
+  };
 
   render() {
-    const { ItemData, isLoading, success, error } = this.props;
+    const { data, isLoading, success, error } = this.state;
     return (
       <div className="container">
         <style>
           {`
-              .items {
-                display: flex;
-                margin-top: 50px;
-              }
-              .loader {
-                position: fixed; /* or absolute */
-                top: 40%;
-                left: 50%;
-              }
-              `}
+      .cartItems {
+        display: flex;
+        margin-top: 40px;
+      }
+      .loader {
+        position: fixed; /* or absolute */
+        top: 40%;
+        left: 50%;
+      }
+      `}
         </style>
         {isLoading ? (
           <div className="loader">
             <CircularProgress color="primary" />
           </div>
         ) : (
-          <div className="items">
+          <div className="cartItems">
             {success ? (
-              (ItemData || []).map(item => {
+              (data || []).map(item => {
                 return <CartItem key={_get(item, "_id", "")} item={item} />;
               })
             ) : (
@@ -50,12 +65,4 @@ class CartItems extends Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  const { cartItems } = state;
-  const ItemData = _get(cartItems , "data", {})
-  const { isLoading, success, error } = ItemData;
-  return { ItemData, isLoading, success, error };
-};
-
-export default connect(mapStateToProps, { fetchCartItems })(CartItems);
+export default connect(null, { fetchCartItems })(CartItems);
