@@ -17,22 +17,26 @@ import _get from "lodash/get";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300
+    maxWidth: 300,
   },
   media: {
-    height: 250
-  }
+    height: 250,
+  },
 });
 
-const CartItem = props => {
-
-  const removeItemHandler = _id => {
+const CartItem = (props) => {
+  const removeItemHandler = (_id) => {
     const { removeItemFromCart } = props;
     removeItemFromCart(_id);
   };
 
   const classes = useStyles();
-  const { name, price, description, image, _id } = _get(props, "item", {});
+  //? data item.productId k andar aa rha tha line 37 me bas productId add kiya h
+  const { name, price, description, image, _id } = _get(
+    props,
+    "item.productId",
+    {}
+  );
   return (
     <Card className={classes.root}>
       <CardActionArea>
