@@ -13,6 +13,7 @@ import signUp from "./sign_up";
 import addTocartReducer from "./add-to-cart";
 import removeItemFromCart from "./remove-item-from-cart";
 import fetchCartItems from "./fetch-cart-items";
+import createOrderReducer from "./create-order";
 
 export default combineReducers({
   form: formReducer,
@@ -25,5 +26,6 @@ export default combineReducers({
   signUp,
   cart: addTocartReducer,
   removeItemFromCart,
-  cartItems: fetchCartItems
+  cartItems: fetchCartItems,
+  order: createOrderReducer
 });
