@@ -12,7 +12,7 @@ export const createOrder = () => {
   return async dispatch => {
     dispatch({
       type: CREATE_ORDER_INIT,
-      Order: {
+      order: {
         data: {},
         isLoading: true,
         success: undefined,
@@ -25,7 +25,7 @@ export const createOrder = () => {
       let success = _get(response, "status", "") === 200 ? true : false;
       dispatch({
         type: CREATE_ORDER_SUCCESS,
-        Order: {
+        order: {
           data,
           isLoading: false,
           success,
@@ -36,7 +36,7 @@ export const createOrder = () => {
       const error = _get(err, "response.data.message", "some error occurred!");
       dispatch({
         type: CREATE_ORDER_FAIL,
-        Order: {
+        order: {
           data: {},
           isLoading: false,
           success: false,

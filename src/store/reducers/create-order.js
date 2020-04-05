@@ -5,25 +5,25 @@ import {
 } from "../actionTypes";
 
 const createOrderReducer = (state = {}, action) => {
-  const { type, Order } = action;
+  const { type, order } = action;
   switch (type) {
     case CREATE_ORDER_INIT:
       return {
         ...state,
         type,
-        Order
+        order
       };
     case CREATE_ORDER_SUCCESS:
       return {
         ...state,
         type,
-        Order
+        order
       };
     case CREATE_ORDER_FAIL:
       return {
         ...state,
         type,
-        Order
+        order
       };
     default:
       return state;

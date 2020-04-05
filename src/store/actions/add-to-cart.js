@@ -22,7 +22,7 @@ export const addToCartAction = productId => {
     });
     try {
       const response = await axios.get(`/add-to-cart?id=${productId}`);
-      console.log(response.data.cart);
+     // console.log(response.data.cart);
       const item = _get(response, "data.cart.item", {});
       // if (item && Array.isArray(item) && !_isEmpty(item)) {
       //   success = true;

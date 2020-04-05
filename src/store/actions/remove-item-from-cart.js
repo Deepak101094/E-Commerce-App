@@ -21,7 +21,7 @@ export const removeItemFromCart = itemId => {
     });
     try {
       const response = await axios.get(`/remove-item-from-cart?id=${itemId}`);
-      console.log(response);
+     // console.log(response);
       const item = _get(response, "data", {});
       dispatch({
         type: REMOVE_ITEM_FROM_CART_SUCCESS,
