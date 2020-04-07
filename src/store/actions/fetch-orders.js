@@ -24,7 +24,8 @@ export const fetchOrder = (callback) => {
     callback(orders);
     try {
       const response = await axios.get("/orders");
-      const data = _get(response, "data", []);
+      console.log(response.data.products);
+      const data = _get(response, "data.products", []);
       let success = _get(response, "status", "") === 200 ? true : false;
       orders = {
         data,

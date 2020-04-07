@@ -10,25 +10,25 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 //? NextJs imports
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   links: {
-    color: "#fff"
+    color: "#fff",
   },
   shop: {
     cursor: "pointer",
-    "& :hover" : {
-      backgroundColor: "#fff"
-    }
-  }
+    "& :hover": {
+      backgroundColor: "#fff",
+    },
+  },
 }));
 
 export default function ButtonAppBar() {
@@ -91,8 +91,16 @@ export default function ButtonAppBar() {
           >
             Products
           </Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              history.push("/orders");
+            }}
+          >
+            Orders
+          </Button>
           <ShoppingCartIcon
-          className={classes.shop}
+            className={classes.shop}
             onClick={() => {
               history.push("/cart-item");
             }}

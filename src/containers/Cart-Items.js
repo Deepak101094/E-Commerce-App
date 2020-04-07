@@ -4,17 +4,19 @@ import CartItem from "../components/Cart-item";
 import { connect } from "react-redux";
 //? action
 import { fetchCartItems } from "../store/actions/fetch-cart-items";
+import { createOrder } from "../store/actions/create-order";
 //? lodash
 import _get from "lodash/get";
 //? material ui
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Button from "@material-ui/core/Button";
 
 class CartItems extends Component {
   state = {
     data: [],
     isLoading: false,
     success: undefined,
-    error: false
+    error: false,
   };
   componentDidMount() {
     const { fetchCartItems } = this.props;
@@ -25,8 +27,14 @@ class CartItems extends Component {
       data,
       isLoading,
       success,
-      error
+      error,
     });
+  };
+
+  createOrderHandler = () => {
+    const { createOrder } = this.props;
+    createOrder();
+    alert(" your Order is Successfull");
   };
 
   render() {
@@ -44,6 +52,12 @@ class CartItems extends Component {
         top: 40%;
         left: 50%;
       }
+      .button {
+        display: flex;
+        right: 20px;
+        position: fixed;
+        top: 5px;
+      }
       `}
         </style>
         {isLoading ? (
@@ -53,16 +67,25 @@ class CartItems extends Component {
         ) : (
           <div className="cartItems">
             {success ? (
-              (data || []).map(item => {
+              (data || []).map((item) => {
                 return <CartItem key={_get(item, "_id", "")} item={item} />;
               })
             ) : (
               <p> {error} </p>
             )}
+            <div className="button">
+              <Button
+                size="large"
+                color="primary"
+                onClick={() => this.createOrderHandler()}
+              >
+                Order
+              </Button>
+            </div>
           </div>
         )}
       </div>
     );
   }
 }
-export default connect(null, { fetchCartItems })(CartItems);
+export default connect(null, { fetchCartItems, createOrder })(CartItems);

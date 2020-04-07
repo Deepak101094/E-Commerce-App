@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Order from "../components/order";
 //? redux
-import { connect } from "redux";
+import { connect } from "react-redux";
 //? action
 import { fetchOrder } from "../store/actions/fetch-orders";
 //? material-ui
@@ -33,10 +33,11 @@ class Orders extends Component {
 
   render() {
     const { data, isLoading, success, error } = this.state;
+   // console.log(data, "response data");
     return (
       <div className="container">
-     <style>{`
-      .orders {
+        <style>{`
+      .order {
         display: flex;
         margin-top: 60px;
       }
@@ -51,10 +52,10 @@ class Orders extends Component {
             <CircularProgress color="primary" />
           </div>
         ) : (
-          <div className="orders">
+          <div className="order">
             {success ? (
               (data || []).map((order) => {
-                return <Order key={_get(order, "id", "")} order={order} />;
+                return <Order key={_get(order, "_id", "")} order={order} />;
               })
             ) : (
               <p> {error} </p>

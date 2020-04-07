@@ -14,7 +14,7 @@ import addTocartReducer from "./add-to-cart";
 import removeItemFromCart from "./remove-item-from-cart";
 import fetchCartItems from "./fetch-cart-items";
 import createOrderReducer from "./create-order";
-import fetchOrderReducer from "./fetch-order";
+import fetchOrderReducer from "./fetch-orders";
 
 export default combineReducers({
   form: formReducer,
@@ -28,6 +28,6 @@ export default combineReducers({
   cart: addTocartReducer,
   removeItemFromCart,
   cartItems: fetchCartItems,
-  craetOrder: createOrderReducer,
+  createOrder: createOrderReducer,
   orders: fetchOrderReducer
 });

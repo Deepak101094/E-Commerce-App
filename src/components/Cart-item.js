@@ -12,6 +12,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+//import { styled} from "@material-ui/styles";
+
 //? lodash
 import _get from "lodash/get";
 
@@ -31,13 +33,13 @@ const CartItem = (props) => {
   };
 
   const classes = useStyles();
-  //? data item.productId k andar aa rha tha line 37 me bas productId add kiya h
   const { name, price, description, image, _id } = _get(
     props,
     "item.productId",
     {}
   );
   return (
+     <div className="container">
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia className={classes.media} image={image} title={name} />
@@ -61,6 +63,7 @@ const CartItem = (props) => {
         </Button>
       </CardActions>
     </Card>
+     </div>
   );
 };
 

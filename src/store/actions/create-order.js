@@ -13,7 +13,7 @@ export const createOrder = () => {
     dispatch({
       type: CREATE_ORDER_INIT,
       order: {
-        data: {},
+        data: [],
         isLoading: true,
         success: undefined,
         error: false
@@ -21,7 +21,8 @@ export const createOrder = () => {
     });
     try {
       const response = await axios.get("/create-order");
-      const data = _get(response, "data", {});
+      console.log(response.data);
+      const data = _get(response, "data.products", []);
       let success = _get(response, "status", "") === 200 ? true : false;
       dispatch({
         type: CREATE_ORDER_SUCCESS,
@@ -29,7 +30,7 @@ export const createOrder = () => {
           data,
           isLoading: false,
           success,
-          error
+          error: false
         }
       });
     } catch (err) {
@@ -37,7 +38,7 @@ export const createOrder = () => {
       dispatch({
         type: CREATE_ORDER_FAIL,
         order: {
-          data: {},
+          data: [],
           isLoading: false,
           success: false,
           error

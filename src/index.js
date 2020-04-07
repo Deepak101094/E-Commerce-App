@@ -15,6 +15,7 @@ import Login from "../src/form/Login";
 import SignUp from "../src/form/SignUp";
 import ProductList from "../src/containers/ProductList";
 import CartItems from "../src/containers/Cart-Items";
+import Orders from "../src/containers/orders";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -27,6 +28,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
+        <Route exact path="/orders">
+        <Orders />
+        </Route>
         <Route exact path="/">
           <Home />
         </Route>
