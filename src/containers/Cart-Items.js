@@ -7,9 +7,10 @@ import { fetchCartItems } from "../store/actions/fetch-cart-items";
 import { createOrder } from "../store/actions/create-order";
 //? lodash
 import _get from "lodash/get";
-//? material ui
+//? material ui 
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
+
 
 class CartItems extends Component {
   state = {
@@ -34,7 +35,8 @@ class CartItems extends Component {
   createOrderHandler = () => {
     const { createOrder } = this.props;
     createOrder();
-    alert(" your Order is Successfull");
+     alert("your Order is Successfull");
+   //this.props.history.push("/orders");
   };
 
   render() {
@@ -77,7 +79,7 @@ class CartItems extends Component {
               <Button
                 size="large"
                 color="primary"
-                onClick={() => this.createOrderHandler()}
+                onClick={this.createOrderHandler}
               >
                 Order
               </Button>

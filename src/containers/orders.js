@@ -33,7 +33,7 @@ class Orders extends Component {
 
   render() {
     const { data, isLoading, success, error } = this.state;
-   // console.log(data, "response data");
+    //console.log(data, "response data");
     return (
       <div className="container">
         <style>{`
@@ -46,6 +46,12 @@ class Orders extends Component {
         top: 40%;
         left: 50%;
       }
+      .myorder {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        color: blue;
+      }
     `}</style>
         {isLoading ? (
           <div className="loader">
@@ -53,6 +59,7 @@ class Orders extends Component {
           </div>
         ) : (
           <div className="order">
+          <h4 className="myorder"> My Orders </h4>
             {success ? (
               (data || []).map((order) => {
                 return <Order key={_get(order, "_id", "")} order={order} />;

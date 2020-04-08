@@ -97,7 +97,7 @@ export default function ButtonAppBar() {
               history.push("/orders");
             }}
           >
-            Orders
+            My Orders
           </Button>
           <ShoppingCartIcon
             className={classes.shop}
