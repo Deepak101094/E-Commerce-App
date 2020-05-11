@@ -1,40 +1,35 @@
 import {
   UPDATE_PRODUCT_INIT,
   UPDATE_PRODUCT_SUCCESS,
-  UPDATE_PRODUCT_FAIL
+  UPDATE_PRODUCT_FAIL,
 } from "../actionTypes";
 import axios from "../../utility/axios/axiosInstance";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
 
-
-export const updateProduct = (id, reqBody) => {
-  return async dispatch => {
+export const updateProduct = (reqBody) => {
+  return async (dispatch) => {
     dispatch({
       type: UPDATE_PRODUCT_INIT,
       product: {
         data: {},
         isLoading: true,
-        success: undefined,
-        error: false
-      }
+        success: false,
+        error: "",
+      },
     });
     try {
-      const response = await axios.put(`/admine/update-product${id}`, reqBody);
-     // console.log(response)
-      const product = _get(response, "data", []);
-      let success = false;
-      if (product && Array.isArray(product) && !_isEmpty(product)) {
-        success = true;
-      }
+      const response = await axios.post("/admin/update-product", reqBody);
+      const data = _get(response, "data", {});
+      let success = _get(response, "status", "") === 200 ? true : false;
       dispatch({
         type: UPDATE_PRODUCT_SUCCESS,
         product: {
-          data: product,
+          data,
           isLoading: false,
           success,
-          error: false
-        }
+          error: "",
+        },
       });
     } catch (err) {
       const error = _get(err, "response.data.message", "some error occurred!");
@@ -44,8 +39,8 @@ export const updateProduct = (id, reqBody) => {
           data: {},
           isLoading: false,
           success: false,
-          error
-        }
+          error,
+        },
       });
     }
   };
