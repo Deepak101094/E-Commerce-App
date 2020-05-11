@@ -1,47 +1,46 @@
 import {
-  SINGLE_PRODUCT_INIT,
-  SINGLE_PRODUCT_SUCCESS,
-  SINGLE_PRODUCT_FAIL
-} from "./actionType";
+  GET_ORDER_BY_ID_INT,
+  GET_ORDER_BY_ID_SUCCESS,
+  GET_ORDER_BY_ID_FAIL,
+} from "../actionTypes";
 import axios from "../../utility/axios/axiosInstance";
-//? lodash 
 import _get from "lodash/get";
-//import _isEmpty from "lodash/isEmpty";
 
-export const singleProduct = productId => {
-  return async dispatch => {
+export const fetchSingleProduct = (id) => {
+  return async (dispatch) => {
     dispatch({
-      type: SINGLE_PRODUCT_INIT,
+      type: GET_ORDER_BY_ID_INT,
       product: {
         data: {},
         isLoading: true,
-        success: undefined,
-        error: false
-      }
+        success: false,
+        error: "",
+      },
     });
     try {
-      const response = await axios.get(`/admin/product?id=${productId}`);
-      const productData = _get(response, "data", {});
-      let success = _get(response, "status", "") === 200 ? true : false
+      const response = await axios.get(`/admin/product?id=${id}`);
+     // console.log(response.data);
+      const data = _get(response, "data", {});
+      let success = _get(response, "status", "") === 200 ? true : false;
       dispatch({
-        type: SINGLE_PRODUCT_SUCCESS,
+        type: GET_ORDER_BY_ID_SUCCESS,
         product: {
-          data: productData,
+          data,
           isLoading: false,
           success,
-          error: false
-        }
+          error: "",
+        },
       });
     } catch (err) {
-      const error = _get(err, "response.data.message", "some error occurred!");
+      const error = _get(err, "response.data.message", "something went wrong");
       dispatch({
-        type: SINGLE_PRODUCT_FAIL,
+        type: GET_ORDER_BY_ID_FAIL,
         product: {
           data: {},
           isLoading: false,
           success: false,
-          error
-        }
+          error,
+        },
       });
     }
   };

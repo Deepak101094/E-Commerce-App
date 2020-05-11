@@ -1,33 +1,32 @@
 import {
-  FETCH_SINGLE_PRODUCT_INIT,
-  FETCH_SINGLE_PRODUCT_SUCCESS,
-  FETCH_SINGLE_PRODUCT_FAIL
+  GET_ORDER_BY_ID_INT,
+  GET_ORDER_BY_ID_SUCCESS,
+  GET_ORDER_BY_ID_FAIL,
 } from "../actionTypes";
 
 const fetchSingleProduct = (state = {}, action) => {
   const { type, product } = action;
   switch (type) {
-    case FETCH_SINGLE_PRODUCT_INIT:
+    case GET_ORDER_BY_ID_INT:
       return {
         ...state,
         type,
-        product
+        product,
       };
-    case FETCH_SINGLE_PRODUCT_SUCCESS:
+    case GET_ORDER_BY_ID_SUCCESS:
       return {
         ...state,
         type,
-        product
+        product,
       };
-    case FETCH_SINGLE_PRODUCT_FAIL:
+    case GET_ORDER_BY_ID_FAIL:
       return {
         ...state,
         type,
-        product
+        product,
       };
     default:
       return state;
   }
 };
-
 export default fetchSingleProduct;
