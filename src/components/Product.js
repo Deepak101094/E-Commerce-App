@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 //? Action
 import { deleteProduct } from "../store/actions/delete-product";
 import { addToCartAction } from "../store/actions/add-to-cart";
+import { fetchSingleProduct } from "../store/actions/fetch-single-product";
 //?material ui
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -44,6 +45,11 @@ const Product = props => {
     addToCartAction(_id);
   };
 
+  const fetchSingleProductHandler = (_id) => {
+    const { fetchSingleProduct } = props;
+    fetchSingleProduct(_id)
+  }
+
   const classes = useStyles();
   const { name, price, description, imageUrl, _id } = _get(
     props,
@@ -76,12 +82,12 @@ const Product = props => {
           </Button>
           <DeleteIcon onClick={() => deleteProductHandler(_id)} />
           <Link to={`/update-product/${_id}`}>
-            <EditIcon />
-          </Link>
+          <EditIcon onClick= {() => fetchSingleProductHandler(_id)} />
+        </Link>
         </CardActions>
       </Card>
     </div>
   );
 };
 
-export default connect(null, { deleteProduct, addToCartAction })(Product);
+export default connect(null, { deleteProduct, addToCartAction, fetchSingleProduct})(Product);
