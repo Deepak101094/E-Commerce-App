@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 //? redux
 import { connect } from "react-redux";
 //? Action
@@ -35,20 +34,20 @@ const useStyles = makeStyles({
 });
 
 const Product = props => {
-  const deleteProductHandler = _id => {
-    const { deleteProduct } = props;
-    deleteProduct(_id);
-  };
+  // const deleteProductHandler = _id => {
+  //   const { deleteProduct } = props;
+  //   deleteProduct(_id);
+  // };
 
   const addTocartHandler = _id => {
     const { addToCartAction } = props;
     addToCartAction(_id);
   };
 
-  const fetchSingleProductHandler = (_id) => {
-    const { fetchSingleProduct } = props;
-    fetchSingleProduct(_id)
-  }
+  // const fetchSingleProductHandler = (_id) => {
+  //   const { fetchSingleProduct } = props;
+  //   fetchSingleProduct(_id)
+  // }
 
   const classes = useStyles();
   const { name, price, description, imageUrl, _id } = _get(
@@ -80,10 +79,6 @@ const Product = props => {
           >
             Add to cart
           </Button>
-          <DeleteIcon onClick={() => deleteProductHandler(_id)} />
-          <Link to={`/update-product/${_id}`}>
-          <EditIcon onClick= {() => fetchSingleProductHandler(_id)} />
-        </Link>
         </CardActions>
       </Card>
     </div>

@@ -1,15 +1,27 @@
 import React, { Component } from "react";
-import MaterialTable from "material-table";
+import { connect} from "react-redux";
+//? action
+import { deleteProduct } from "../store/actions/delete-product";
+//? utility
 import axios from "../utility/axios/axiosInstance";
+//? lodash
 import _get from "lodash/get";
+//? import from  material
+import MaterialTable from "material-table";
 
 class ProductList extends Component {
+
+  deleteProductHandler = productId => {
+    const { deleteProduct } = this.props;
+    deleteProduct(productId)
+  }
+
+
   tableColumns = [
     { title: "Name", field: "name" },
     { title: "Price", field: "price" },
     { title: "Description", field: "description" },
-    { title: "Edit" , field: "update"},
-    { title: "Delete" , field: "delete"}
+
   ];
   render() {
     return (
@@ -23,6 +35,25 @@ class ProductList extends Component {
               pageSizeOptions: [5, 10, 15, 20, 25, 30]
             }}
             columns={this.tableColumns}
+            actions={[
+              {
+                icon: 'edit',
+                tooltip: 'edit product',
+                onClick: (event, rowData) => {
+                  // Do save operation
+                //  console.log(rowData)
+                }
+              },
+              {
+                icon: 'delete',
+                tooltip: 'delet product',
+                onClick: (event, rowData) => {
+                  // Do save operation
+                //  console.log(rowData)
+                this.deleteProductHandler(rowData._id)
+                }
+              }
+            ]}
             data={query =>
               new Promise((resolve, reject) => {
                 let productData = [];
@@ -40,6 +71,7 @@ class ProductList extends Component {
                     totalCount: productData.length
                   });
                 });
+              
               })
             }
           />
@@ -48,4 +80,4 @@ class ProductList extends Component {
     );
   }
 }
-export default ProductList;
+export default connect(null, { deleteProduct })(ProductList);
