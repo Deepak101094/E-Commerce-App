@@ -3,20 +3,20 @@ import { SIGN_UP_INIT, SIGN_UP_SUCCESS, SIGN_UP_FAIL } from "../actionTypes";
 import _get from "lodash/get";
 import axios from "../../utility/axios/axiosInstance";
 
-export const userSignUp = reqBody => {
+export const userSignUp = (reqBody) => {
   reqBody = {
     ...reqBody,
-    userType: Number(reqBody.userType)
+    userType: Number(reqBody.userType),
   };
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({
       type: SIGN_UP_INIT,
       reqBody: {
         data: {},
         isLoading: true,
         success: false,
-        error: false
-      }
+        error: false,
+      },
     });
     try {
       const response = await axios.post("/signup", reqBody);
@@ -29,8 +29,8 @@ export const userSignUp = reqBody => {
           data,
           isLoading: false,
           success,
-          error: false
-        }
+          error: false,
+        },
       });
     } catch (err) {
       const error = _get(err, "response.data.message", "some error occurred!");
@@ -40,8 +40,8 @@ export const userSignUp = reqBody => {
           data: {},
           isLoading: false,
           success: false,
-          error
-        }
+          error,
+        },
       });
     }
   };
