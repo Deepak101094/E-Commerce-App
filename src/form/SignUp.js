@@ -1,7 +1,14 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+//? react-hook-form
+import { useForm, Controller } from "react-hook-form";
 import { DevTool } from "react-hook-form-devtools";
+//? Layout
+import Layout from "../Hoc/Layout";
+//? actions
+import { userSignUp } from "../store/actions/sign_up";
 //? material-ui
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -9,7 +16,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
+//import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -19,18 +26,15 @@ import Container from "@material-ui/core/Container";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 
-//? Layout
-import Layout from "../Hoc/Layout";
-//? actions
-import { userSignUp } from "../store/actions/sign_up";
+
+
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" to="/">
         Your Website
       </Link>{" "}
       {new Date().getFullYear()}
@@ -66,20 +70,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = () => {
+const SignUp = (props) => {
   const classes = useStyles();
-  const [type, setType] = React.useState("");
-  const handleChange = (event) => {
-    setType(event.target.value);
-  };
-
-  const { handleSubmit, register, reset, control , errors} = useForm({
-    mode: "onBlur"
-  });
+  let history = useHistory()
+  
+  const { handleSubmit, register, reset, control, errors } = useForm({
+    mode: "onBlur",
+    reValidateMode: 'onBlur',
+    });
 
   const reqBodyHandler = (reqBody, e) => {
-    console.log(reqBody);
-    e.target.reset()
+   // console.log(reqBody);
+   const { userSignUp } = props;
+   userSignUp(reqBody);
+   e.target.reset();
+   history.push("/login")
   };
 
   return (
@@ -99,31 +104,21 @@ const SignUp = () => {
           onSubmit={handleSubmit(reqBodyHandler)}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label="Name"
                 autoFocus
+                error= {errors.name}
                 inputRef={register({ required: true })}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                inputRef={register({ required: true })} 
-              />
-            </Grid>
+          
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -132,7 +127,9 @@ const SignUp = () => {
                 id="email"
                 label="Email Address"
                 name="email"
+                type="email"
                 autoComplete="email"
+                error= {errors.name}
                 inputRef={register({ required: true })}
               />
             </Grid>
@@ -146,6 +143,7 @@ const SignUp = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                error= {errors.name}
                 inputRef={register({ required: true })}
               />
             </Grid>
@@ -156,27 +154,28 @@ const SignUp = () => {
                     variant="outlined"
                     className={classes.formControl}
                   >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      User*
+                    <InputLabel htmlFor="outlined-age-native-simple">
+                      User Type
                     </InputLabel>
                     <Select
-                      labelId="demo-simple-select-outlined-label"
-                      id="demo-simple-select-outlined"
-                      value={type}
-                      onChange={handleChange}
-                      label="type"
+                      native
+                      label="User Type"
+                      inputProps={{
+                        name: "user-type",
+                        id: "user-type",
+                      }}
+                      error= {errors.name}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={1}>admin</MenuItem>
-                      <MenuItem value={2}>normalUser</MenuItem>
+                      <option aria-label="None" value="" />
+                      <option value={1}>Admin</option>
+                      <option value={2}>Normal User</option>
                     </Select>
                   </FormControl>
                 }
                 name="userType"
                 control={control}
                 type="number"
+                // ref={register({ required: true })}
               />
             </Grid>
             <Grid item xs={12}>
@@ -192,13 +191,14 @@ const SignUp = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
-           reset= {reset}
+            reset={reset}
+            disabled={errors.name|| errors.email|| errors.password|| errors.userType}
           >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
