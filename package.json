@@ -15,6 +15,10 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-hook-form": "^5.7.2",
+<<<<<<< HEAD
+=======
+    "react-hook-form-devtools": "^1.2.0",
+>>>>>>> 5a5fedaa2e4e0d904b44d158274cd1de7d9ec631
     "react-lodash": "^0.1.2",
     "react-redux": "^7.2.0",
     "react-redux-toastr": "^7.6.4",
