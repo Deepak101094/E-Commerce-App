@@ -26,23 +26,9 @@ import Container from "@material-ui/core/Container";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
-
-
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function Copyright() {
-<<<<<<< HEAD
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" to="/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-=======
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
@@ -53,7 +39,6 @@ function Copyright() {
             {"."}
         </Typography>
     );
->>>>>>> 5a5fedaa2e4e0d904b44d158274cd1de7d9ec631
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -83,151 +68,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-<<<<<<< HEAD
-const SignUp = (props) => {
-  const classes = useStyles();
-  let history = useHistory()
-  
-  const { handleSubmit, register, reset, control, errors } = useForm({
-    mode: "onBlur",
-    reValidateMode: 'onBlur',
-    });
-
-  const reqBodyHandler = (reqBody, e) => {
-   // console.log(reqBody);
-   const { userSignUp } = props;
-   userSignUp(reqBody);
-   e.target.reset();
-   history.push("/login")
-  };
-
-  return (
-    <Container component="main" maxWidth="xs">
-      <DevTool control={control} />
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form
-          className={classes.form}
-          noValidate
-          onSubmit={handleSubmit(reqBodyHandler)}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="fname"
-                name="name"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="Name"
-                autoFocus
-                error= {errors.name}
-                inputRef={register({ required: true })}
-              />
-            </Grid>
-          
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                error= {errors.name}
-                inputRef={register({ required: true })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                error= {errors.name}
-                inputRef={register({ required: true })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Controller
-                as={
-                  <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                  >
-                    <InputLabel htmlFor="outlined-age-native-simple">
-                      User Type
-                    </InputLabel>
-                    <Select
-                      native
-                      label="User Type"
-                      inputProps={{
-                        name: "user-type",
-                        id: "user-type",
-                      }}
-                      error= {errors.name}
-                    >
-                      <option aria-label="None" value="" />
-                      <option value={1}>Admin</option>
-                      <option value={2}>Normal User</option>
-                    </Select>
-                  </FormControl>
-                }
-                name="userType"
-                control={control}
-                type="number"
-                // ref={register({ required: true })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            reset={reset}
-            disabled={errors.name|| errors.email|| errors.password|| errors.userType}
-          >
-            Sign Up
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/login" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
-=======
 const SignUp = () => {
     const classes = useStyles();
     const [type, setType] = React.useState("");
+    const [loading, setLoading] = React.useState(false);
     const handleChange = (event) => {
         setType(event.target.value);
     };
@@ -237,6 +81,7 @@ const SignUp = () => {
     });
 
     const reqBodyHandler = (reqBody, e) => {
+        setLoading(true);
         console.log(reqBody);
         e.target.reset();
     };
@@ -339,16 +184,22 @@ const SignUp = () => {
                             />
                         </Grid>
                     </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        reset={reset}
-                    >
-                        Sign Up
-                    </Button>
+                    {loading ? (
+                        <div style={{ textAlign: "center" }}>
+                            <CircularProgress />
+                        </div>
+                    ) : (
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            reset={reset}
+                        >
+                            Sign Up
+                        </Button>
+                    )}
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Link href="#" variant="body2">
@@ -363,7 +214,6 @@ const SignUp = () => {
             </Box>
         </Container>
     );
->>>>>>> 5a5fedaa2e4e0d904b44d158274cd1de7d9ec631
 };
 const signForm = connect(null, { userSignUp })(SignUp);
 export default Layout(signForm);
