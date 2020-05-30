@@ -21,8 +21,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { FETCH_PRODUCTS_SUCCESS } from '../store/actionTypes';
-import Layout from '../Hoc/Layout';
 
 function Copyright() {
   return (
@@ -141,4 +139,4 @@ function SignIn(props) {
  
 const login = connect(null, { loginUser })(SignIn)
 
-export default Layout(login);
+export default layout(login);
