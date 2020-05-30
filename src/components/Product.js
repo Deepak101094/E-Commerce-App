@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 //? redux
 import { connect } from "react-redux";
 //? Action
@@ -14,40 +15,34 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import DeleteIcon from "@material-ui/icons/DeleteOutline";
-import EditIcon from "@material-ui/icons/Edit";
 //?import from lodash
 import _get from "lodash/get";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   },
-  media: {
-    height: 300
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
   },
-
+  cardContent: {
+    flexGrow: 1,
+  },
   cardActions: {
     display: "flex",
-    justifyContent: "space-between"
-  }
-});
+    justifyContent: "space-between",
+  },
+}));
 
-const Product = props => {
-  // const deleteProductHandler = _id => {
-  //   const { deleteProduct } = props;
-  //   deleteProduct(_id);
-  // };
-
-  const addTocartHandler = _id => {
+const Product = (props) => {
+  const history = useHistory();
+  const addTocartHandler = (_id) => {
     const { addToCartAction } = props;
     addToCartAction(_id);
+   // history.push("/cart-item")
   };
-
-  // const fetchSingleProductHandler = (_id) => {
-  //   const { fetchSingleProduct } = props;
-  //   fetchSingleProduct(_id)
-  // }
 
   const classes = useStyles();
   const { name, price, description, imageUrl, _id } = _get(
@@ -56,11 +51,11 @@ const Product = props => {
     {}
   );
   return (
-    <div className="container">
+    <div className="container" maxWidth="md">
       <Card className={classes.root}>
         <CardActionArea>
-          <CardMedia className={classes.media} image={imageUrl} title={name} />
-          <CardContent>
+          <CardMedia className={classes.cardMedia} image={imageUrl} title={name} />
+          <CardContent className={classes.CardContent}>
             <Typography gutterBottom variant="h5" component="h2">
               {name}
             </Typography>
@@ -78,11 +73,16 @@ const Product = props => {
             onClick={() => addTocartHandler(_id)}
           >
             Add to cart
-          </Button>
+          </Button>    
         </CardActions>
       </Card>
     </div>
+    
   );
 };
 
-export default connect(null, { deleteProduct, addToCartAction, fetchSingleProduct})(Product);
+export default connect(null, {
+  deleteProduct,
+  addToCartAction,
+  fetchSingleProduct,
+})(Product);

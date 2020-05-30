@@ -48,7 +48,14 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Products
+            <Button
+              color="inherit"
+              onClick={() => {
+                history.push("/");
+              }}
+            >
+              Products
+            </Button>
           </Typography>
 
           <Button
@@ -83,14 +90,7 @@ export default function ButtonAppBar() {
           >
             ProductList
           </Button>
-          <Button
-            color="inherit"
-            onClick={() => {
-              history.push("/");
-            }}
-          >
-            Products
-          </Button>
+
           <Button
             color="inherit"
             onClick={() => {

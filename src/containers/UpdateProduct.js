@@ -64,7 +64,7 @@ class UpdateProduct extends Component {
   }
  
   render() {
-   // console.log(this.props);
+    console.log(this.props?.initialValues??{});
     const { handleSubmit } = this.props;
     return (
       <div className="container">
@@ -114,19 +114,20 @@ class UpdateProduct extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  const {product} = state;
-  const productData = _get(product, "data", {});
-  const {_id, name, price, description, image} = productData;
-  let initialValues = {id: _id, name, price, description, image};
-  return initialValues;
-}
-UpdateProduct = connect(mapStateToProps, { updateProduct })(UpdateProduct);
-
-const ProductForm = reduxForm({
+ UpdateProduct = reduxForm({
   form: "updateProductForm",
   validate
 })(UpdateProduct);
 
-export default Layout(ProductForm);
+
+
+const mapStateToProps = (state) => {
+  const {product} = state.product;
+  const productData = _get(product, "data", {});
+  const {_id, name, price, description, image} = productData;
+  let initialValues = {id: _id, name, price, description, image};
+  return { initialValues };
+}
+const productForm = connect(mapStateToProps, { updateProduct })(UpdateProduct);
+
+export default Layout(productForm);

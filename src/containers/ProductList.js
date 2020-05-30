@@ -13,9 +13,8 @@ class ProductList extends Component {
 
   deleteProductHandler = productId => {
     const { deleteProduct } = this.props;
-    deleteProduct(productId)
+    deleteProduct(productId);
   }
-
 
   tableColumns = [
     { title: "Name", field: "name" },
