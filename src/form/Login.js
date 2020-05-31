@@ -21,6 +21,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { CircularProgress } from '@material-ui/core';
 
 function Copyright() {
   return (
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%', 
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -58,10 +59,13 @@ const useStyles = makeStyles((theme) => ({
 function SignIn(props) {
   const classes = useStyles();
   const history = useHistory();
+  const [loading, setLoading] = React.useState(false);
+
   const { handleSubmit, errors, reset, register } = useForm();
 
   const reqBodyHandler = (reqBody, e) => {
    //console.log(reqBody);
+   setLoading(true);
    const { loginUser } = props;
    loginUser(reqBody);
    e.target.reset();
@@ -107,7 +111,12 @@ function SignIn(props) {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
+          {loading ? (
+            <div style={{textAlign: 'center'}}>
+            <CircularProgress />
+            </div>
+          ): (
+            <Button
             type="submit"
             fullWidth
             variant="contained"
@@ -116,6 +125,8 @@ function SignIn(props) {
           >
             Sign In
           </Button>
+          )}
+         
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
