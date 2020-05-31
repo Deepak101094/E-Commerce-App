@@ -27,6 +27,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ErrorIcon from "@material-ui/icons/Error";
+import WarningIcon from '@material-ui/icons/Warning';
 
 function Copyright() {
   return (
@@ -42,47 +44,53 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: "100%", // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  errorMsg: {
+    margin: "10px 0px",
+    color: "red",
+  },
 }));
 
 const SignUp = (props) => {
   const classes = useStyles();
-  let history = useHistory()
-  
+  let history = useHistory();
+  const [loading, setLoading] = React.useState(false);
+
   const { handleSubmit, register, reset, control, errors } = useForm({
-    mode: "onBlur",
-    reValidateMode: 'onBlur',
-    });
+    // mode: "onBlur",
+    // reValidateMode: 'onBlur',
+  });
 
   const reqBodyHandler = (reqBody, e) => {
-   // console.log(reqBody);
-   const { userSignUp } = props;
-   userSignUp(reqBody);
-   e.target.reset();
-   history.push("/login")
+    // console.log(reqBody);
+    setLoading(true);
+    const { userSignUp } = props;
+    userSignUp(reqBody);
+    e.target.reset();
+    history.push("/login");
   };
 
   return (
@@ -112,11 +120,21 @@ const SignUp = (props) => {
                 id="firstName"
                 label="Name"
                 autoFocus
-                error= {errors.name}
-                inputRef={register({ required: true })}
+                // error= {errors.name}
+                inputRef={register({ required: true, minLength: 4 })}
               />
+              {errors.name && errors.name.type === "required" && (
+                <div className={classes.errorMsg}>
+                  <ErrorIcon /> Your Name is Required
+                </div>
+              )}
+              {errors.name && errors.name.type === "minLength" && (
+                <div className={classes.errorMsg}>
+                  <WarningIcon /> Name should be min. 4 character
+                </div>
+              )}
             </Grid>
-          
+
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -127,9 +145,22 @@ const SignUp = (props) => {
                 name="email"
                 type="email"
                 autoComplete="email"
-                error= {errors.name}
-                inputRef={register({ required: true })}
+                // error= {errors.name}
+                inputRef={register({
+                  required: true,
+                  pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                })}
               />
+              {errors.email && errors.email.type === "required" && (
+                <div className={classes.errorMsg}>
+                  <ErrorIcon /> Email is Required
+                </div>
+              )}
+              {errors.email && errors.email.type === "pattern" && (
+                <div className={classes.errorMsg}>
+                  <WarningIcon /> Invalid Email
+                </div>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -141,9 +172,19 @@ const SignUp = (props) => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                error= {errors.name}
-                inputRef={register({ required: true })}
+                //  error= {errors.name}
+                inputRef={register({ required: true, minLength: 4 })}
               />
+              {errors.password && errors.password.type === "required" && (
+                <div className={classes.errorMsg}>
+                  <ErrorIcon /> Password is Required
+                </div>
+              )}
+              {errors.password && errors.password.type === "minLength" && (
+                <div className={classes.errorMsg}>
+                  <WarningIcon /> Invalid Password
+                </div>
+              )}
             </Grid>
             <Grid item xs={12}>
               <Controller
@@ -162,7 +203,7 @@ const SignUp = (props) => {
                         name: "user-type",
                         id: "user-type",
                       }}
-                      error= {errors.name}
+                      // error= {errors.name}
                     >
                       <option aria-label="None" value="" />
                       <option value={1}>Admin</option>
@@ -170,11 +211,17 @@ const SignUp = (props) => {
                     </Select>
                   </FormControl>
                 }
+                rules={{ required: true }}
                 name="userType"
                 control={control}
                 type="number"
                 // ref={register({ required: true })}
               />
+              {errors.userType && errors.userType.type === "required" && (
+                <div className={classes.errorMsg}>
+                  <ErrorIcon /> Select User Type
+                </div>
+              )}
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
@@ -183,17 +230,29 @@ const SignUp = (props) => {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            reset={reset}
-            disabled={errors.name|| errors.email|| errors.password|| errors.userType}
-          >
-            Sign Up
-          </Button>
+          {loading ? (
+            <div style={{ textAlign: "center" }}>
+              <CircularProgress />
+            </div>
+          ) : (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              reset={reset}
+              disabled={
+                errors.name ||
+                errors.email ||
+                errors.password ||
+                errors.userType
+              }
+            >
+              Sign Up
+            </Button>
+          )}
+
           <Grid container justify="flex-end">
             <Grid item>
               <Link to="/login" variant="body2">
