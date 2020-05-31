@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -24,16 +24,16 @@ import Container from '@material-ui/core/Container';
 import { CircularProgress } from '@material-ui/core';
 
 function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" to= "/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+    return (
+        <Typography variant="body2" color="textSecondary" align="center">
+            {"Copyright © "}
+            <Link color="inherit" to="/">
+                Your Website
+            </Link>{" "}
+            {new Date().getFullYear()}
+            {"."}
+        </Typography>
+    );
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -147,7 +147,7 @@ function SignIn(props) {
     </Container>
   );
 }
- 
-const login = connect(null, { loginUser })(SignIn)
+
+const login = connect(null, { loginUser })(SignIn);
 
 export default layout(login);
