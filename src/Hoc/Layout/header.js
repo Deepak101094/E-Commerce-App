@@ -1,12 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
+//? material-ui
 import { makeStyles } from "@material-ui/core/styles";
+import MobilRightMenuSlider from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import { List, ListItem, ListItemText, Avatar } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import avatar from "../../Image/avatar.png";
 //? NextJs imports
 import { useHistory } from "react-router-dom";
 
@@ -29,84 +35,143 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#fff",
     },
   },
+  menuSliderContainer: {
+    width: 250,
+    height: "100%",
+    background: "#3333ff",
+  },
+  avatar: {
+    display: "block",
+    margin: "0.5rem auto",
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+  },
+  listItem: {
+    textAlign: 'center',
+    color: 'white'
+  }
 }));
+
+const menuItems = [
+  { listText: "Produsts", listPath: "/" },
+  { listText: "MyOrder", listPath: "/orders" },
+  { listText: "SignUp", listPath: "/signup" },
+  { listText: "Signin", listPath: "/login" },
+];
 
 export default function ButtonAppBar() {
   const classes = useStyles();
   let history = useHistory();
+  const [state, setState] = React.useState({
+    right: false,
+  });
+
+  const toggleSlider = (slider, open) => () => {
+    setState({ ...state, [slider]: open });
+  };
+
+  const sideList = (slider) => (
+    <Box
+      className={classes.menuSliderContainer}
+      component="div"
+      onClick={toggleSlider(slider, false)}
+    >
+      <Avatar className={classes.avatar} src={avatar} alt="Deepak" />
+      <List>
+        {menuItems.map((lsItem, key) => (
+          <ListItem button key={key} component={Link} to={lsItem.listPath}>
+            <ListItemText
+              className={classes.listItem}
+              primary={lsItem.listText}
+            />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
+    <React.Fragment>
+      <Box className={classes.root} component="nav">
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleSlider("right", true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              <Button
+                color="inherit"
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                Products
+              </Button>
+            </Typography>
+            <MobilRightMenuSlider
+              anchor="left"
+              open={state.right}
+              onClose={toggleSlider("right", false)}
+            >
+              {sideList("right")}
+            </MobilRightMenuSlider>
+
             <Button
               color="inherit"
               onClick={() => {
-                history.push("/");
+                history.push("/signup");
               }}
             >
-              Products
+              SignUp
             </Button>
-          </Typography>
+            <Button
+              color="inherit"
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              Login
+            </Button>
+            <Button
+              onClick={() => {
+                history.push("/add-product");
+              }}
+              color="inherit"
+            >
+              Add Product
+            </Button>
+            <Button
+              color="inherit"
+              onClick={() => {
+                history.push("/products-list");
+              }}
+            >
+              ProductList
+            </Button>
 
-          <Button
-            color="inherit"
-            onClick={() => {
-              history.push("/signup");
-            }}
-          >
-            SignUp
-          </Button>
-          <Button
-            color="inherit"
-            onClick={() => {
-              history.push("/login");
-            }}
-          >
-            Login
-          </Button>
-          <Button
-            onClick={() => {
-              history.push("/add-product");
-            }}
-            color="inherit"
-          >
-            Add Product
-          </Button>
-          <Button
-            color="inherit"
-            onClick={() => {
-              history.push("/products-list");
-            }}
-          >
-            ProductList
-          </Button>
-
-          <Button
-            color="inherit"
-            onClick={() => {
-              history.push("/orders");
-            }}
-          >
-            My Orders
-          </Button>
-          <ShoppingCartIcon
-            className={classes.shop}
-            onClick={() => {
-              history.push("/cart-item");
-            }}
-          />
-        </Toolbar>
-      </AppBar>
-    </div>
+            <Button
+              color="inherit"
+              onClick={() => {
+                history.push("/orders");
+              }}
+            >
+              My Orders
+            </Button>
+            <ShoppingCartIcon
+              className={classes.shop}
+              onClick={() => {
+                history.push("/cart-item");
+              }}
+            />
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </React.Fragment>
   );
 }
