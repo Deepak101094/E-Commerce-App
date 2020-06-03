@@ -14,6 +14,8 @@ import { styled } from "@material-ui/styles";
 import { addProduct } from "../store/actions/add-product";
 //? Layout
 import Layout from "../Hoc/Layout";
+//?lodash
+import _get from "lodash/get";
 
 const Card = styled(MUCard)({
   padding: "30px",
@@ -56,7 +58,6 @@ class AddProduct extends Component {
 
   formSubmit = reqBody => {
     const { addProduct } = this.props;
-    reqBody.userid = "5e6ef5096a1248001708b5e5";
     addProduct(reqBody);
   };
 

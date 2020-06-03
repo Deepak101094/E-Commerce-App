@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect} from "react-redux"
 //? material-ui
 import { makeStyles } from "@material-ui/core/styles";
 import MobilRightMenuSlider from "@material-ui/core/Drawer";
@@ -59,7 +60,7 @@ const menuItems = [
   { listText: "Signin", listPath: "/login" },
 ];
 
-export default function ButtonAppBar() {
+ function ButtonAppBar(props) {
   const classes = useStyles();
   let history = useHistory();
   const [state, setState] = React.useState({
@@ -122,7 +123,11 @@ export default function ButtonAppBar() {
               {sideList("right")}
             </MobilRightMenuSlider>
 
-            <Button
+            {
+              !props.userType?
+              <>
+            
+              <Button
               color="inherit"
               onClick={() => {
                 history.push("/signup");
@@ -138,6 +143,9 @@ export default function ButtonAppBar() {
             >
               Login
             </Button>
+            </>: null
+
+          }
             <Button
               onClick={() => {
                 history.push("/add-product");
@@ -155,7 +163,9 @@ export default function ButtonAppBar() {
               ProductList
             </Button>
 
-            <Button
+           {
+            props.userType==="2"?(
+              <Button
               color="inherit"
               onClick={() => {
                 history.push("/orders");
@@ -163,6 +173,10 @@ export default function ButtonAppBar() {
             >
               My Orders
             </Button>
+            ): null
+                       
+           }
+           
             <ShoppingCartIcon
               className={classes.shop}
               onClick={() => {
@@ -175,3 +189,11 @@ export default function ButtonAppBar() {
     </React.Fragment>
   );
 }
+
+
+const mapStateToProps = (state) => {
+const userType = state?.login?.loginData?.data?.userType?? ""
+return {userType} ;
+}
+
+export default connect(mapStateToProps)(ButtonAppBar);

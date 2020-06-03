@@ -7,10 +7,10 @@ export const loginUser = reqBody => {
   return async dispatch => {
     dispatch({
       type: LOGIN_INIT,
-      reqBody: {
+      loginData: {
         data: {},
         isLoading: true,
-        success: false,
+        success: null,
         error: false
       }
     });
@@ -21,7 +21,7 @@ export const loginUser = reqBody => {
       let success = _get(response, "status" , "") === 200 ? true : false
       dispatch({
         type: LOGIN_SUCCESS,
-        reqBody: {
+        loginData: {
           data,
           isLoading: false,
           success,
@@ -32,7 +32,7 @@ export const loginUser = reqBody => {
       const error = _get(err, "response.data.message", "some error occurred!");
       dispatch({
         type: LOGIN_FAIL,
-        reqBody: {
+        loginData: {
           data: {},
           isLoading: false,
           success: false,
