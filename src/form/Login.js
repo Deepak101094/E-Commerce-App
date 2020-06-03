@@ -75,7 +75,7 @@ function SignIn(props) {
     const { loginUser } = props;
     loginUser(reqBody);
     e.target.reset();
-    history.push("/");
+    //history.push("/");
   };
 
   return (

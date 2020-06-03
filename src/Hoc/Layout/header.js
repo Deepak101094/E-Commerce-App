@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect} from "react-redux"
+import { connect } from "react-redux";
 //? material-ui
 import { makeStyles } from "@material-ui/core/styles";
 import MobilRightMenuSlider from "@material-ui/core/Drawer";
@@ -48,9 +48,9 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(8),
   },
   listItem: {
-    textAlign: 'center',
-    color: 'white'
-  }
+    textAlign: "center",
+    color: "white",
+  },
 }));
 
 const menuItems = [
@@ -60,7 +60,7 @@ const menuItems = [
   { listText: "Signin", listPath: "/login" },
 ];
 
- function ButtonAppBar(props) {
+function ButtonAppBar(props) {
   const classes = useStyles();
   let history = useHistory();
   const [state, setState] = React.useState({
@@ -105,16 +105,7 @@ const menuItems = [
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              <Button
-                color="inherit"
-                onClick={() => {
-                  history.push("/");
-                }}
-              >
-                Products
-              </Button>
-            </Typography>
+            <Typography variant="h6" className={classes.title}></Typography>
             <MobilRightMenuSlider
               anchor="left"
               open={state.right}
@@ -123,66 +114,74 @@ const menuItems = [
               {sideList("right")}
             </MobilRightMenuSlider>
 
-            {
-              !props.userType?
-              <>
-            
-              <Button
-              color="inherit"
-              onClick={() => {
-                history.push("/signup");
-              }}
-            >
-              SignUp
-            </Button>
-            <Button
-              color="inherit"
-              onClick={() => {
-                history.push("/login");
-              }}
-            >
-              Login
-            </Button>
-            </>: null
+            {!props.userType ? (
+              <React.Fragment>
+                <Button
+                  color="inherit"
+                  onClick={() => {
+                    history.push("/signup");
+                  }}
+                >
+                  SignUp
+                </Button>
+                <Button
+                  color="inherit"
+                  onClick={() => {
+                    history.push("/login");
+                  }}
+                >
+                  Login
+                </Button>
+              </React.Fragment>
+            ) : null}
 
-          }
-            <Button
-              onClick={() => {
-                history.push("/add-product");
-              }}
-              color="inherit"
-            >
-              Add Product
-            </Button>
-            <Button
-              color="inherit"
-              onClick={() => {
-                history.push("/products-list");
-              }}
-            >
-              ProductList
-            </Button>
+            {props.userType === "1" ? (
+              <React.Fragment>
+                <Button
+                  onClick={() => {
+                    history.push("/add-product");
+                  }}
+                  color="inherit"
+                >
+                  Add Product
+                </Button>
+                <Button
+                  color="inherit"
+                  onClick={() => {
+                    history.push("/products-list");
+                  }}
+                >
+                  ProductList
+                </Button>
+              </React.Fragment>
+            ) : null}
 
-           {
-            props.userType==="2"?(
-              <Button
-              color="inherit"
-              onClick={() => {
-                history.push("/orders");
-              }}
-            >
-              My Orders
-            </Button>
-            ): null
-                       
-           }
-           
-            <ShoppingCartIcon
-              className={classes.shop}
-              onClick={() => {
-                history.push("/cart-item");
-              }}
-            />
+              {props.userType === "2" ? (
+              <React.Fragment>
+                <Button
+                  color="inherit"
+                  onClick={() => {
+                    history.push("/");
+                  }}
+                >
+                  Products
+                </Button>
+                <Button
+                  color="inherit"
+                  onClick={() => {
+                    history.push("/orders");
+                  }}
+                >
+                  My Orders
+                </Button>
+                <ShoppingCartIcon
+                  className={classes.shop}
+                  onClick={() => {
+                    history.push("/cart-item");
+                  }}
+                />
+              </React.Fragment>
+                ) : null}  
           </Toolbar>
         </AppBar>
       </Box>
@@ -190,10 +189,9 @@ const menuItems = [
   );
 }
 
-
 const mapStateToProps = (state) => {
-const userType = state?.login?.loginData?.data?.userType?? ""
-return {userType} ;
-}
+  const userType = state?.login?.loginData?.data?.userType ?? "";
+  return { userType };
+};
 
 export default connect(mapStateToProps)(ButtonAppBar);
