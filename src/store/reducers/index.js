@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 //?Reducer from redux-form
-import { reducer as formReducer } from "redux-form";
 //? own Reducer
 import addProduct from "./add-product";
 import updateProduct from "./update-product";
@@ -17,17 +16,16 @@ import createOrderReducer from "./create-order";
 import fetchOrderReducer from "./fetch-orders";
 
 export default combineReducers({
-  form: formReducer,
-  addProduct,
-  updateProduct,
-  deleteProduct,
-  products: fetchProducts,
-  product: fetchProductById,
-  login,
-  signUp,
-  cart: addTocartReducer,
-  removeItemFromCart,
-  cartItems: fetchCartItems,
-  createOrder: createOrderReducer,
-  orders: fetchOrderReducer
+   addProduct,
+   updateProduct,
+   deleteProduct,
+   products: fetchProducts,
+   product: fetchProductById,
+   login,
+   signUp,
+   cart: addTocartReducer,
+   removeItemFromCart,
+   cartItems: fetchCartItems,
+   createOrder: createOrderReducer,
+   orders: fetchOrderReducer,
 });
