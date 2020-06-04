@@ -1,128 +1,166 @@
-import React, { Component } from "react";
-//? Redux
+import React from "react";
 import { connect } from "react-redux";
-//? Redux-form
-import { Field, reduxForm } from "redux-form";
-//? Utilities
-import validate from "../utility/validate";
-//? Material UI
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import MUCard from "@material-ui/core/Card";
-import { styled } from "@material-ui/styles";
-//? Actions
-import { addProduct } from "../store/actions/add-product";
-//? Layout
+//?react-hook-form
+import { useForm } from "react-hook-form";
+//? hoc
 import Layout from "../Hoc/Layout";
-//?lodash
-import _get from "lodash/get";
+//?action
+import { addProduct } from "../store/actions/add-product";
+//? material-ui
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-const Card = styled(MUCard)({
-  padding: "30px",
-  margin: "30px"
-});
-
-class AddProduct extends Component {
-  renderError = ({ touched, error }) => {
-    if (touched && error) {
-      return (
-        <div className="error">
-          <style jsx>{`
-            .error {
-              margin: 10px 0px;
-              color: red;
-            }
-          `}</style>
-          {error}
-        </div>
-      );
-    }
-  };
-
-  renderField = ({ input, label, type, meta }) => {
-    return (
-      <div>
-        <label>{label}</label>
-        <div>
-          <TextField
-            {...input}
-            type={type}
-            placeholder={label}
-            fullWidth={true}
-          />
-          {this.renderError(meta)}
-        </div>
-      </div>
-    );
-  };
-
-  formSubmit = reqBody => {
-    const { addProduct } = this.props;
-    addProduct(reqBody);
-  };
-
-  render() {
-    const { handleSubmit } = this.props;
-    return (
-      <div className="container">
-        <Card>
-          <form onSubmit={handleSubmit(this.formSubmit)}>
-            <Field
-              name="name"
-              component={this.renderField}
-              type="text"
-              label="Product-Name"
-            />
-            <Field
-              name="description"
-              component={this.renderField}
-              type="text"
-              label="Description"
-            />
-            <Field
-              name="price"
-              component={this.renderField}
-              type="number"
-              label="Price"
-            />
-            <Field
-              name="imageUrl"
-              component={this.renderField}
-              type="text"
-              label="Image"
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="medium"
-            >
-              Add Product
-            </Button>
-          </form>
-        </Card>
-      </div>
-    );
-  }
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
 }
 
-// const mapStateToProps = state => {
-//   let initialValues = {
-//     name: "Shubham",
-//     price: "413",
-//     description: "New data",
-//     imageUrl: "https://url"
-//   };
-//   return {
-//     initialValues
-//   };
-// };
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
-export default Layout(
-  connect(null, { addProduct })(
-    reduxForm({
-      form: "addProductForm",
-      validate
-    })(AddProduct)
-  )
-);
+function AddProduct(props) {
+  const classes = useStyles();
+  const [loading,setLoading] = React.useState(false);
+  const { handleSubmit, errors, reset, register } = useForm();
+
+  const addProductHandler = (reqBody, e) => {
+   // console.log(reqBody);
+   setLoading(true)
+    const { addProduct } = props;
+    addProduct(reqBody);
+    e.target.reset();
+  };
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <AddCircleIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Add-Product
+        </Typography>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(addProductHandler)}
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="name"
+                name="name"
+                variant="outlined"
+                required
+                fullWidth
+                type="text"
+                id="name"
+                label="Product Name"
+                autoFocus
+                inputRef={register({ required: true })}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="description"
+                type="text"
+                label="Description"
+                name="description"
+                autoComplete="description"
+                inputRef={register({ required: true })}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="price"
+                type="number"
+                label="Price"
+                name="price"
+                autoComplete="price"
+                inputRef={register({ required: true })}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="imageUrl"
+                label="Image"
+                type="text"
+                id="image"
+                autoComplete="image"
+                inputRef={register({ required: true })}
+              />
+            </Grid>
+          </Grid>
+          {loading ? (
+            <div style={{textAlign: 'center'}}>
+            <CircularProgress />
+            </div>
+          ) : (
+            <Button
+            type="submit"
+            fullWidth
+            reset={reset}
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Add Product
+          </Button>
+          )}
+         
+        </form>
+      </div>
+      <Box mt={5}>
+        <Copyright />
+      </Box>
+    </Container>
+  );
+}
+const addproduct = connect(null, { addProduct })(AddProduct);
+
+export default Layout(addproduct);
