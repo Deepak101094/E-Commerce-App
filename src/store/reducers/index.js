@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-//?Reducer from redux-form
 //? own Reducer
 import addProduct from "./add-product";
 import updateProduct from "./update-product";

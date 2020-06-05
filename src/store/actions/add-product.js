@@ -1,23 +1,22 @@
 import {
   ADD_PRODUCT_INIT,
   ADD_PRODUCT_SUCCESS,
-  ADD_PRODUCT_FAIL
+  ADD_PRODUCT_FAIL,
 } from "../actionTypes";
-import axios from "../../utility/axios/axiosInstance";
+import axios from "../../utility/axios/withHeader";
 import _get from "lodash/get";
 //import _isEmpty from "lodash/isEmpty";
 
-
 export const addProduct = (reqBody, cb) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({
       type: ADD_PRODUCT_INIT,
       addProduct: {
         data: {},
         isLoading: true,
         success: undefined,
-        error: false
-      }
+        error: false,
+      },
     });
     try {
       const response = await axios.post("/admin/add-product", reqBody);
@@ -31,8 +30,8 @@ export const addProduct = (reqBody, cb) => {
           data,
           isLoading: false,
           success,
-          error: false
-        }
+          error: false,
+        },
       });
     } catch (err) {
       const error = _get(err, "response.data.message", "something went wrong!");
@@ -42,8 +41,8 @@ export const addProduct = (reqBody, cb) => {
           data: {},
           isLoading: false,
           success: false,
-          error
-        }
+          error,
+        },
       });
     }
   };
