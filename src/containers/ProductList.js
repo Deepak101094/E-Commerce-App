@@ -1,28 +1,40 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 //? action
 import { deleteProduct } from "../store/actions/delete-product";
+import { fetchSingleProduct } from "../store/actions/fetch-single-product";
 //? utility
 import axios from "../utility/axios/withHeader";
 //? lodash
 import _get from "lodash/get";
 //? import from  material
 import MaterialTable from "material-table";
+import { Grid } from "@material-ui/core";
 
-class ProductList extends Component {
-   deleteProductHandler = (productId) => {
-      const { deleteProduct } = this.props;
+
+const ProductList = (props) => {
+   const history = useHistory();
+  const deleteProductHandler = (productId) => {
+      const { deleteProduct } = props;
       deleteProduct(productId);
    };
 
-   tableColumns = [
+   const editProductHandler = (productId) => {
+    const { fetchSingleProduct }= props;
+    fetchSingleProduct(productId);
+    history.push(`/update-product${productId}`)
+   }
+
+  const tableColumns = [
       { title: "Name", field: "name" },
       { title: "Price", field: "price" },
       { title: "Description", field: "description" },
    ];
-   render() {
+   
       return (
-         <div>
+         <Grid container>
+         <Grid item xs={12}> 
             {
                <MaterialTable
                   title="Products List"
@@ -31,7 +43,7 @@ class ProductList extends Component {
                      pageSize: 10,
                      pageSizeOptions: [5, 10, 15, 20, 25, 30],
                   }}
-                  columns={this.tableColumns}
+                  columns={tableColumns}
                   actions={[
                      {
                         icon: "edit",
@@ -39,6 +51,7 @@ class ProductList extends Component {
                         onClick: (event, rowData) => {
                            // Do save operation
                            //  console.log(rowData)
+                           editProductHandler(rowData._id)
                         },
                      },
                      {
@@ -47,7 +60,7 @@ class ProductList extends Component {
                         onClick: (event, rowData) => {
                            // Do save operation
                            //  console.log(rowData)
-                           this.deleteProductHandler(rowData._id);
+                           deleteProductHandler(rowData._id);
                         },
                      },
                   ]}
@@ -72,8 +85,9 @@ class ProductList extends Component {
                   }
                />
             }
-         </div>
+            </Grid>
+         </Grid>
       );
    }
-}
-export default connect(null, { deleteProduct })(ProductList);
+
+export default connect(null, { deleteProduct, fetchSingleProduct })(ProductList);
