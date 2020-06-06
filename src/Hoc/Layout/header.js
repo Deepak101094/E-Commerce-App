@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 //? material-ui
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles, createStyles } from "@material-ui/core/styles";
 import MobilRightMenuSlider from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -18,6 +18,18 @@ import avatar from "../../Image/avatar.png";
 //? NextJs imports
 import { useHistory } from "react-router-dom";
 
+const StyledBadge = withStyles((theme) =>
+  createStyles({
+    badge: {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: "0 4px",
+      justifyItems: "center",
+    },
+  })
+)(Badge);
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -31,12 +43,7 @@ const useStyles = makeStyles((theme) => ({
   links: {
     color: "#fff",
   },
-  shop: {
-    cursor: "pointer",
-    "& :hover": {
-      backgroundColor: "#fff",
-    },
-  },
+
   menuSliderContainer: {
     width: 250,
     height: "100%",
@@ -49,13 +56,9 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(8),
   },
   listItem: {
-    textAlign: "center",
     color: "white",
   },
-  link: {
-    textDecoration: "none",
-    color: theme.palette.text.primary,
-  },
+ 
 }));
 
 function ButtonAppBar(props) {
@@ -94,12 +97,15 @@ function ButtonAppBar(props) {
               <ListItemText className={classes.listItem} primary={"Orders"} />
             </ListItem>
             <ListItem button component={Link} to={"/cart-item"}>
-              <Badge
-                badgeContent={props.cartItemLength}
-                style={{ justify: "center" }}
-              >
-                <ListItemText className={classes.listItem} primary={"Cart"} />
-              </Badge>
+            <ListItemText className={classes.listItem} primary={"Cart"} />
+              <IconButton aria-label="cart">
+                <StyledBadge
+                  badgeContent={props.cartItemLength}
+                  color="secondary"
+                >
+                 <ShoppingCartIcon />
+                </StyledBadge>
+              </IconButton>
             </ListItem>
           </React.Fragment>
         ) : null}
@@ -184,14 +190,14 @@ function ButtonAppBar(props) {
                 >
                   Orders
                 </Button>
-                <Badge badgeContent={props.cartItemLength} color="red">
-                  <ShoppingCartIcon
-                    className={classes.shop}
-                    onClick={() => {
-                      history.push("/cart-item");
-                    }}
-                  />
-                </Badge>
+                <IconButton aria-label="cart" style={{color:"#ffffff"}}>
+                  <StyledBadge
+                    badgeContent={props.cartItemLength}
+                    color="secondary"
+                  >
+                    <ShoppingCartIcon onClick={() => history.push("/cart-items")} />
+                  </StyledBadge>
+                </IconButton>
               </React.Fragment>
             ) : null}
 

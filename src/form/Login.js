@@ -156,6 +156,11 @@ function SignIn(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
+              reset={reset}
+              disabled={
+                errors.email ||
+                errors.password
+              }
             >
               Sign In
             </Button>

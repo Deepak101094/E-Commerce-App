@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 //?react-hook-form
 import { useForm } from "react-hook-form";
 //? hoc
@@ -19,6 +20,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ErrorIcon from "@material-ui/icons/Error";
 
 function Copyright() {
   return (
@@ -51,10 +53,15 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  errorMsg: {
+    margin: "10px 0px",
+    color: "red",
+  }
 }));
 
 function AddProduct(props) {
   const classes = useStyles();
+  const history= useHistory();
   const [loading,setLoading] = React.useState(false);
   const { handleSubmit, errors, reset, register } = useForm();
 
@@ -62,7 +69,9 @@ function AddProduct(props) {
    // console.log(reqBody);
    setLoading(true)
     const { addProduct } = props;
-    addProduct(reqBody);
+    addProduct(reqBody,()=> {
+     history.push("/product-list")
+    });
     e.target.reset();
   };
 
@@ -95,6 +104,11 @@ function AddProduct(props) {
                 autoFocus
                 inputRef={register({ required: true })}
               />
+              {errors.name && errors.name.type === "required" && (
+                <div className={classes.errorMsg}>
+                  <ErrorIcon /> Product-Name is Required
+                </div>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -108,6 +122,11 @@ function AddProduct(props) {
                 autoComplete="description"
                 inputRef={register({ required: true })}
               />
+              {errors.description && errors.description.type === "required" && (
+                <div className={classes.errorMsg}>
+                  <ErrorIcon /> Add Product Description
+                </div>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -121,6 +140,11 @@ function AddProduct(props) {
                 autoComplete="price"
                 inputRef={register({ required: true })}
               />
+              {errors.price && errors.price.type === "required" && (
+                <div className={classes.errorMsg}>
+                  <ErrorIcon /> Add Product Price
+                </div>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -134,6 +158,11 @@ function AddProduct(props) {
                 autoComplete="image"
                 inputRef={register({ required: true })}
               />
+              {errors.imageUrl && errors.imageUrl.type === "required" && (
+                <div className={classes.errorMsg}>
+                  <ErrorIcon /> Add Product Image
+                </div>
+              )}
             </Grid>
           </Grid>
           {loading ? (
@@ -148,6 +177,13 @@ function AddProduct(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
+            reset={reset}
+            disabled={
+              errors.name ||
+              errors.description ||
+              errors.price ||
+              errors.imageUrl
+            }
           >
             Add Product
           </Button>

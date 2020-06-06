@@ -7,7 +7,7 @@ import axios from "../../utility/axios/withHeader";
 import _get from "lodash/get";
 //import _isEmpty from "lodash/isEmpty";
 
-export const addProduct = (reqBody, cb) => {
+export const addProduct = (reqBody, cbfunc) => {
   return async (dispatch) => {
     dispatch({
       type: ADD_PRODUCT_INIT,
@@ -33,6 +33,7 @@ export const addProduct = (reqBody, cb) => {
           error: false,
         },
       });
+      cbfunc();
     } catch (err) {
       const error = _get(err, "response.data.message", "something went wrong!");
       dispatch({
