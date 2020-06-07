@@ -59,11 +59,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function UpdateProduct(props) {
+function UpdateProduct(props, {name, price, description, image}) {
   const classes = useStyles();
   const history= useHistory();
   const [loading,setLoading] = React.useState(false);
-  const { handleSubmit, errors, reset, register } = useForm();
+  const { handleSubmit, errors, reset, register } = useForm({
+    defaultValues: {
+      name: name,
+      price: price,
+      description: description,
+      imageUrl: image
+    }
+  });
 
   const updateProductHandler = (reqBody, e) => {
    // console.log(reqBody);
@@ -197,6 +204,21 @@ function UpdateProduct(props) {
     </Container>
   );
 }
-const updateProductForm = connect(null, { updateProduct })(UpdateProduct);
+
+const mapStateToProps = (state) => {
+  //const {name, price, description, image} = state?.product?.product?.data ?? {};
+  const name = state?.product?.product?.data?.name ?? "";
+  const price= state?.product?.product?.data?.price ?? "";
+  const description = state?.product?.product?.data?.description ?? "";
+  const image= state?.product?.product?.data?.image ?? "";
+  return {
+    name,
+    price,
+    description,
+    image
+  }
+}
+
+const updateProductForm = connect(mapStateToProps, { updateProduct })(UpdateProduct);
 
 export default Layout(updateProductForm);
