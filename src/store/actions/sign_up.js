@@ -3,7 +3,7 @@ import { SIGN_UP_INIT, SIGN_UP_SUCCESS, SIGN_UP_FAIL } from "../actionTypes";
 import _get from "lodash/get";
 import axios from "../../utility/axios/withoutHeader";
 
-export const userSignUp = (reqBody) => {
+export const userSignUp = (reqBody,cbfunc) => {
   reqBody = {
     ...reqBody,
     userType: Number(reqBody.userType),
@@ -32,6 +32,7 @@ export const userSignUp = (reqBody) => {
           error: false,
         },
       });
+      cbfunc();
     } catch (err) {
       const error = _get(err, "response.data.message", "some error occurred!");
       dispatch({

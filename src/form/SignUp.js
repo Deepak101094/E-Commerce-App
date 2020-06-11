@@ -88,9 +88,11 @@ const SignUp = (props) => {
     // console.log(reqBody);
     setLoading(true);
     const { userSignUp } = props;
-    userSignUp(reqBody);
+    userSignUp(reqBody, () => {
+      history.push("/login")
+    });
     e.target.reset();
-    history.push("/login");
+
   };
 
   return (

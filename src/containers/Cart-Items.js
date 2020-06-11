@@ -40,6 +40,7 @@ class CartItems extends Component {
   };
 
   render() {
+    console.log(this.state);
     const { data, isLoading, success, error } = this.state;
     return (
       <div className="container">
