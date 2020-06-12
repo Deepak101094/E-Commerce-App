@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 //? action
 import { deleteProduct } from "../store/actions/delete-product";
-import { fetchSingleProduct } from "../store/actions/fetch-single-product";
+import { saveProductToEdit } from "../store/actions/update-product";
 //? utility
 import axios from "../utility/axios/withHeader";
 //? lodash
@@ -17,10 +17,10 @@ const ProductList = (props) => {
    const history = useHistory();
    const tableRef = React.createRef();
 
-   const editProductHandler = (productId) => {
-      const { fetchSingleProduct } = props;
-      fetchSingleProduct(productId);
-      history.push(`/update-product${productId}`);
+   const editProductHandler = (product) => {
+      const { saveProductToEdit } = props;
+      saveProductToEdit(product);
+      history.push(`/update-product/${product._id}`);
    };
 
    const tableColumns = [
@@ -48,7 +48,7 @@ const ProductList = (props) => {
                            icon: "edit",
                            tooltip: "edit product",
                            onClick: (event, rowData) => {
-                              editProductHandler(rowData._id);
+                              editProductHandler(rowData);
                            },
                         },
                         {
@@ -97,4 +97,4 @@ const ProductList = (props) => {
    );
 };
 
-export default connect(null, { deleteProduct, fetchSingleProduct })(ProductList);
+export default connect(null, { deleteProduct, saveProductToEdit })(ProductList);

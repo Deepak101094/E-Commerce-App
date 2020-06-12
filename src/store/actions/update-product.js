@@ -1,4 +1,9 @@
-import { UPDATE_PRODUCT_INIT, UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAIL } from "../actionTypes";
+import {
+   UPDATE_PRODUCT_INIT,
+   UPDATE_PRODUCT_SUCCESS,
+   UPDATE_PRODUCT_FAIL,
+   PRODUCT_TO_EDIT,
+} from "../actionTypes";
 import axios from "../../utility/axios/withHeader";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
@@ -40,5 +45,14 @@ export const updateProduct = (reqBody, cbfunc) => {
             },
          });
       }
+   };
+};
+
+export const saveProductToEdit = (productDetail) => {
+   return {
+      type: PRODUCT_TO_EDIT,
+      payload: {
+         ...productDetail,
+      },
    };
 };

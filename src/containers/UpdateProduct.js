@@ -20,204 +20,185 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ErrorIcon from "@material-ui/icons/Error";
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from "@material-ui/icons/Edit";
 
 function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
+   return (
+      <Typography variant="body2" color="textSecondary" align="center">
+         {"Copyright © "}
+         <Link color="inherit" href="https://material-ui.com/">
+            Your Website
+         </Link>{" "}
+         {new Date().getFullYear()}
+         {"."}
+      </Typography>
+   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  errorMsg: {
-    margin: "10px 0px",
-    color: "red",
-  }
+   paper: {
+      marginTop: theme.spacing(8),
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+   },
+   avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+   },
+   form: {
+      width: "100%", // Fix IE 11 issue.
+      marginTop: theme.spacing(3),
+   },
+   submit: {
+      margin: theme.spacing(3, 0, 2),
+   },
+   errorMsg: {
+      margin: "10px 0px",
+      color: "red",
+   },
 }));
 
-function UpdateProduct(props, {name, price, description, image}) {
-  const classes = useStyles();
-  const history= useHistory();
-  const [loading,setLoading] = React.useState(false);
-  const { handleSubmit, errors, reset, register } = useForm({
-    defaultValues: {
-      name: name,
-      price: price,
-      description: description,
-      imageUrl: image
-    }
-  });
+function UpdateProduct(props) {
+   const classes = useStyles();
+   const history = useHistory();
+   const [loading, setLoading] = React.useState(false);
+   const { productData } = props;
+   const { handleSubmit, errors, reset, register } = useForm({
+      defaultValues: {
+         ...productData,
+         // imageUrl: image,
+      },
+   });
+   const updateProductHandler = (reqBody, e) => {
+      // console.log(reqBody);
+      setLoading(true);
+      const { updateProduct } = props;
+      updateProduct(reqBody, () => {
+         history.push("/product-list");
+      });
+      e.target.reset();
+   };
 
-  const updateProductHandler = (reqBody, e) => {
-   // console.log(reqBody);
-   setLoading(true)
-    const { updateProduct } = props;
-    updateProduct(reqBody,()=> {
-     history.push("/product-list")
-    });
-    e.target.reset();
-  };
-
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <EditIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Update-Product
-        </Typography>
-        <form
-          className={classes.form}
-          noValidate
-          onSubmit={handleSubmit(updateProductHandler)}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="name"
-                name="name"
-                variant="outlined"
-                required
-                fullWidth
-                type="text"
-                id="name"
-                label="Product Name"
-                autoFocus
-                inputRef={register({ required: true })}
-              />
-              {errors.name && errors.name.type === "required" && (
-                <div className={classes.errorMsg}>
-                  <ErrorIcon /> Product-Name is Required
-                </div>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="description"
-                type="text"
-                label="Description"
-                name="description"
-                autoComplete="description"
-                inputRef={register({ required: true })}
-              />
-              {errors.description && errors.description.type === "required" && (
-                <div className={classes.errorMsg}>
-                  <ErrorIcon /> Add Product Description
-                </div>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="price"
-                type="number"
-                label="Price"
-                name="price"
-                autoComplete="price"
-                inputRef={register({ required: true })}
-              />
-              {errors.price && errors.price.type === "required" && (
-                <div className={classes.errorMsg}>
-                  <ErrorIcon /> Add Product Price
-                </div>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="imageUrl"
-                label="Image"
-                type="text"
-                id="image"
-                autoComplete="image"
-                inputRef={register({ required: true })}
-              />
-              {errors.imageUrl && errors.imageUrl.type === "required" && (
-                <div className={classes.errorMsg}>
-                  <ErrorIcon /> Add Product Image
-                </div>
-              )}
-            </Grid>
-          </Grid>
-          {loading ? (
-            <div style={{textAlign: 'center'}}>
-            <CircularProgress />
-            </div>
-          ) : (
-            <Button
-            type="submit"
-            fullWidth
-            reset={reset}
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            reset={reset}
-            disabled={
-              errors.name ||
-              errors.description ||
-              errors.price ||
-              errors.imageUrl
-            }
-          >
-            Update Product
-          </Button>
-          )}
-         
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+   return (
+      <Container component="main" maxWidth="xs">
+         <CssBaseline />
+         <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+               <EditIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+               Update-Product
+            </Typography>
+            <form className={classes.form} noValidate onSubmit={handleSubmit(updateProductHandler)}>
+               <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                     <TextField
+                        autoComplete="name"
+                        name="name"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        type="text"
+                        id="name"
+                        label="Product Name"
+                        autoFocus
+                        inputRef={register({ required: true })}
+                     />
+                     {errors.name && errors.name.type === "required" && (
+                        <div className={classes.errorMsg}>
+                           <ErrorIcon /> Product-Name is Required
+                        </div>
+                     )}
+                  </Grid>
+                  <Grid item xs={12}>
+                     <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="description"
+                        type="text"
+                        label="Description"
+                        name="description"
+                        autoComplete="description"
+                        inputRef={register({ required: true })}
+                     />
+                     {errors.description && errors.description.type === "required" && (
+                        <div className={classes.errorMsg}>
+                           <ErrorIcon /> Add Product Description
+                        </div>
+                     )}
+                  </Grid>
+                  <Grid item xs={12}>
+                     <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="price"
+                        type="number"
+                        label="Price"
+                        name="price"
+                        autoComplete="price"
+                        inputRef={register({ required: true })}
+                     />
+                     {errors.price && errors.price.type === "required" && (
+                        <div className={classes.errorMsg}>
+                           <ErrorIcon /> Add Product Price
+                        </div>
+                     )}
+                  </Grid>
+                  {/* <Grid item xs={12}>
+                     <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="imageUrl"
+                        label="Image"
+                        type="text"
+                        id="image"
+                        autoComplete="image"
+                        inputRef={register({ required: true })}
+                     />
+                     {errors.imageUrl && errors.imageUrl.type === "required" && (
+                        <div className={classes.errorMsg}>
+                           <ErrorIcon /> Add Product Image
+                        </div>
+                     )}
+                  </Grid> */}
+               </Grid>
+               {loading ? (
+                  <div style={{ textAlign: "center" }}>
+                     <CircularProgress />
+                  </div>
+               ) : (
+                  <Button
+                     type="submit"
+                     fullWidth
+                     reset={reset}
+                     variant="contained"
+                     color="primary"
+                     className={classes.submit}
+                     reset={reset}
+                     disabled={errors.name || errors.description || errors.price || errors.imageUrl}
+                  >
+                     Update Product
+                  </Button>
+               )}
+            </form>
+         </div>
+         <Box mt={5}>
+            <Copyright />
+         </Box>
+      </Container>
+   );
 }
 
 const mapStateToProps = (state) => {
-  //const {name, price, description, image} = state?.product?.product?.data ?? {};
-  const name = state?.product?.product?.data?.name ?? "";
-  const price= state?.product?.product?.data?.price ?? "";
-  const description = state?.product?.product?.data?.description ?? "";
-  const image= state?.product?.product?.data?.image ?? "";
-  return {
-    name,
-    price,
-    description,
-    image
-  }
-}
+   const { productToEdit } = state?.updateProduct ?? {};
+   return {
+      productData: productToEdit,
+   };
+};
 
 const updateProductForm = connect(mapStateToProps, { updateProduct })(UpdateProduct);
 
