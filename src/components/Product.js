@@ -15,6 +15,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 //?import from lodash
 import _get from "lodash/get";
 
@@ -38,7 +39,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Product = (props) => {
   const history = useHistory();
+  const [loading, setLoading] = React.useState(false);
   const addTocartHandler = (_id) => {
+    setLoading(false)
     const { addToCartAction } = props;
     addToCartAction(_id);
     // history.push("/cart-item")
@@ -71,6 +74,11 @@ const Product = (props) => {
         </CardActionArea>
         {localStorage.getItem("userId") ? (
           <CardActions className={classes.cardActions}>
+           {loading ? (
+             <div style={{textAlign: 'center'}}>
+             <CircularProgress />
+             </div>
+           ): (
             <Button
               size="small"
               color="primary"
@@ -79,6 +87,7 @@ const Product = (props) => {
             >
               Add to cart
             </Button>
+           )} 
           </CardActions>
         ) : null}
       </Card>

@@ -14,9 +14,9 @@ import Home from "./Home";
 import AddProduct from "./containers/AddProduct";
 import ProductList from "./containers/ProductList";
 import UpdateProduct from "./containers/UpdateProduct";
-import Login from "../src/form/Login";
-import SignUp from "../src/form/SignUp";
-import CartItems from "../src/containers/Cart-Items";
+import Login from "./form/Login";
+import SignUp from "./form/SignUp";
+import CartItems from './containers/Cart-Items';
 import Orders from "../src/containers/orders";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
