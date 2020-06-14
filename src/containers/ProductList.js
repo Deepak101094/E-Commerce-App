@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Layout from "../Hoc/Layout";
 //? action
 import { deleteProduct } from "../store/actions/delete-product";
 import { saveProductToEdit } from "../store/actions/update-product";
@@ -10,7 +11,6 @@ import axios from "../utility/axios/withHeader";
 import _get from "lodash/get";
 //? import from  material
 import MaterialTable from "material-table";
-import Loader from "@material-ui/core/CircularProgress";
 import { Grid } from "@material-ui/core";
 
 const ProductList = (props) => {
@@ -97,4 +97,5 @@ const ProductList = (props) => {
    );
 };
 
-export default connect(null, { deleteProduct, saveProductToEdit })(ProductList);
+const productList= connect(null, { deleteProduct, saveProductToEdit })(ProductList);
+export default Layout(productList);

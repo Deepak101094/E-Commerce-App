@@ -6,7 +6,7 @@ import {
 } from "../actionTypes";
 import axios from "../../utility/axios/withHeader";
 import _get from "lodash/get";
-import _isEmpty from "lodash/isEmpty";
+
 
 export const updateProduct = (reqBody, cbfunc) => {
    return async (dispatch) => {
