@@ -74,6 +74,7 @@ function UpdateProduct(props) {
       // console.log(reqBody);
       setLoading(true);
       const { updateProduct } = props;
+      reqBody.id = productData._id;
       updateProduct(reqBody, () => {
          history.push("/product-list");
       });

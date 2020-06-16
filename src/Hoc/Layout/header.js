@@ -183,9 +183,13 @@ function ButtonAppBar(props) {
                         >
                            Orders
                         </Button>
-                        <IconButton aria-label="cart" style={{ color: "#ffffff" }}>
+                        <IconButton
+                           aria-label="cart"
+                           style={{ color: "#ffffff" }}
+                           onClick={() => history.push("/cart-item")}
+                        >
                            <StyledBadge badgeContent={props.cartItemLength} color="secondary">
-                              <ShoppingCartIcon onClick={() => history.push("/cart-item")} />
+                              <ShoppingCartIcon />
                            </StyledBadge>
                         </IconButton>
                      </React.Fragment>
