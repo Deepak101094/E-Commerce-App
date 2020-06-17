@@ -12,21 +12,42 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 //import { styled} from "@material-ui/styles";
 
 //? lodash
 import _get from "lodash/get";
+import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 300,
-  },
-  media: {
-    height: 180,
-  },
+ root: {
+   width: "100%",
+   height:"150px",
+  // marginTop: '1rem',
+   borderRadius: '0.5rem',
+   border: '1px solid'
+ },
+ image: {
+   width: "150px",
+   height: "150px",
+  //  float: "left",
+  alignItems: "flex-start"
+ },
+ itemName : {
+   textAlign: 'center',
+   paddingTop: "1rem"
+ },
+ ul:{
+   display: 'flex',
+  // flexDirection: 'wrap',
+   listStyle: 'none'
+ }
+
 });
 
-const CartItem = (props) => {
+const CartScreen = (props) => {
+  const {cartItemLength} = props;
   const removeItemHandler = (_id) => {
     const { removeItemFromCart } = props;
     removeItemFromCart(_id);
@@ -38,33 +59,30 @@ const CartItem = (props) => {
     "item.productId",
     {}
   );
+  const { quantity } = _get(props,"item", {});
   return (
-     <div className="container">
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image={image} title={name} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {description}
-          </Typography>
-          <Typography> Rs. {price} </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => removeItemHandler(_id)}
-        >
-          Remove item
-        </Button>
-      </CardActions>
-    </Card>
+    <div className="container">
+        <Paper className={classes.root}> 
+         <ul className={classes.ul}>
+          
+         <li> <div className={classes.image}> <img /></div>  </li>
+         <li style={{textAlign: 'center',paddingTop: "1rem"}} >
+          <div style={{alignItems:"flex-start"}}><h6>{name}</h6></div> 
+          <div>Quantity:<b>{quantity}</b></div>
+          </li>
+         <li> <div style={{flexDirection: "row-reverse"}}> Price: {price}</div> </li>
+         <li> <div style={{paddingBottom: "0px"}}><Button> Remove </Button></div> </li>
+         
+       
+         </ul>    
+        </Paper>          
      </div>
   );
 };
 
-export default connect(null, { removeItemFromCart })(CartItem);
+const mapstateToProps = (state) => {
+  const cartItemLength = (state?.cart?.item?.data ?? []).length;
+  return { cartItemLength }
+}
+
+export default connect(null, { removeItemFromCart })(CartScreen);

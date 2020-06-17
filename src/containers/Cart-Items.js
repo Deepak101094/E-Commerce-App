@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CartItem from "../components/Cart-item";
+import Layout from "../Hoc/Layout";
 //? redux
 import { connect } from "react-redux";
 //? action
@@ -10,6 +11,7 @@ import _get from "lodash/get";
 //? material ui 
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
+import { Typography, Divider, Grid, Paper } from "@material-ui/core";
 
 
 class CartItems extends Component {
@@ -32,12 +34,12 @@ class CartItems extends Component {
     });
   };
 
-  createOrderHandler = () => {
-    const { createOrder } = this.props;
-    createOrder();
-     alert("your Order is Successfull");
-   //this.props.history.push("/orders");
-  };
+  // createOrderHandler = () => {
+  //   const { createOrder } = this.props;
+  //   createOrder();
+  //    alert("your Order is Successfull");
+  //  //this.props.history.push("/orders");
+  // };
 
   render() {
     console.log(this.state);
@@ -61,6 +63,12 @@ class CartItems extends Component {
         position: fixed;
         top: 5px;
       }
+      .order {
+        width: 100%;
+        background: gray;
+        marginTop: 0px;
+        display: flex;
+      }
       `}
         </style>
         {isLoading ? (
@@ -68,27 +76,34 @@ class CartItems extends Component {
             <CircularProgress color="primary" />
           </div>
         ) : (
-          <div className="cartItems">
+          <div className="container">
+          <h4 style={{margin: "1rem"}} > Shopping Cart </h4>
+          <Divider style={{marginBottom: "1rem"}} />
+          <Grid container spacing={2}>
             {success ? (
               (data || []).map((item) => {
-                return <CartItem key={_get(item, "_id", "")} item={item} />;
+                return (
+                  <Grid item xs={12} sm={8} >                
+                  <CartItem key={_get(item, "_id", "")} item={item} />
+                  </Grid>             
+                );
               })
             ) : (
               <p> {error} </p>
             )}
-            <div className="button">
-              <Button
-                size="large"
-                color="primary"
-                onClick={this.createOrderHandler}
-              >
-                Order
-              </Button>
-            </div>
+            <Grid item xs={12} sm={4}>
+            <Paper className="order"> 
+            <h6> SubTotal </h6>
+            <Button color="primary" size="large" fullWidth > Proceed to checkout</Button>
+            </Paper>
+            </Grid>   
+            </Grid>
           </div>
         )}
       </div>
     );
   }
 }
-export default connect(null, { fetchCartItems, createOrder })(CartItems);
+const cartPage= connect(null, { fetchCartItems, createOrder })(CartItems);
+
+export default Layout(cartPage);
