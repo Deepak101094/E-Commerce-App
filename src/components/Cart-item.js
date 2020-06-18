@@ -26,7 +26,8 @@ const useStyles = makeStyles({
    height:"150px",
   // marginTop: '1rem',
    borderRadius: '0.5rem',
-   border: '1px solid'
+   border: '1px solid',
+   flexDirection: "row-wrap"
  },
  image: {
    width: "150px",
@@ -38,11 +39,6 @@ const useStyles = makeStyles({
    textAlign: 'center',
    paddingTop: "1rem"
  },
- ul:{
-   display: 'flex',
-  // flexDirection: 'wrap',
-   listStyle: 'none'
- }
 
 });
 
@@ -63,26 +59,14 @@ const CartScreen = (props) => {
   return (
     <div className="container">
         <Paper className={classes.root}> 
-         <ul className={classes.ul}>
-          
-         <li> <div className={classes.image}> <img /></div>  </li>
-         <li style={{textAlign: 'center',paddingTop: "1rem"}} >
-          <div style={{alignItems:"flex-start"}}><h6>{name}</h6></div> 
-          <div>Quantity:<b>{quantity}</b></div>
-          </li>
-         <li> <div style={{flexDirection: "row-reverse"}}> Price: {price}</div> </li>
-         <li> <div style={{paddingBottom: "0px"}}><Button> Remove </Button></div> </li>
-         
-       
-         </ul>    
+        <img />
+         <h6>{name} </h6> 
+         <p>Quantity:<b>{quantity}</b></p>
+         <h5>{price}</h5>        
         </Paper>          
      </div>
   );
 };
 
-const mapstateToProps = (state) => {
-  const cartItemLength = (state?.cart?.item?.data ?? []).length;
-  return { cartItemLength }
-}
 
 export default connect(null, { removeItemFromCart })(CartScreen);
