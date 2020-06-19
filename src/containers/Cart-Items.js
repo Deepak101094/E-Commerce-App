@@ -16,12 +16,18 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Typography, Divider, Grid, Paper } from "@material-ui/core";
 
 class CartItems extends Component {
-  state = {
-    data: [],
-    isLoading: false,
-    success: undefined,
-    error: false,
-  };
+  constructor(props) {
+    super(props); 
+      this.state = {
+        data: [],
+        isLoading: false,
+        success: undefined,
+        error: false,
+      };   
+      this.deleteRef = React.createRef(); 
+  }
+
+ 
   componentDidMount() {
     const { fetchCartItems } = this.props;
     fetchCartItems(this.cartItemsResponseHandler);
@@ -42,10 +48,15 @@ class CartItems extends Component {
    //this.props.history.push("/orders");
   };
 
-  deleteItemHandler = (productId) => {
-   const { removeItemFromCart } = this.props;
-   removeItemFromCart(productId)
-  }
+  // deleteItemHandler = (productId) => {
+  //  const { removeItemFromCart } = this.props;
+  //  removeItemFromCart(productId,({isloading,success, error}) => {
+  //  if(success) {
+  //   this.deleteRef.current && this.deleteRef.current.onQueryChange();
+  //  }
+  //  });
+   
+  // }
 
   render() {
     console.log(this.state);
@@ -120,9 +131,17 @@ class CartItems extends Component {
                                 style={{
                                   color: "tomato",
                                   marginLeft: "1rem",
-                                  cursor: "pointer",                                  
+                                  cursor: "pointer",                                                                    
                                 }}
-                                onClick={() => this.deleteItemHandler(item.productId._id)}
+                                ref= {this.deleteRef}
+                                onClick={() => {
+                                  const { removeItemFromCart } = this.props;
+                                  removeItemFromCart(item.productId._id, ({isloading,success,error}) => {
+                                    if(success) {
+                                      this.deleteRef.current && this.deleteRef.current.onQueryChange();
+                                    }
+                                  });
+                                }}
                               />
                             </div>
                           </div>
@@ -141,7 +160,7 @@ class CartItems extends Component {
                   </h4>
                   <button
                      onClick={this.createOrderHandler}
-                    className="button primary full-width"
+                     className="button primary full-width"
                     // size="large"
                     // fullWidth
                     // color="secondary"
