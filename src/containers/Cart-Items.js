@@ -11,23 +11,20 @@ import { removeItemFromCart } from "../store/actions/remove-item-from-cart";
 import _get from "lodash/get";
 //? material ui
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Typography, Divider, Grid, Paper } from "@material-ui/core";
 
 class CartItems extends Component {
   constructor(props) {
-    super(props); 
-      this.state = {
-        data: [],
-        isLoading: false,
-        success: undefined,
-        error: false,
-      };   
-      this.deleteRef = React.createRef(); 
+    super(props);
+    this.state = {
+      data: [],
+      isLoading: false,
+      success: undefined,
+      error: false,
+    };
+    this.deleteRef = React.createRef();
   }
 
- 
   componentDidMount() {
     const { fetchCartItems } = this.props;
     fetchCartItems(this.cartItemsResponseHandler);
@@ -44,8 +41,8 @@ class CartItems extends Component {
   createOrderHandler = () => {
     const { createOrder } = this.props;
     createOrder();
-     alert("your Order is Successfull");
-   //this.props.history.push("/orders");
+    alert("your Order is Successfull");
+    //this.props.history.push("/orders");
   };
 
   // deleteItemHandler = (productId) => {
@@ -55,7 +52,7 @@ class CartItems extends Component {
   //   this.deleteRef.current && this.deleteRef.current.onQueryChange();
   //  }
   //  });
-   
+
   // }
 
   render() {
@@ -78,39 +75,20 @@ class CartItems extends Component {
             <CircularProgress color="primary" />
           </div>
         ) : (
-          // <div className="container">
-          // <h4 style={{margin: "1rem"}} > Shopping Cart </h4>
-          // <Divider style={{marginBottom: "1rem"}} />
-
-          //   {success ? (
-          //     (data || []).map((item) => {
-          //       return (
-          //         <Grid container spacing={2} direction="column" >
-          //         <Grid item xs={12} sm={2} md={2} />
-          //         <Grid item xs={12} sm={10} md={10} >
-          //         <CartItem key={_get(item, "_id", "")} item={item} />
-          //         </Grid>
-          //         <Grid item xs={12} sm={2} md={2} />
-          //         </Grid>
-          //       );
-          //     })
-          //   ) : (
-          //     <p> {error} </p>
-          //   )}
-
-          // </div>
           <React.Fragment>
             {success ? (
               <div className="cart">
                 <div className="cart-list">
                   <ul className="cart-list-container">
                     <li>
-                      <h3>Shopping Cart</h3>
-                      <div>Price</div>
+                      <h3>My Cart</h3>
+                      <div>
+                        <b>Price</b>
+                      </div>
                     </li>
                     {cartItemLength === 0 ? (
-                      <div>
-                        Cart is empty
+                      <div style={{textAlign: 'center'}}>
+                       Your cart is empty!
                         <Link to="/">
                           <h6>Go Shopping</h6>
                         </Link>
@@ -128,19 +106,19 @@ class CartItems extends Component {
                             <div>
                               Qty: <b>{item.quantity}</b>
                               <DeleteIcon
-                                style={{
-                                  color: "tomato",
-                                  marginLeft: "1rem",
-                                  cursor: "pointer",                                                                    
-                                }}
-                                ref= {this.deleteRef}
+                                className="delete-icon"
+                                ref={this.deleteRef}
                                 onClick={() => {
                                   const { removeItemFromCart } = this.props;
-                                  removeItemFromCart(item.productId._id, ({isloading,success,error}) => {
-                                    if(success) {
-                                      this.deleteRef.current && this.deleteRef.current.onQueryChange();
+                                  removeItemFromCart(
+                                    item.productId._id,
+                                    ({ isloading, success, error }) => {
+                                      if (success) {
+                                        this.deleteRef.current &&
+                                          this.deleteRef.current.onQueryChange();
+                                      }
                                     }
-                                  });
+                                  );
                                 }}
                               />
                             </div>
@@ -154,16 +132,10 @@ class CartItems extends Component {
                   </ul>
                 </div>
                 <div className="cart-action">
-                  <h4>
-                    Subtotal ( {cartItemLength} items) : ${" "}
-                    {data.reduce((a, c) => a + c.price * c.qty, 0)}
-                  </h4>
+                  <h4>Subtotal ( {cartItemLength} items) totalPrice:()</h4>
                   <button
-                     onClick={this.createOrderHandler}
-                     className="button primary full-width"
-                    // size="large"
-                    // fullWidth
-                    // color="secondary"
+                    onClick={this.createOrderHandler}
+                    className="button primary full-width"
                     disabled={cartItemLength === 0}
                   >
                     Proceed to Checkout
@@ -185,8 +157,10 @@ const mapstateToProps = (state) => {
   return { cartItemLength };
 };
 
-const cartPage = connect(mapstateToProps, { fetchCartItems, createOrder,removeItemFromCart })(
-  CartItems
-);
+const cartPage = connect(mapstateToProps, {
+  fetchCartItems,
+  createOrder,
+  removeItemFromCart,
+})(CartItems);
 
 export default Layout(cartPage);

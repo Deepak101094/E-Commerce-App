@@ -31,7 +31,7 @@ code {
   flex:1 1 20rem;
   background-color: #f0f0f0; 
   border-radius: .5rem;
-  padding: 1rem;
+  padding: 2rem;
   text-align: center;
 }
 .cart-list-container {
@@ -62,11 +62,17 @@ align-items: flex-end;
 }
 .cart-name{
   flex: 8 1;
+  margin-left: 2rem;
 }
 .cart-price{
   flex: 1 1;
   font-size: 1rem;
   text-align: right;
+}
+.delete-icon{
+  color: tomato;
+  margin-left: 1rem;
+  cursor: pointer;
 }
 
 /*button*/
@@ -81,7 +87,8 @@ align-items: flex-end;
   flex-direction: column;
 }
 .button{
-  padding: 1rem;
+  padding: 0.7rem;
+  margin: 1rem;
   border: .1rem #808080 solid;
   border-radius: 0.5rem;
   cursor: pointer;
