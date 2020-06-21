@@ -96,7 +96,7 @@ class Orders extends Component {
                     <div>18%</div>
                   </li>
                   <li>
-                    <div>Order Total</div>
+                    <h4>Order Total</h4>
                     <div>Total-Price:</div>
                   </li>
                 </ul>
