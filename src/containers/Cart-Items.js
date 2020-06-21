@@ -22,7 +22,6 @@ class CartItems extends Component {
       success: undefined,
       error: false,
     };
-    this.deleteRef = React.createRef();
   }
 
   componentDidMount() {
@@ -44,16 +43,6 @@ class CartItems extends Component {
     alert("your Order is Successfull");
     //this.props.history.push("/orders");
   };
-
-  // deleteItemHandler = (productId) => {
-  //  const { removeItemFromCart } = this.props;
-  //  removeItemFromCart(productId,({isloading,success, error}) => {
-  //  if(success) {
-  //   this.deleteRef.current && this.deleteRef.current.onQueryChange();
-  //  }
-  //  });
-
-  // }
 
   render() {
     console.log(this.state);
@@ -107,16 +96,15 @@ class CartItems extends Component {
                               Qty: <b>{item.quantity}</b>
                               <DeleteIcon
                                 className="delete-icon"
-                                ref={this.deleteRef}
                                 onClick={() => {
                                   const { removeItemFromCart } = this.props;
                                   removeItemFromCart(
                                     item.productId._id,
                                     ({ isloading, success, error }) => {
                                       if (success) {
-                                        this.deleteRef.current &&
-                                          this.deleteRef.current.onQueryChange();
-                                      }
+                                       const { fetchCartItems } = this.props;  
+                                       fetchCartItems(this.cartItemsResponseHandler);                                  
+                                      }                                      
                                     }
                                   );
                                 }}
@@ -138,7 +126,7 @@ class CartItems extends Component {
                     className="button primary full-width"
                     disabled={cartItemLength === 0}
                   >
-                    Proceed to Checkout
+                  <h4>Order</h4>
                   </button>
                 </div>
               </div>
