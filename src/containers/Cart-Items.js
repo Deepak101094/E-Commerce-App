@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { fetchCartItems } from "../store/actions/fetch-cart-items";
 import { createOrder } from "../store/actions/create-order";
 import { removeItemFromCart } from "../store/actions/remove-item-from-cart";
+
 //? lodash
 import _get from "lodash/get";
 //? material ui
@@ -39,9 +40,11 @@ class CartItems extends Component {
 
   createOrderHandler = () => {
     const { createOrder } = this.props;
+    // createOrder(() => {
+    //   const { fetchCartItems } =  this.props;
+    //   fetchCartItems(this.cartItemsResponseHandler)
+    // });
     createOrder();
-    alert("your Order is Successfull");
-    //this.props.history.push("/orders");
   };
 
   render() {

@@ -4,7 +4,7 @@ import axios from "../../utility/axios/withHeader";
 //? lodash
 import _get from "lodash/get";
 
-export const createOrder = () => {
+export const createOrder = (cbfunc) => {
    return async (dispatch) => {
       dispatch({
          type: CREATE_ORDER_INIT,
@@ -29,6 +29,7 @@ export const createOrder = () => {
                error: false,
             },
          });
+         cbfunc();
       } catch (err) {
          const error = _get(err, "response.data.message", "some error occurred!");
          dispatch({

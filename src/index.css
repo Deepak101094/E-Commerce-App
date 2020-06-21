@@ -43,7 +43,6 @@ code {
 .cart-list-container  li{
   display: flex;
   justify-content: space-between;
-
   padding-bottom: 1rem;
   margin-bottom: 1rem;
   border-bottom:.1rem #c0c0c0 solid;
@@ -106,4 +105,100 @@ align-items: flex-end;
 }
 .text-center{
   text-align: center;
+}
+
+/* Place Order */
+
+.placeorder{
+  display: flex;
+  flex-grow: wrap;
+  padding: 1rem;
+  justify-content: space-between;
+}
+.placeorder-info{
+  flex: 3 1 60rem; 
+}
+.placeorder-action{
+  flex: 1 1 20rem;
+  border: .1rem #c0c0c0 solid;
+  border-radius: .5rem;
+  background-color: #fcfcfc;
+  padding: 1rem;
+
+}
+.placeorder-info > div{
+  border: .1rem #c0c0c0 solid;
+  border-radius: .5rem;
+  background-color: #fcfcfc;
+  padding: 1rem;
+  margin: 1rem;
+}
+.placeorder-info > div:first-child{
+  margin-top: 0;
+}
+.placeorder-action > ul {
+  padding: 0;
+  list-style-type: none;
+}
+.placeorder-action > ul > li{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.placeorder-action > ul > li:last-child{
+    font-size: 2rem;
+    font-weight: bold;
+    color: #c04000;
+}
+.placeorder-actions-payment > div {
+  width: 100%;
+}
+
+@media only screen and (max-width:786px) {
+  .placeorder{
+    /* display: flex;
+    flex-grow: wrap;
+    padding: 1rem;
+    justify-content: space-between; */
+    height: 100vh;
+    flex-direction: column;
+  }
+  .order-container {
+    padding: 0;
+    list-style-type: none;
+    padding: 1rem;  
+  }
+  .placeorder-action{
+    border: .1rem #c0c0c0 solid;
+    border-radius: .5rem;
+    background-color: #fcfcfc;
+    padding: 1rem;
+  }
+  .placeorder-info > div{
+    border: .1rem #c0c0c0 solid;
+    border-radius: .5rem;
+    background-color: #fcfcfc;
+    padding: 1rem;
+  }
+  .placeorder-info > div:first-child{
+    margin-top: 0;
+  }
+  .placeorder-action > ul {
+    padding: 0;
+    list-style-type: none;
+  }
+  .placeorder-action > ul > li{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .placeorder-action > ul > li:last-child{
+    font-size: 2rem;
+    font-weight: bold;
+    color: #c04000;
+}
+.placeorder-actions-payment > div {
+  width: 100%;
+}
+ 
 }

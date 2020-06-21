@@ -35,22 +35,12 @@ class Orders extends Component {
     const { data, isLoading, success, error } = this.state;
     //console.log(data, "response data");
     return (
-      <div className="container">
+      <div>
         <style>{`
-      .order {
-        display: flex;
-        margin-top: 60px;
-      }
       .loader {
         position: fixed; /* or absolute */
         top: 40%;
         left: 50%;
-      }
-      .myorder {
-        position: fixed;
-        top: 0;
-        left: 50%;
-        color: blue;
       }
     `}</style>
         {isLoading ? (
@@ -58,19 +48,72 @@ class Orders extends Component {
             <CircularProgress color="primary" />
           </div>
         ) : (
-          <div className="order">
-          <h4 className="myorder"> My Orders </h4>
-            {success ? (
-              (data || []).map((order) => {
-                return <Order key={_get(order, "_id", "")} order={order} />;
-              })
-            ) : (
-              <p> {error} </p>
-            )}
-          </div>
+          <React.Fragment>
+            <div className="placeorder">
+              <div className="placeorder-info">
+                <div>
+                  <ul className="cart-list-container">
+                    <li>
+                      <h3>Orders</h3>
+                      <div>Price</div>
+                    </li>
+                    {this.props.ordersLength === 0 ? (
+                      <div>Cart is empty</div>
+                    ) : (
+                      (data || []).map((item) => (
+                        <li key={item.product._id}>
+                          <div className="cart-image">
+                            <img src={item.product.image} alt="product" />
+                          </div>
+                          <div className="cart-name">
+                            <div>{item.product.name}</div>
+                            <div>Qty: {item.quantity}</div>
+                          </div>
+                          <div className="cart-price">
+                            ${item.product.price}
+                          </div>
+                        </li>
+                      ))
+                    )}
+                  </ul>
+                </div>
+              </div>
+              <div className="placeorder-action">
+                <ul>
+                  <li>
+                    <h3>Order Summary</h3>
+                  </li>
+                  <li>
+                    <div>Items</div>
+                    <div>${this.props.ordersLength}</div>
+                  </li>
+                  <li>
+                    <div>Shipping</div>
+                    <div>Free</div>
+                  </li>
+                  <li>
+                    <div>Tax</div>
+                    <div>18%</div>
+                  </li>
+                  <li>
+                    <div>Order Total</div>
+                    <div>Total-Price:</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </React.Fragment>
         )}
       </div>
     );
   }
 }
-export default connect(null, { fetchOrder })(Orders);
+
+const mapStateToProps = (state) => {
+  const ordersLength = (state?.orders?.orders?.data ?? []).length;
+  return {
+    ordersLength,
+  };
+};
+
+export default connect(mapStateToProps, { fetchOrder })(Orders);

@@ -6,17 +6,25 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Grid from '@material-ui/core/Grid';
+
 //? lodash
 import _get from "lodash/get";
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 300,
+const useStyles = makeStyles((theme) => ({
+  listItem: {
+    padding: theme.spacing(1, 0),
   },
-  media: {
-    height: 160,
+  total: {
+    fontWeight: 700,
   },
-});
+  title: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const Order = (props) => {
   const classes = useStyles();
@@ -27,21 +35,21 @@ const Order = (props) => {
   );
   return (
     <div className="container">
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia className={classes.media} image={image} title={name} />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {name}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {description}
-            </Typography>
-            <Typography> Rs.{price} </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </div>
+     <React.Fragment>
+    <List disablePadding>
+        <ListItem className={classes.listItem}>
+          <ListItemText primary={name} secondary={description} />
+          <Typography variant="body2">{price}</Typography>
+        </ListItem>
+      <ListItem className={classes.listItem}>
+        <ListItemText primary="Total" />
+        <Typography variant="subtitle1" className={classes.total}>
+          $34.06
+        </Typography>
+      </ListItem>
+    </List>    
+  </React.Fragment>
+  </div>
   );
 };
 export default Order;
