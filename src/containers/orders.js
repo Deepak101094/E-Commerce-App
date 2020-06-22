@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Order from "../components/order";
+import Layout from "../Hoc/Layout"
+import Footer from "../Hoc/Layout/footer";
 //? redux
 import { connect } from "react-redux";
 //? action
@@ -33,6 +36,7 @@ class Orders extends Component {
 
   render() {
     const { data, isLoading, success, error } = this.state;
+    const { orderId, ordersLength } = this.props;
     //console.log(data, "response data");
     return (
       <div>
@@ -42,6 +46,9 @@ class Orders extends Component {
         top: 40%;
         left: 50%;
       }
+      .order {
+        margin: 1rem;
+      }
     `}</style>
         {isLoading ? (
           <div className="loader">
@@ -49,61 +56,55 @@ class Orders extends Component {
           </div>
         ) : (
           <React.Fragment>
-            <div className="placeorder">
-              <div className="placeorder-info">
-                <div>
-                  <ul className="cart-list-container">
-                    <li>
-                      <h3>Orders</h3>
-                      <div>Price</div>
-                    </li>
-                    {this.props.ordersLength === 0 ? (
-                      <div>Cart is empty</div>
-                    ) : (
-                      (data || []).map((item) => (
-                        <li key={item.product._id}>
-                          <div className="cart-image">
-                            <img src={item.product.image} alt="product" />
-                          </div>
-                          <div className="cart-name">
-                            <div>{item.product.name}</div>
-                            <div>Qty: {item.quantity}</div>
-                          </div>
-                          <div className="cart-price">
-                            ${item.product.price}
-                          </div>
-                        </li>
-                      ))
-                    )}
-                  </ul>
+            {success ? (
+              <>
+              <div className="order">
+              <Link to="/">Back to HomePage</Link>
+              <div style={{marginTop: "1rem"}}><h5>Your OrderId:- {orderId} </h5> </div>
+              </div>
+              <div className="placeorder">
+                <div className="placeorder-info">
+                  <div>
+                    <ul className="cart-list-container">
+                      <li>
+                        <h3>Orders</h3>
+                        <p><b>Price</b></p>
+                      </li>
+                      {ordersLength === 0 ? (
+                        <div>Your Order is empty</div>
+                      ) : (
+                        (data || []).map((item) => (
+                          <li key={item?.product?._id ?? ""}>
+                            <div className="cart-image">
+                              <img
+                                src={item?.product?.image ?? ""}
+                                alt="product"
+                              />
+                            </div>
+                            <div className="cart-name">
+                              <div>{item?.product?.name ?? ""}</div>
+                              <div>Qty: {item?.quantity ?? ""}</div>
+                            </div>
+                            <div className="cart-price">
+                              ${item?.product?.price ?? ""}
+                            </div>
+                          </li>
+                        ))
+                      )}
+                    </ul>
+                  </div>
                 </div>
+                <Order data={data} />
               </div>
-              <div className="placeorder-action">
-                <ul>
-                  <li>
-                    <h3>Order Summary</h3>
-                  </li>
-                  <li>
-                    <div>Items</div>
-                    <div>${this.props.ordersLength}</div>
-                  </li>
-                  <li>
-                    <div>Shipping</div>
-                    <div>Free</div>
-                  </li>
-                  <li>
-                    <div>Tax</div>
-                    <div>18%</div>
-                  </li>
-                  <li>
-                    <h4>Order Total</h4>
-                    <div>Total-Price:</div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+              </>
+            ) : (
+              <p>{error}</p>
+            )}
           </React.Fragment>
         )}
+        <div>
+        <Footer />
+        </div>
       </div>
     );
   }
@@ -111,9 +112,12 @@ class Orders extends Component {
 
 const mapStateToProps = (state) => {
   const ordersLength = (state?.orders?.orders?.data ?? []).length;
+  const orderId = state?.login?.loginData?.data?.userId ?? ""
   return {
     ordersLength,
+    orderId
   };
 };
 
-export default connect(mapStateToProps, { fetchOrder })(Orders);
+const orderSummary = connect(mapStateToProps, { fetchOrder })(Orders);
+export default Layout(orderSummary);

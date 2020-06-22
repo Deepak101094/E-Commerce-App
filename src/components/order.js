@@ -1,55 +1,61 @@
 import React from "react";
+import { connect } from "react-redux";
 //? material-ui
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Grid from '@material-ui/core/Grid';
 
 //? lodash
 import _get from "lodash/get";
 
 const useStyles = makeStyles((theme) => ({
-  listItem: {
-    padding: theme.spacing(1, 0),
+  paper: {
+    display: "flex",
+    width: "100%",
+    height: 150,
   },
-  total: {
-    fontWeight: 700,
-  },
-  title: {
-    marginTop: theme.spacing(2),
+  ul: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "1rem",
   },
 }));
 
-const Order = (props) => {
+const Order = ({ data, orderLength }) => {
   const classes = useStyles();
-  const { name, price, description, image, _id } = _get(
-    props,
-    "order.product",
-    {}
-  );
+  //const {} = data
+
   return (
-    <div className="container">
-     <React.Fragment>
-    <List disablePadding>
-        <ListItem className={classes.listItem}>
-          <ListItemText primary={name} secondary={description} />
-          <Typography variant="body2">{price}</Typography>
-        </ListItem>
-      <ListItem className={classes.listItem}>
-        <ListItemText primary="Total" />
-        <Typography variant="subtitle1" className={classes.total}>
-          $34.06
-        </Typography>
-      </ListItem>
-    </List>    
-  </React.Fragment>
-  </div>
+    <div className="placeorder-action">
+      <ul>
+        <li>
+          <h4>Order Summary</h4>
+        </li>
+        <li>
+          <div>Items</div>
+          <div>
+            <b>{orderLength}</b>
+          </div>
+        </li>
+        <li>
+          <div>Shipping</div>
+          <div>Free</div>
+        </li>
+        <li>
+          <div>Tax</div>
+          <div>18%</div>
+        </li>
+        <li>
+          <h4>Order Total:</h4>
+        </li>
+      </ul>
+    </div>
   );
 };
-export default Order;
+
+const mapStateToProps = (state) => {
+  const orderLength = (state?.orders?.orders?.data ?? []).length;
+  return {
+    orderLength,
+  };
+};
+
+export default connect(mapStateToProps)(Order);
