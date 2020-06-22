@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import addProduct from "./add-product";
 import updateProduct from "./update-product";
 import deleteProduct from "./delete-product";
-import fetchProducts from "./fetch-products";
+import fetchUserProducts from "./fetch-user-products";
 import fetchProductById from "./fetch-single-product";
 import login from "./login";
 import signUp from "./sign_up";
@@ -18,7 +18,7 @@ export default combineReducers({
    addProduct,
    updateProduct,
    deleteProduct,
-   products: fetchProducts,
+   userProducts: fetchUserProducts,
    product: fetchProductById,
    login,
    signUp,
