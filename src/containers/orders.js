@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Order from "../components/order";
 import Layout from "../Hoc/Layout"
-import Footer from "../Hoc/Layout/footer";
 //? redux
 import { connect } from "react-redux";
 //? action
@@ -102,9 +101,7 @@ class Orders extends Component {
             )}
           </React.Fragment>
         )}
-        <div>
-        <Footer />
-        </div>
+
       </div>
     );
   }

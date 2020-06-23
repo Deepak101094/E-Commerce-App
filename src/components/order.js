@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Order = ({ data, orderLength }) => {
+const Order = ({ orderLength }) => {
   const classes = useStyles();
   //const {} = data
 
