@@ -2,7 +2,6 @@ import {
   FETCH_CART_ITEMS_INIT,
   FETCH_CART_ITEMS_SUCCESS,
   FETCH_CART_ITEMS_FAIL,
-  FETCH_CART_ITEMS_EMPTY
 } from "../actionTypes";
 
 const fetchCartItems = (state = {}, action) => {
@@ -12,27 +11,21 @@ const fetchCartItems = (state = {}, action) => {
       return {
         ...state,
         type,
-        cartItems:{...cartItems}
+        ...cartItems,
       };
     case FETCH_CART_ITEMS_SUCCESS:
       return {
         ...state,
         type,
-        cartItems:{...cartItems}
+        ...cartItems,
       };
     case FETCH_CART_ITEMS_FAIL:
       return {
         ...state,
         type,
-        cartItems: {...cartItems}
+        ...cartItems,
       };
-      // case FETCH_CART_ITEMS_EMPTY: {
-      //   return {
-      //     ...state,
-      //     type,
-      //     cartItems
-      //   }
-      // }
+
     default:
       return state;
   }
