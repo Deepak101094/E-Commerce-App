@@ -18,7 +18,6 @@ export const loginUser = (reqBody, cbFunc) => {
          const response = await axios.post("/admin/login", reqBody);
          const data = _get(response, "data", {});
          let success = _get(response, "status", "") === 200 ? true : false;
-         console.log(data, "data");
          localStorage.setItem("userId", data?.userId ?? "");
          localStorage.setItem("userType", data?.userType ?? "");
          dispatch({
