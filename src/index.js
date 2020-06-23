@@ -10,13 +10,13 @@ import rootReducer from "./store/reducers";
 import "./index.css";
 
 //? Components
-import Home from "./Home";
+import App from "./App";
 import AddProduct from "./containers/AddProduct";
 import ProductList from "./containers/ProductList";
 import UpdateProduct from "./containers/UpdateProduct";
 import Login from "./form/Login";
 import SignUp from "./form/SignUp";
-import CartItems from './containers/Cart-Items';
+import CartItems from "./containers/Cart-Items";
 import Orders from "../src/containers/orders";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -58,7 +58,7 @@ ReactDOM.render(
                <SignUp />
             </Route>
             <Route exact path="/">
-               <Home />
+               <App />
             </Route>
          </Switch>
       </Router>
