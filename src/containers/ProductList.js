@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Layout from "../Hoc/Layout";
 //? action
-import { deleteProduct } from "../store/actions/delete-product";
 import { saveProductToEdit } from "../store/actions/update-product";
 //? utility
 import axios from "../utility/axios/withHeader";
@@ -106,5 +105,5 @@ const ProductList = (props) => {
    );
 };
 
-const productList= connect(null, { deleteProduct, saveProductToEdit })(ProductList);
+const productList= connect(null, { saveProductToEdit })(ProductList);
 export default Layout(productList);

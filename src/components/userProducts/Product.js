@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useState} from "react";
 import { useHistory } from "react-router-dom";
 //? utility
 import axios from "../../utility/axios/withHeader";
 //? redux
 import { connect } from "react-redux";
 //? Action
-import { deleteProduct } from "../../store/actions/delete-product";
-import { addToCartAction } from "../../store/actions/add-to-cart";
 import { fetchSingleProduct } from "../../store/actions/fetch-single-product";
 //?material ui
 import { makeStyles } from "@material-ui/core/styles";
@@ -41,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Product = (props) => {
    const history = useHistory();
-   const [loading, setLoading] = React.useState(false);
+   const [loading, setLoading] = useState(false);
 
    const addTocartHandler = (productId) => {
       setLoading(true);
@@ -58,7 +56,7 @@ const Product = (props) => {
          if(response.status === 200) {
             setLoading(false)
          }
-      })
+      });
    };
 
    const classes = useStyles();
@@ -102,7 +100,5 @@ const Product = (props) => {
 };
 
 export default connect(null, {
-   deleteProduct,
-   addToCartAction,
    fetchSingleProduct,
 })(Product);

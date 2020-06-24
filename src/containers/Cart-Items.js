@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../Hoc/Layout";
 import axios from "../utility/axios/withHeader";
@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 //? action
 import { fetchCartItems } from "../store/actions/fetch-cart-items";
 import { createOrder } from "../store/actions/create-order";
-import { removeItemFromCart } from "../store/actions/remove-item-from-cart";
+
 
 //? lodash
 import _get from "lodash/get";
@@ -23,27 +23,24 @@ const CartItems = ({
   fetchCartItems,
   createOrder,
   cartItemLength,
-  removeItemFromCart,
 }) => {
-const [msg,setMsg] = useState("")
-
   useEffect(() => {
     fetchCartItems();
   }, []);
 
   const removeItemHandler = (itemId) => {
-  axios({
-    method: "GET",
-    url: `/remove-item-from-cart?id=${itemId}`,
-    headers: {
-      userid: localStorage.getItem("userId")
-    }
-  }).then(response => {
-    if(response.status === 200) {
-      fetchCartItems();
-    }
-  })
-  }
+    axios({
+      method: "GET",
+      url: `/remove-item-from-cart?id=${itemId}`,
+      headers: {
+        userid: localStorage.getItem("userId"),
+      },
+    }).then((response) => {
+      if (response.status === 200) {
+        fetchCartItems();
+      }
+    });
+  };
 
   const createOrderHandler = () => {
     createOrder();
@@ -100,17 +97,9 @@ const [msg,setMsg] = useState("")
                             Qty: <b>{item?.quantity ?? ""}</b>
                             <DeleteIcon
                               className="delete-icon"
-                              // onClick={() => {
-                              //   removeItemFromCart(
-                              //     item?.productId?._id ?? "",
-                              //     ({ isloading, success, error }) => {
-                              //       if (success) {
-                              //         fetchCartItems();
-                              //       }
-                              //     }
-                              //   );
-                              // }}
-                              onClick={() => removeItemHandler(item?.productId?._id ?? "") }
+                              onClick={() =>
+                                removeItemHandler(item?.productId?._id ?? "")
+                              }
                             />
                           </div>
                         </div>
@@ -157,7 +146,6 @@ const mapstateToProps = (state) => {
 const cartPage = connect(mapstateToProps, {
   fetchCartItems,
   createOrder,
-  removeItemFromCart,
 })(CartItems);
 
 export default Layout(cartPage);
