@@ -22,6 +22,20 @@ const ProductList = (props) => {
       saveProductToEdit(product);
       history.push(`/update-product/${product._id}`);
    };
+   
+   const deleteProductHandler = (productId) => {
+   axios({
+      method: "GET",
+      url: `/admin/delete-product?id=${productId}`,
+      header: {
+         userid: localStorage.getItem("userId")
+      }
+   }).then(response => {
+      if(response.status === 200) {
+         tableRef.current && tableRef.current.onQueryChange();
+      }
+   })
+   }
 
    const tableColumns = [
       { title: "Name", field: "name" },
@@ -55,12 +69,7 @@ const ProductList = (props) => {
                            icon: "delete",
                            tooltip: "delete product",
                            onClick: (event, rowData) => {
-                              const { deleteProduct } = props;
-                              deleteProduct(rowData?._id ?? "", ({ isloading, success, error }) => {
-                                 if (success) {
-                                    tableRef.current && tableRef.current.onQueryChange();
-                                 }
-                              });
+                             deleteProductHandler(rowData?._id)
                            },
                         },
                         {

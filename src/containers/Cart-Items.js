@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../Hoc/Layout";
+import axios from "../utility/axios/withHeader";
 //? redux
 import { connect } from "react-redux";
 //? action
@@ -24,9 +25,25 @@ const CartItems = ({
   cartItemLength,
   removeItemFromCart,
 }) => {
+const [msg,setMsg] = useState("")
+
   useEffect(() => {
     fetchCartItems();
   }, []);
+
+  const removeItemHandler = (itemId) => {
+  axios({
+    method: "GET",
+    url: `/remove-item-from-cart?id=${itemId}`,
+    headers: {
+      userid: localStorage.getItem("userId")
+    }
+  }).then(response => {
+    if(response.status === 200) {
+      fetchCartItems();
+    }
+  })
+  }
 
   const createOrderHandler = () => {
     createOrder();
@@ -83,16 +100,17 @@ const CartItems = ({
                             Qty: <b>{item?.quantity ?? ""}</b>
                             <DeleteIcon
                               className="delete-icon"
-                              onClick={() => {
-                                removeItemFromCart(
-                                  item?.productId?._id ?? "",
-                                  ({ isloading, success, error }) => {
-                                    if (success) {
-                                      fetchCartItems();
-                                    }
-                                  }
-                                );
-                              }}
+                              // onClick={() => {
+                              //   removeItemFromCart(
+                              //     item?.productId?._id ?? "",
+                              //     ({ isloading, success, error }) => {
+                              //       if (success) {
+                              //         fetchCartItems();
+                              //       }
+                              //     }
+                              //   );
+                              // }}
+                              onClick={() => removeItemHandler(item?.productId?._id ?? "") }
                             />
                           </div>
                         </div>
@@ -126,7 +144,7 @@ const CartItems = ({
 
 const mapstateToProps = (state) => {
   const { data, isLoading, success, error } = state?.cartItems ?? {};
-  const cartItemLength = (state?.cart?.item?.data ?? []).length;
+  const cartItemLength = (state?.cartItems?.data ?? []).length;
   return {
     cartItemLength,
     data,

@@ -1,5 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+//? utility
+import axios from "../../utility/axios/withHeader";
 //? redux
 import { connect } from "react-redux";
 //? Action
@@ -41,11 +43,22 @@ const Product = (props) => {
    const history = useHistory();
    const [loading, setLoading] = React.useState(false);
 
-   const addTocartHandler = (_id) => {
-      setLoading(false);
-      const { addToCartAction } = props;
-      addToCartAction(_id);
+   const addTocartHandler = (productId) => {
+      setLoading(true);
+      // const { addToCartAction } = props;
+      // addToCartAction(productId);
       // history.push("/cart-item")
+      axios({
+         method: "GET",
+            url: `/add-to-cart?id=${productId}`,
+            headers: {
+               userid: localStorage.getItem("userId"),
+            },
+      }).then(response => {
+         if(response.status === 200) {
+            setLoading(false)
+         }
+      })
    };
 
    const classes = useStyles();
