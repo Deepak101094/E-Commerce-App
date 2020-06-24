@@ -11,19 +11,19 @@ const createOrderReducer = (state = {}, action) => {
       return {
         ...state,
         type,
-        order
+        ...order,
       };
     case CREATE_ORDER_SUCCESS:
       return {
         ...state,
         type,
-        order
+        ...order,
       };
     case CREATE_ORDER_FAIL:
       return {
         ...state,
         type,
-        order
+        ...order,
       };
     default:
       return state;

@@ -4,8 +4,7 @@ import { useHistory } from "react-router-dom";
 import axios from "../../utility/axios/withHeader";
 //? redux
 import { connect } from "react-redux";
-//? Action
-import { fetchSingleProduct } from "../../store/actions/fetch-single-product";
+
 //?material ui
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -99,6 +98,4 @@ const Product = (props) => {
    );
 };
 
-export default connect(null, {
-   fetchSingleProduct,
-})(Product);
+export default Product;

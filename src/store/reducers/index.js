@@ -3,7 +3,6 @@ import { combineReducers } from "redux";
 import addProduct from "./add-product";
 import updateProduct from "./update-product";
 import fetchUserProducts from "./fetch-user-products";
-import fetchProductById from "./fetch-single-product";
 import login from "./login";
 import signUp from "./sign_up";
 //?shop
@@ -15,7 +14,6 @@ export default combineReducers({
    addProduct,
    updateProduct,
    userProducts: fetchUserProducts,
-   product: fetchProductById,
    login,
    signUp,
    cartItems: fetchCartItems,
