@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Order from "../components/order";
-import Layout from "../Hoc/Layout"
+import Layout from "../Hoc/Layout";
 //? redux
 import { connect } from "react-redux";
 //? action
@@ -11,35 +11,23 @@ import { CircularProgress } from "@material-ui/core";
 //? lodash
 import _get from "lodash/get";
 
-class Orders extends Component {
-  state = {
-    data: [],
-    isLoading: false,
-    success: undefined,
-    error: "",
-  };
+const Orders = ({
+  data,
+  isLoading,
+  success,
+  error,
+  fetchOrder,
+  orderId,
+  ordersLength,
+}) => {
 
-  componentDidMount() {
-    const { fetchOrder } = this.props;
-    fetchOrder(this.fetchOrderHandler);
-  }
+  useEffect(() => {
+    fetchOrder();
+  }, []);
 
-  fetchOrderHandler = ({ data, isLoading, success, error }) => {
-    this.setState({
-      data,
-      isLoading,
-      success,
-      error,
-    });
-  };
-
-  render() {
-    const { data, isLoading, success, error } = this.state;
-    const { orderId, ordersLength } = this.props;
-    //console.log(data, "response data");
-    return (
-      <div>
-        <style>{`
+  return (
+    <div>
+      <style>{`
       .loader {
         position: fixed; /* or absolute */
         top: 40%;
@@ -49,17 +37,21 @@ class Orders extends Component {
         margin: 1rem;
       }
     `}</style>
-        {isLoading ? (
-          <div className="loader">
-            <CircularProgress color="primary" />
-          </div>
-        ) : (
-          <React.Fragment>
-            {success ? (
-              <>
+      {isLoading ? (
+        <div className="loader">
+          <CircularProgress color="primary" />
+        </div>
+      ) : (
+        <React.Fragment>
+          {success ? (
+            <>
               <div className="order">
-              <Link to="/">Back to HomePage</Link>
-              <div style={{marginTop: "1rem"}}><h5>Your OrderId:- {orderId} </h5> </div>
+                <Link to="/">Back to HomePage</Link>
+                <div style={{ marginTop: "1rem" }}>
+                {ordersLength ? (
+                  <h5>Your OrderId:- {orderId} </h5>
+                ): null }                                
+                </div>
               </div>
               <div className="placeorder">
                 <div className="placeorder-info">
@@ -67,7 +59,9 @@ class Orders extends Component {
                     <ul className="cart-list-container">
                       <li>
                         <h3>Orders</h3>
-                        <p><b>Price</b></p>
+                        <p>
+                          <b>Price</b>
+                        </p>
                       </li>
                       {ordersLength === 0 ? (
                         <div>Your Order is empty</div>
@@ -95,24 +89,27 @@ class Orders extends Component {
                 </div>
                 <Order data={data} />
               </div>
-              </>
-            ) : (
-              <p>{error}</p>
-            )}
-          </React.Fragment>
-        )}
-
-      </div>
-    );
-  }
-}
+            </>
+          ) : (
+            <p>{error}</p>
+          )}
+        </React.Fragment>
+      )}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
+  const { data, isLoading, success, error } = state?.orders ?? {};
   const ordersLength = (state?.orders?.orders?.data ?? []).length;
-  const orderId = state?.login?.loginData?.data?.userId ?? ""
+  const orderId = state?.login?.loginData?.data?.userId ?? "";
   return {
     ordersLength,
-    orderId
+    orderId,
+    data,
+    isLoading,
+    success,
+    error,
   };
 };
 

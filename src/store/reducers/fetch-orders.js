@@ -11,19 +11,19 @@ const fetchOrderReducer = (state = {}, action) => {
       return {
         ...state,
         type,
-        orders,
+        ...orders,
       };
     case FETCH_ORDER_SUCCESS:
       return {
         ...state,
         type,
-        orders,
+        ...orders,
       };
     case FETCH_ORDER_FAIL:
       return {
         ...state,
         type,
-        orders,
+        ...orders,
       };
     default:
       return state;

@@ -125,7 +125,7 @@ const CartItems = ({
 };
 
 const mapstateToProps = (state) => {
-  const { data, isLoading, success, error } = state?.cartItems ?? [];
+  const { data, isLoading, success, error } = state?.cartItems ?? {};
   const cartItemLength = (state?.cart?.item?.data ?? []).length;
   return {
     cartItemLength,
