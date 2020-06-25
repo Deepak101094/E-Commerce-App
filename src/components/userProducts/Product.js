@@ -2,8 +2,6 @@ import React, { useState} from "react";
 import { useHistory } from "react-router-dom";
 //? utility
 import axios from "../../utility/axios/withHeader";
-//? redux
-import { connect } from "react-redux";
 
 //?material ui
 import { makeStyles } from "@material-ui/core/styles";

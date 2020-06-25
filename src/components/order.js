@@ -41,7 +41,7 @@ const Order = ({ orderLength }) => {
         </li>
         <li>
           <div>Tax</div>
-          <div>18%</div>
+          <div>Free</div>
         </li>
         <li>
           <h4>Order Total:</h4>

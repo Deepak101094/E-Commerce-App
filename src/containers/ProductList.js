@@ -26,14 +26,14 @@ const ProductList = (props) => {
    axios({
       method: "GET",
       url: `/admin/delete-product?id=${productId}`,
-      header: {
+      headers: {
          userid: localStorage.getItem("userId")
       }
    }).then(response => {
       if(response.status === 200) {
          tableRef.current && tableRef.current.onQueryChange();
       }
-   })
+   });
    }
 
    const tableColumns = [

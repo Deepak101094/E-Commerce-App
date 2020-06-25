@@ -6,7 +6,6 @@ import axios from "../utility/axios/withHeader";
 import { connect } from "react-redux";
 //? action
 import { fetchCartItems } from "../store/actions/fetch-cart-items";
-import { createOrder } from "../store/actions/create-order";
 
 //? lodash
 import _get from "lodash/get";
@@ -42,7 +41,15 @@ const CartItems = ({
   };
 
   const createOrderHandler = () => {
-    createOrder();
+    axios({
+      method: "GET",
+      url: "/create-order",
+      headers: {
+        userid: localStorage.getItem("userId")
+      }
+    }).then(response => {
+      console.log(response);
+    })
   };
 
   return (
@@ -144,7 +151,6 @@ const mapstateToProps = (state) => {
 
 const cartPage = connect(mapstateToProps, {
   fetchCartItems,
-  createOrder,
 })(CartItems);
 
 export default Layout(cartPage);

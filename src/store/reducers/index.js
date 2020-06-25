@@ -7,7 +7,6 @@ import login from "./login";
 import signUp from "./sign_up";
 //?shop
 import fetchCartItems from "./fetch-cart-items";
-import createOrderReducer from "./create-order";
 import fetchOrderReducer from "./fetch-orders";
 
 export default combineReducers({
@@ -17,6 +16,5 @@ export default combineReducers({
    login,
    signUp,
    cartItems: fetchCartItems,
-   createOrder: createOrderReducer,
    orders: fetchOrderReducer,
 });

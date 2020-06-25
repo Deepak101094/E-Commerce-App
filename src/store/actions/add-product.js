@@ -20,7 +20,7 @@ export const addProduct = (reqBody, cbfunc) => {
     });
     try {
       const response = await axios.post("/admin/add-product", reqBody);
-      console.log(response.data);
+     // console.log(response.data);
       const data = _get(response, "data", {});
 
       let success = _get(response, "status", "") === 200 ? true : false;

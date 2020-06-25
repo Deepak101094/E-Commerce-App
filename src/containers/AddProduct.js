@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+//?utility
+import axios from "../utility/axios/withHeader";
 //?react-hook-form
 import { useForm } from "react-hook-form";
 //? hoc
@@ -26,7 +28,7 @@ function Copyright() {
    return (
       <Typography variant="body2" color="textSecondary" align="center">
          {"Copyright © "}
-         <Link color="inherit" href="https://material-ui.com/">
+         <Link color="inherit" to="/product-list">
             Your Website
          </Link>{" "}
          {new Date().getFullYear()}
@@ -72,6 +74,19 @@ function AddProduct(props) {
       addProduct(reqBody, () => {
          history.push("/product-list");
       });
+      // axios({
+      //    method: "POST",
+      //    url: "/admin/add-product",
+      //    data: {reqBody},
+      //    headers: {
+      //       userid: localStorage.getItem("userId")
+      //    }
+      // }).then(response => {
+      //    console.log(response);
+      // if(response.status === 200) {
+      //    history.push("/product-list");
+      // }
+      // });
       e.target.reset();
    };
 
