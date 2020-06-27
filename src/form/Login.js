@@ -24,73 +24,82 @@ import Container from "@material-ui/core/Container";
 import { CircularProgress } from "@material-ui/core";
 import ErrorIcon from "@material-ui/icons/Error";
 import WarningIcon from "@material-ui/icons/Warning";
+import Paper from "@material-ui/core/Paper";
 
 function Copyright() {
-   return (
-      <Typography variant="body2" color="textSecondary" align="center">
-         {"Copyright © "}
-         <Link color="inherit" to="/">
-            Your Website
-         </Link>{" "}
-         {new Date().getFullYear()}
-         {"."}
-      </Typography>
-   );
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" to="/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
 }
 
 const useStyles = makeStyles((theme) => ({
-   paper: {
-      marginTop: theme.spacing(8),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-   },
-   avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-   },
-   form: {
-      width: "100%",
-      marginTop: theme.spacing(1),
-   },
-   submit: {
-      margin: theme.spacing(3, 0, 2),
-   },
-   errorMsg: {
-      margin: "10px 0px",
-      color: "red",
-   },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%",
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  errorMsg: {
+    margin: "10px 0px",
+    color: "red",
+  },
 }));
 
 function SignIn(props) {
-   const classes = useStyles();
-   const history = useHistory();
-   const [loading, setLoading] = React.useState(false);
+  const classes = useStyles();
+  const history = useHistory();
+  const [loading, setLoading] = React.useState(false);
 
-   const { handleSubmit, errors, reset, register } = useForm();
+  const { handleSubmit, errors, reset, register } = useForm();
 
-   const loginHandler = (reqBody, e) => {
-      //console.log(reqBody);
-      setLoading(true);
-      const { loginUser } = props;
-      loginUser(reqBody, () => {
-         history.push("/");
-      });
-      e.target.reset();
-   };
+  const loginHandler = (reqBody, e) => {
+    //console.log(reqBody);
+    setLoading(true);
+    const { loginUser } = props;
+    loginUser(reqBody, () => {
+      history.push("/");
+    });
+    e.target.reset();
+  };
 
-   return (
-      <Container component="main" maxWidth="xs">
-         <CssBaseline />
-         <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-               <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-               Sign in
-            </Typography>
-            <form className={classes.form} onSubmit={handleSubmit(loginHandler)} noValidate>
-               <TextField
+  return (
+    <Grid container>
+      <Grid item xs={12} sm={3} md={3} />
+      <Grid item xs={12} sm={6} md={6}>
+        <Paper>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <form
+                className={classes.form}
+                onSubmit={handleSubmit(loginHandler)}
+                noValidate
+              >
+                <TextField
                   variant="outlined"
                   margin="normal"
                   required
@@ -99,23 +108,22 @@ function SignIn(props) {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  autoFocus
                   inputRef={register({
-                     required: true,
-                     pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    required: true,
+                    pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                   })}
-               />
-               {errors.email && errors.email.type === "required" && (
+                />
+                {errors.email && errors.email.type === "required" && (
                   <div className={classes.errorMsg}>
-                     <ErrorIcon /> Email is Required
+                    <ErrorIcon /> Email is Required
                   </div>
-               )}
-               {errors.email && errors.email.type === "pattern" && (
+                )}
+                {errors.email && errors.email.type === "pattern" && (
                   <div className={classes.errorMsg}>
-                     <WarningIcon /> Invalid Email
+                    <WarningIcon /> Invalid Email
                   </div>
-               )}
-               <TextField
+                )}
+                <TextField
                   variant="outlined"
                   margin="normal"
                   required
@@ -126,57 +134,61 @@ function SignIn(props) {
                   id="password"
                   autoComplete="current-password"
                   inputRef={register({ required: true, minLength: 4 })}
-               />
-               {errors.password && errors.password.type === "required" && (
+                />
+                {errors.password && errors.password.type === "required" && (
                   <div className={classes.errorMsg}>
-                     <ErrorIcon /> Password is Required
+                    <ErrorIcon /> Password is Required
                   </div>
-               )}
-               {errors.password && errors.password.type === "minLength" && (
+                )}
+                {errors.password && errors.password.type === "minLength" && (
                   <div className={classes.errorMsg}>
-                     <WarningIcon /> Invalid Password
+                    <WarningIcon /> Invalid Password
                   </div>
-               )}
-               {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
-               {loading ? (
+                )}
+                {/* <FormControlLabel
+         control={<Checkbox value="remember" color="primary" />}
+         label="Remember me"
+       /> */}
+                {loading ? (
                   <div style={{ textAlign: "center" }}>
-                     <CircularProgress />
+                    <CircularProgress />
                   </div>
-               ) : (
+                ) : (
                   <Button
-                     type="submit"
-                     fullWidth
-                     variant="contained"
-                     style={{background:"#f0c040"}}
-                     className={classes.submit}
-                     disabled={errors.email || errors.password}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    style={{ background: "#f0c040" }}
+                    className={classes.submit}
+                    disabled={errors.email || errors.password}
                   >
-                     Sign In
+                    Sign In
                   </Button>
-               )}
+                )}
 
-               <Grid container>
+                <Grid container>
                   {/* <Grid item xs>
-                     <Link href="#" variant="body2">
-                        Forgot password?
-                     </Link>
-                  </Grid> */}
+                  <Link href="#" variant="body2">
+                     Forgot password?
+                  </Link>
+               </Grid> */}
                   <Grid item>
-                     <Link to="/signup" variant="body2">
-                        {"Don't have an account? Sign Up"}
-                     </Link>
+                    <Link to="/signup" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
                   </Grid>
-               </Grid>
-            </form>
-         </div>
-         <Box mt={8}>
-            <Copyright />
-         </Box>
-      </Container>
-   );
+                </Grid>
+              </form>
+            </div>
+            <Box mt={8}>
+              <Copyright />
+            </Box>
+          </Container>
+        </Paper>
+      </Grid>
+      <Grid item xs={12} sm={3} md={3} />
+    </Grid>
+  );
 }
 
 const login = connect(null, { loginUser })(SignIn);
