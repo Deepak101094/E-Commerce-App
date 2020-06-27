@@ -96,6 +96,7 @@ const SignUp = (props) => {
                         autoComplete="fname"
                         name="name"
                         variant="outlined"
+
                         required
                         fullWidth
                         id="firstName"
@@ -216,7 +217,7 @@ const SignUp = (props) => {
                      type="submit"
                      fullWidth
                      variant="contained"
-                     color="primary"
+                     style={{background:"#f0c040"}}
                      className={classes.submit}
                      disabled={errors.name || errors.email || errors.password || errors.userType}
                   >

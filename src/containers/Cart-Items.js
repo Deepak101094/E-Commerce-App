@@ -108,6 +108,7 @@ const CartItems = ({
                               }
                             />
                           </div>
+                          <div style={{color:"green",marginTop:"20px"}}><p> Delivery Free</p></div>
                         </div>
                         <div className="cart-price">
                           Rs. {item?.productId?.price ?? ""}{" "}
@@ -118,13 +119,17 @@ const CartItems = ({
                 </ul>
               </div>
               <div className="cart-action">
-                <h4>Subtotal ( {cartItemLength} items) totalPrice:()</h4>
+                <h5>
+                Subtotal ( {data.reduce((a, c) => a + c.quantity, 0)} items)
+                :
+                 Rs {data.reduce((a, c) => a + c.productId.price * c.quantity, 0)}
+                </h5>
                 <button
                   onClick={createOrderHandler}
                   className="button primary full-width"
                   disabled={cartItemLength === 0}
                 >
-                  <h4>Order</h4>
+                  <h4> Place Order</h4>
                 </button>
               </div>
             </div>

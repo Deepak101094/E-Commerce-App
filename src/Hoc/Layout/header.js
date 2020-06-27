@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
    root: {
       flexGrow: 1,
    },
+   navbar : {
+    color: '#ffffff',
+    background: "#203040",
+   },
    menuButton: {
       marginRight: theme.spacing(2),
    },
@@ -47,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
    menuSliderContainer: {
       width: 250,
       height: "100%",
-      background: "#3f51b5",
+      background: "#203040",
    },
    avatar: {
       display: "block",
@@ -134,7 +138,7 @@ function ButtonAppBar(props) {
    return (
       <React.Fragment>
          <Box className={classes.root} component="nav">
-            <AppBar position="static">
+            <AppBar className={classes.navbar} position="static">
                <Toolbar>
                   <IconButton
                      edge="start"

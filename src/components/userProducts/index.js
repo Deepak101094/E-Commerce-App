@@ -20,14 +20,16 @@ const UserProducts = ({
   return (
     <div className="container">
       <style>{`
-          .products {
-            display: flex;
-            margin-top: 50px;
-          }
           .loader {
             position: fixed; /* or absolute */
             top: 40%;
             left: 50%;
+          }
+          .product {
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            
           }
         `}</style>
       {isLoading ? (
@@ -35,7 +37,9 @@ const UserProducts = ({
           <CircularProgress color="primary" />
         </div>
       ) : (
-        <div className="products">
+        <>
+        <h2 className="product">Products</h2>
+        <div>
           <Grid container spacing={4}>
             {success ? (
               (data || []).map((product) => {
@@ -50,6 +54,7 @@ const UserProducts = ({
             )}
           </Grid>
         </div>
+        </>
       )}
     </div>
   );

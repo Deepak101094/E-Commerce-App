@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Order = ({ orderLength }) => {
+const Order = ({ orderLength,data }) => {
   const classes = useStyles();
   //const {} = data
 
@@ -45,6 +45,9 @@ const Order = ({ orderLength }) => {
         </li>
         <li>
           <h4>Order Total:</h4>
+          <h4>
+          Rs:{data.reduce((a, c) => a + c.product.price *c.quantity,0)}
+          </h4>
         </li>
       </ul>
     </div>
