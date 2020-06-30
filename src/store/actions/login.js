@@ -7,7 +7,7 @@ export const loginUser = (reqBody, cbFunc) => {
    return async (dispatch) => {
       dispatch({
          type: LOGIN_INIT,
-         loginData: {
+         logInRes: {
             data: {},
             isLoading: true,
             success: null,
@@ -22,7 +22,7 @@ export const loginUser = (reqBody, cbFunc) => {
          localStorage.setItem("userType", data?.userType ?? "");
          dispatch({
             type: LOGIN_SUCCESS,
-            loginData: {
+            logInRes: {
                data,
                isLoading: false,
                success,
@@ -34,7 +34,7 @@ export const loginUser = (reqBody, cbFunc) => {
          const error = _get(err, "response.data.message", "some error occurred!");
          dispatch({
             type: LOGIN_FAIL,
-            loginData: {
+            logInRes: {
                data: {},
                isLoading: false,
                success: false,

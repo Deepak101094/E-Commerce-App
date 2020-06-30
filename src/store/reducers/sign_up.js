@@ -7,19 +7,19 @@ const signUpReducer = (state = {}, action) => {
          return {
             ...state,
             type,
-            signUpRes,
+            ...signUpRes,
          };
       case SIGN_UP_SUCCESS:
          return {
             ...state,
             type,
-            signUpRes,
+            ...signUpRes,
          };
       case SIGN_UP_FAIL:
          return {
             ...state,
             type,
-            signUpRes,
+            ...signUpRes,
          };
       default:
          return state;

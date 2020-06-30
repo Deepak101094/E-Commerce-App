@@ -12,19 +12,19 @@ const updateProductReducer = (state = {}, action) => {
          return {
             ...state,
             type,
-            product,
+            ...product,
          };
       case UPDATE_PRODUCT_SUCCESS:
          return {
             ...state,
             type,
-            product,
+            ...product,
          };
       case UPDATE_PRODUCT_FAIL:
          return {
             ...state,
             type,
-            product,
+            ...product,
          };
       case PRODUCT_TO_EDIT:
          return {
