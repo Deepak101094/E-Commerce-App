@@ -55,7 +55,7 @@ const Order = ({ orderLength,data }) => {
 };
 
 const mapStateToProps = (state) => {
-  const orderLength = (state?.orders?.orders?.data ?? []).length;
+  const orderLength = (state?.orders?.data ?? []).length;
   return {
     orderLength,
   };

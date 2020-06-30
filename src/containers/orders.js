@@ -101,8 +101,8 @@ const Orders = ({
 
 const mapStateToProps = (state) => {
   const { data, isLoading, success, error } = state?.orders ?? {};
-  const ordersLength = (state?.orders?.orders?.data ?? []).length;
-  const orderId = state?.login?.loginData?.data?.userId ?? "";
+  const ordersLength = (state?.orders?.data ?? []).length;
+  const orderId = state?.logIn?.data?.userId ?? "";
   return {
     ordersLength,
     orderId,

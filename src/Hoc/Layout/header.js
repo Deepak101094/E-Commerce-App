@@ -240,7 +240,7 @@ function ButtonAppBar(props) {
 }
 
 const mapStateToProps = (state) => {
-   const userType = state?.login?.loginData?.data?.userType ?? "";
+   const userType = state?.logIn?.data?.userType ?? "";
    const cartItemLength = (state?.cartItems?.data ?? []).length;
    return { userType, cartItemLength };
 };
