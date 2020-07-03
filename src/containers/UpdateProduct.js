@@ -157,24 +157,24 @@ function UpdateProduct(props) {
                       </div>
                     )}
                   </Grid>
-                  {/* <Grid item xs={12}>
-                  <TextField
-                     variant="outlined"
-                     required
-                     fullWidth
-                     name="imageUrl"
-                     label="Image"
-                     type="text"
-                     id="image"
-                     autoComplete="image"
-                     inputRef={register({ required: true })}
-                  />
-                  {errors.imageUrl && errors.imageUrl.type === "required" && (
-                     <div className={classes.errorMsg}>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      name="imageUrl"
+                      label="Image"
+                      type="text"
+                      id="image"
+                      autoComplete="image"
+                      inputRef={register({ required: true })}
+                    />
+                    {errors.imageUrl && errors.imageUrl.type === "required" && (
+                      <div className={classes.errorMsg}>
                         <ErrorIcon /> Add Product Image
-                     </div>
-                  )}
-               </Grid> */}
+                      </div>
+                    )}
+                  </Grid>
                 </Grid>
                 {loading ? (
                   <div style={{ textAlign: "center" }}>

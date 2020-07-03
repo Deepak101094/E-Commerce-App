@@ -227,6 +227,7 @@ function ButtonAppBar(props) {
                            localStorage.removeItem("persist:root");
                            localStorage.clear();
                            window.location.reload();
+                           history.push("/")
                         }}
                      >
                         Logout

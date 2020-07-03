@@ -20,7 +20,8 @@ export const fetchProducts = () => {
     });
     try {
       const response = await axios.get("/products");
-      const data = _get(response, "data", []);
+      //console.log(response,"response")
+      const data = _get(response, "data.products", []);
       let success = _get(response, "status", "") === 200 ? true : false;
       products = {
         data,

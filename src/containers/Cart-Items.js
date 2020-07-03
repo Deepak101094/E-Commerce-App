@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
+//? UI/Modal
+import Modal from "../components/UI/Modal/Modal";
+//? React Router
 import { Link } from "react-router-dom";
+//? hoc
 import Layout from "../Hoc/Layout";
+//? utitlity
 import axios from "../utility/axios/withHeader";
 //? redux
 import { connect } from "react-redux";
 //? action
 import { fetchCartItems } from "../store/actions/fetch-cart-items";
-
 //? lodash
 import _get from "lodash/get";
 //? material ui
@@ -22,6 +26,7 @@ const CartItems = ({
   createOrder,
   cartItemLength,
 }) => {
+  const [showModal, setshowModal] = useState(false)
   useEffect(() => {
     fetchCartItems();
   }, []);
@@ -48,12 +53,18 @@ const CartItems = ({
         userid: localStorage.getItem("userId")
       }
     }).then(response => {
-      console.log(response);
+     // console.log(response);
+     if(response.status === 200) {
+      setshowModal(true)
+      fetchCartItems();
+     }     
     })
+
   };
 
   return (
     <div>
+    <Modal show={showModal} />
       <style>
         {`
       .loader {
