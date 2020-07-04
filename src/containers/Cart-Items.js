@@ -23,10 +23,10 @@ const CartItems = ({
   success,
   error,
   fetchCartItems,
-  createOrder,
   cartItemLength,
 }) => {
-  const [showModal, setshowModal] = useState(false)
+  const [showModal, setshowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     fetchCartItems();
   }, []);
@@ -46,25 +46,26 @@ const CartItems = ({
   };
 
   const createOrderHandler = () => {
+    setLoading(true);
     axios({
       method: "GET",
       url: "/create-order",
       headers: {
-        userid: localStorage.getItem("userId")
+        userid: localStorage.getItem("userId"),
+      },
+    }).then((response) => {
+      // console.log(response);
+      if (response.status === 200) {
+        setLoading(false);
+        setshowModal(true);
+        fetchCartItems();
       }
-    }).then(response => {
-     // console.log(response);
-     if(response.status === 200) {
-      setshowModal(true)
-      fetchCartItems();
-     }     
-    })
-
+    });
   };
 
   return (
     <div>
-    <Modal show={showModal} />
+      <Modal show={showModal} />
       <style>
         {`
       .loader {
@@ -119,7 +120,9 @@ const CartItems = ({
                               }
                             />
                           </div>
-                          <div style={{color:"green",marginTop:"20px"}}><p> Delivery Free</p></div>
+                          <div style={{ color: "green", marginTop: "20px" }}>
+                            <p> Delivery Free</p>
+                          </div>
                         </div>
                         <div className="cart-price">
                           Rs. {item?.productId?.price ?? ""}{" "}
@@ -131,17 +134,23 @@ const CartItems = ({
               </div>
               <div className="cart-action">
                 <h5>
-                Subtotal ( {data.reduce((a, c) => a + c.quantity, 0)} items)
-                :
-                 Rs {data.reduce((a, c) => a + c.productId.price * c.quantity, 0)}
+                  Subtotal ( {data.reduce((a, c) => a + c.quantity, 0)} items) :
+                  Rs.{" "}
+                  {data.reduce((a, c) => a + c.productId.price * c.quantity, 0)}
                 </h5>
-                <button
-                  onClick={createOrderHandler}
-                  className="button primary full-width"
-                  disabled={cartItemLength === 0}
-                >
-                  <h4> Place Order</h4>
-                </button>
+                {loading ? (
+                  <div style={{ textAlign: "center" }}>
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  <button
+                    onClick={createOrderHandler}
+                    className="button primary full-width"
+                    disabled={cartItemLength === 0}
+                  >
+                    <h4> Place Order</h4>
+                  </button>
+                )}
               </div>
             </div>
           ) : (

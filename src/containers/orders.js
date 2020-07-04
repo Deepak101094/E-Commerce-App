@@ -79,7 +79,7 @@ const Orders = ({
                               <div>Qty: {item?.quantity ?? ""}</div>
                             </div>
                             <div className="cart-price">
-                              ${item?.product?.price ?? ""}
+                              Rs.{item?.product?.price ?? ""}
                             </div>
                           </li>
                         ))

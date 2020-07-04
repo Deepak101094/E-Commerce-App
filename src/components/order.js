@@ -46,7 +46,7 @@ const Order = ({ orderLength,data }) => {
         <li>
           <h4>Order Total:</h4>
           <h4>
-          Rs:{data.reduce((a, c) => a + c.product.price *c.quantity,0)}
+          Rs.{data.reduce((a, c) => a + c.product.price *c.quantity,0)}
           </h4>
         </li>
       </ul>
