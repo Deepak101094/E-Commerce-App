@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 //? action
 import { saveProductToEdit } from "../store/actions/update-product";
 //? utility
-import axios from "../utility/axios/withHeader";
+import axios from "../utility/axios";
 //? lodash
 import _get from "lodash/get";
 //? import from  material

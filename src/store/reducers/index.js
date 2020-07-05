@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 //? own Reducer
-import addProduct from "./add-product";
 import updateProduct from "./update-product";
 import fetchUserProducts from "./fetch-user-products";
 import logIn from "./login";
@@ -11,7 +10,6 @@ import fetchOrderReducer from "./fetch-orders";
 import cartItemsCount from "./cartItemsCount";
 
 export default combineReducers({
-   addProduct,
    updateProduct,
    userProducts: fetchUserProducts,
    logIn,

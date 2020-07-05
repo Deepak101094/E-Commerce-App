@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 //? UI/Modal
-import Modal from "../components/UI/Modal/Modal";
+import Modal from "./Modal";
 //? React Router
 import { Link } from "react-router-dom";
 //? hoc
-import Layout from "../Hoc/Layout";
+import Layout from "../hoc/layout";
 //? utitlity
-import axios from "../utility/axios/withHeader";
+import axios from "../utility/axios";
 //? redux
 import { connect, useDispatch } from "react-redux";
 //? action

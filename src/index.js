@@ -11,12 +11,12 @@ import "./index.css";
 
 //? Components
 import App from "./App";
-import AddProduct from "./containers/AddProduct";
-import UpdateProduct from "./containers/UpdateProduct";
-import Login from "./form/Login";
-import SignUp from "./form/SignUp";
-import CartItems from "./containers/Cart-Items";
-import Orders from "./containers/orders";
+import AddProduct from "./components/AddProduct";
+import UpdateProduct from "./components/UpdateProduct";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import CartItems from "./components/CartItems";
+import Orders from "./components/orders";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -1,6 +1,6 @@
 import { FETCH_ORDER_INIT, FETCH_ORDER_SUCCESS, FETCH_ORDER_FAIL } from "../actionTypes";
 //? utility
-import axios from "../../utility/axios/withHeader";
+import axios from "../../utility/axios/";
 //?lodash
 import _get from "lodash/get";
 

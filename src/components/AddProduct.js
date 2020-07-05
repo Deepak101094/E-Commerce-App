@@ -2,13 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 //?utility
-import axios from "../utility/axios/withHeader";
+import axios from "../utility/axios";
 //?react-hook-form
 import { useForm } from "react-hook-form";
 //? hoc
-import Layout from "../Hoc/Layout";
-//?action
-import { addProduct } from "../store/actions/add-product";
+import Layout from "../hoc/layout";
 //? material-ui
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -216,6 +214,5 @@ function AddProduct(props) {
       </Grid>
    );
 }
-const addproduct = connect(null, { addProduct })(AddProduct);
 
-export default Layout(addproduct);
+export default Layout(AddProduct);

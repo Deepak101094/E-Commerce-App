@@ -4,7 +4,7 @@ import {
    UPDATE_PRODUCT_FAIL,
    PRODUCT_TO_EDIT,
 } from "../actionTypes";
-import axios from "../../utility/axios/withHeader";
+import axios from "../../utility/axios/";
 import _get from "lodash/get";
 
 export const updateProduct = (reqBody, cbfunc) => {

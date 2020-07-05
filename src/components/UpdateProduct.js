@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 //?react-hook-form
 import { useForm } from "react-hook-form";
 //? hoc
-import Layout from "../Hoc/Layout";
+import Layout from "../hoc/layout";
 //?action
 import { updateProduct } from "../store/actions/update-product";
 //? material-ui
