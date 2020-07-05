@@ -26,199 +26,195 @@ import ErrorIcon from "@material-ui/icons/Error";
 import Paper from "@material-ui/core/Paper";
 
 function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" to="/product-list">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
+   return (
+      <Typography variant="body2" color="textSecondary" align="center">
+         {"Copyright © "}
+         <Link color="inherit" to="/">
+            Your Website
+         </Link>
+         {new Date().getFullYear()}
+         {"."}
+      </Typography>
+   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  errorMsg: {
-    margin: "10px 0px",
-    color: "red",
-  },
+   paper: {
+      marginTop: theme.spacing(8),
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+   },
+   avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+   },
+   form: {
+      width: "100%", // Fix IE 11 issue.
+      marginTop: theme.spacing(3),
+   },
+   submit: {
+      margin: theme.spacing(3, 0, 2),
+   },
+   errorMsg: {
+      margin: "10px 0px",
+      color: "red",
+   },
 }));
 
 function AddProduct(props) {
-  const classes = useStyles();
-  const history = useHistory();
-  const [loading, setLoading] = React.useState(false);
-  const { handleSubmit, errors, reset, register } = useForm();
+   const classes = useStyles();
+   const history = useHistory();
+   const [loading, setLoading] = React.useState(false);
+   const { handleSubmit, errors, reset, register } = useForm();
 
-  const addProductHandler = (reqBody, e) => {
-    // console.log(reqBody);
-    setLoading(true);
-    const { addProduct } = props;
-    addProduct(reqBody, () => {
-      history.push("/product-list");
-    });
-    // axios({
-    //    method: "POST",
-    //    url: "/admin/add-product",
-    //    data: {reqBody},
-    //    headers: {
-    //       userid: localStorage.getItem("userId")
-    //    }
-    // }).then(response => {
-    //    console.log(response);
-    // if(response.status === 200) {
-    //    history.push("/product-list");
-    // }
-    // });
-    e.target.reset();
-  };
+   const addProductHandler = (reqBody, e) => {
+      setLoading(true);
+      axios({
+         method: "POST",
+         url: "/admin/add-product",
+         data: { ...reqBody },
+         headers: {
+            userid: localStorage.getItem("userId"),
+         },
+      })
+         .then((response) => {
+            if (response?.status ?? 0 === 200) {
+               history.push("/");
+               setLoading(false);
+               e.target.reset();
+            }
+         })
+         .catch((err) => {
+            setLoading(false);
+            e.target.reset();
+         });
+   };
 
-  return (
-    <Grid container>
-      <Grid item xs={12} sm={3} md={3} />
-      <Grid item xs={12} sm={6} md={6}>
-        <Paper>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar}>
-                <AddCircleIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Add-Product
-              </Typography>
-              <form
-                className={classes.form}
-                noValidate
-                onSubmit={handleSubmit(addProductHandler)}
-              >
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      autoComplete="name"
-                      name="name"
-                      variant="outlined"
-                      required
-                      fullWidth
-                      type="text"
-                      id="name"
-                      label="Product Name"
-                      inputRef={register({ required: true })}
-                    />
-                    {errors.name && errors.name.type === "required" && (
-                      <div className={classes.errorMsg}>
-                        <ErrorIcon /> Product-Name is Required
-                      </div>
-                    )}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="description"
-                      type="text"
-                      label="Description"
-                      name="description"
-                      autoComplete="description"
-                      inputRef={register({ required: true })}
-                    />
-                    {errors.description &&
-                      errors.description.type === "required" && (
-                        <div className={classes.errorMsg}>
-                          <ErrorIcon /> Add Product Description
-                        </div>
-                      )}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="price"
-                      type="number"
-                      label="Price"
-                      name="price"
-                      autoComplete="price"
-                      inputRef={register({ required: true })}
-                    />
-                    {errors.price && errors.price.type === "required" && (
-                      <div className={classes.errorMsg}>
-                        <ErrorIcon /> Add Product Price
-                      </div>
-                    )}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      name="imageUrl"
-                      label="Image"
-                      type="text"
-                      id="image"
-                      autoComplete="image"
-                      inputRef={register({ required: true })}
-                    />
-                    {errors.imageUrl && errors.imageUrl.type === "required" && (
-                      <div className={classes.errorMsg}>
-                        <ErrorIcon /> Add Product Image
-                      </div>
-                    )}
-                  </Grid>
-                </Grid>
-                {loading ? (
-                  <div style={{ textAlign: "center" }}>
-                    <CircularProgress />
+   return (
+      <Grid container>
+         <Grid item xs={12} sm={3} md={3} />
+         <Grid item xs={12} sm={6} md={6}>
+            <Paper>
+               <Container component="main" maxWidth="xs">
+                  <CssBaseline />
+                  <div className={classes.paper}>
+                     <Avatar className={classes.avatar}>
+                        <AddCircleIcon />
+                     </Avatar>
+                     <Typography component="h1" variant="h5">
+                        Add-Product
+                     </Typography>
+                     <form
+                        className={classes.form}
+                        noValidate
+                        onSubmit={handleSubmit(addProductHandler)}
+                     >
+                        <Grid container spacing={2}>
+                           <Grid item xs={12}>
+                              <TextField
+                                 autoComplete="name"
+                                 name="name"
+                                 variant="outlined"
+                                 required
+                                 fullWidth
+                                 type="text"
+                                 id="name"
+                                 label="Product Name"
+                                 inputRef={register({ required: true })}
+                              />
+                              {errors.name && errors.name.type === "required" && (
+                                 <div className={classes.errorMsg}>
+                                    <ErrorIcon /> Product-Name is Required
+                                 </div>
+                              )}
+                           </Grid>
+                           <Grid item xs={12}>
+                              <TextField
+                                 variant="outlined"
+                                 required
+                                 fullWidth
+                                 id="description"
+                                 type="text"
+                                 label="Description"
+                                 name="description"
+                                 autoComplete="description"
+                                 inputRef={register({ required: true })}
+                              />
+                              {errors.description && errors.description.type === "required" && (
+                                 <div className={classes.errorMsg}>
+                                    <ErrorIcon /> Add Product Description
+                                 </div>
+                              )}
+                           </Grid>
+                           <Grid item xs={12}>
+                              <TextField
+                                 variant="outlined"
+                                 required
+                                 fullWidth
+                                 id="price"
+                                 type="number"
+                                 label="Price"
+                                 name="price"
+                                 autoComplete="price"
+                                 inputRef={register({ required: true })}
+                              />
+                              {errors.price && errors.price.type === "required" && (
+                                 <div className={classes.errorMsg}>
+                                    <ErrorIcon /> Add Product Price
+                                 </div>
+                              )}
+                           </Grid>
+                           <Grid item xs={12}>
+                              <TextField
+                                 variant="outlined"
+                                 required
+                                 fullWidth
+                                 name="image"
+                                 label="Image"
+                                 type="text"
+                                 id="image"
+                                 autoComplete="image"
+                                 inputRef={register({ required: true })}
+                              />
+                              {errors.image && errors.image.type === "required" && (
+                                 <div className={classes.errorMsg}>
+                                    <ErrorIcon /> Add Product Image
+                                 </div>
+                              )}
+                           </Grid>
+                        </Grid>
+                        {loading ? (
+                           <div style={{ textAlign: "center" }}>
+                              <CircularProgress />
+                           </div>
+                        ) : (
+                           <Button
+                              style={{ background: "#f0c040" }}
+                              type="submit"
+                              fullWidth
+                              reset={reset}
+                              variant="contained"
+                              className={classes.submit}
+                              reset={reset}
+                              disabled={
+                                 errors.name || errors.description || errors.price || errors.image
+                              }
+                           >
+                              Add Product
+                           </Button>
+                        )}
+                     </form>
                   </div>
-                ) : (
-                  <Button
-                    style={{ background: "#f0c040" }}
-                    type="submit"
-                    fullWidth
-                    reset={reset}
-                    variant="contained"
-                    className={classes.submit}
-                    reset={reset}
-                    disabled={
-                      errors.name ||
-                      errors.description ||
-                      errors.price ||
-                      errors.imageUrl
-                    }
-                  >
-                    Add Product
-                  </Button>
-                )}
-              </form>
-            </div>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </Container>
-        </Paper>
+                  <Box mt={5}>
+                     <Copyright />
+                  </Box>
+               </Container>
+            </Paper>
+         </Grid>
+         <Grid item xs={12} sm={3} md={3} />
       </Grid>
-      <Grid item xs={12} sm={3} md={3} />
-    </Grid>
-  );
+   );
 }
 const addproduct = connect(null, { addProduct })(AddProduct);
 

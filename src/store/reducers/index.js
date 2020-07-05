@@ -8,6 +8,7 @@ import signUp from "./sign_up";
 //?shop
 import fetchCartItems from "./fetch-cart-items";
 import fetchOrderReducer from "./fetch-orders";
+import cartItemsCount from "./cartItemsCount";
 
 export default combineReducers({
    addProduct,
@@ -17,4 +18,5 @@ export default combineReducers({
    signUp,
    cartItems: fetchCartItems,
    orders: fetchOrderReducer,
+   cartItemsCount,
 });

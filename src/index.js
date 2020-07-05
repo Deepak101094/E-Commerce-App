@@ -12,7 +12,6 @@ import "./index.css";
 //? Components
 import App from "./App";
 import AddProduct from "./containers/AddProduct";
-import ProductList from "./containers/ProductList";
 import UpdateProduct from "./containers/UpdateProduct";
 import Login from "./form/Login";
 import SignUp from "./form/SignUp";
@@ -38,9 +37,6 @@ ReactDOM.render(
          <Switch>
             <Route exact path="/orders">
                <Orders />
-            </Route>
-            <Route exact path="/product-list">
-               <ProductList />
             </Route>
             <Route exact path="/add-product">
                <AddProduct />
