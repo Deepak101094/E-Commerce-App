@@ -4,9 +4,8 @@ import {
    UPDATE_PRODUCT_FAIL,
    PRODUCT_TO_EDIT,
 } from "../actionTypes";
-import axios from "../../utility/axios/withHeader";
+import axios from "../../utility/axios/";
 import _get from "lodash/get";
-
 
 export const updateProduct = (reqBody, cbfunc) => {
    return async (dispatch) => {
@@ -20,7 +19,14 @@ export const updateProduct = (reqBody, cbfunc) => {
          },
       });
       try {
-         const response = await axios.post("/admin/update-product", reqBody);
+         const response = await axios({
+            method: "POST",
+            url: "/admin/update-product",
+            data: reqBody,
+            headers: {
+               userid: localStorage.getItem("userId"),
+            },
+         });
          const data = _get(response, "data", {});
          let success = _get(response, "status", "") === 200 ? true : false;
          dispatch({

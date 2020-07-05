@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import UserProducts from "./components/userProducts";
-import ProductList from "./containers/ProductList";
-import Layout from "./Hoc/Layout";
+import ProductList from "./components/ProductList";
+import Layout from "./hoc/layout";
 
 class App extends Component {
    render() {

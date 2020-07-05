@@ -1,11 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Layout from "../Hoc/Layout";
 //? action
 import { saveProductToEdit } from "../store/actions/update-product";
 //? utility
-import axios from "../utility/axios/withHeader";
+import axios from "../utility/axios";
 //? lodash
 import _get from "lodash/get";
 //? import from  material
@@ -21,20 +20,20 @@ const ProductList = (props) => {
       saveProductToEdit(product);
       history.push(`/update-product/${product._id}`);
    };
-   
+
    const deleteProductHandler = (productId) => {
-   axios({
-      method: "GET",
-      url: `/admin/delete-product?id=${productId}`,
-      headers: {
-         userid: localStorage.getItem("userId")
-      }
-   }).then(response => {
-      if(response.status === 200) {
-         tableRef.current && tableRef.current.onQueryChange();
-      }
-   });
-   }
+      axios({
+         method: "GET",
+         url: `/admin/delete-product?id=${productId}`,
+         headers: {
+            userid: localStorage.getItem("userId"),
+         },
+      }).then((response) => {
+         if (response.status === 200) {
+            tableRef.current && tableRef.current.onQueryChange();
+         }
+      });
+   };
 
    const tableColumns = [
       { title: "Name", field: "name" },
@@ -68,7 +67,7 @@ const ProductList = (props) => {
                            icon: "delete",
                            tooltip: "delete product",
                            onClick: (event, rowData) => {
-                             deleteProductHandler(rowData?._id)
+                              deleteProductHandler(rowData?._id);
                            },
                         },
                         {
@@ -105,5 +104,5 @@ const ProductList = (props) => {
    );
 };
 
-const productList= connect(null, { saveProductToEdit })(ProductList);
-export default Layout(productList);
+const productList = connect(null, { saveProductToEdit })(ProductList);
+export default productList;

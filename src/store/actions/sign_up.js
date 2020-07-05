@@ -1,7 +1,7 @@
 import { SIGN_UP_INIT, SIGN_UP_SUCCESS, SIGN_UP_FAIL } from "../actionTypes";
 //lodash
 import _get from "lodash/get";
-import axios from "../../utility/axios/withoutHeader";
+import axios from "../../utility/axios";
 
 export const userSignUp = (reqBody, cb) => {
    //? converting userType to Number

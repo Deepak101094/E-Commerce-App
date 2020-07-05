@@ -34,9 +34,9 @@ const useStyles = makeStyles((theme) => ({
    root: {
       flexGrow: 1,
    },
-   navbar : {
-    color: '#ffffff',
-    background: "#203040",
+   navbar: {
+      color: "#ffffff",
+      background: "#203040",
    },
    menuButton: {
       marginRight: theme.spacing(2),
@@ -74,7 +74,6 @@ function ButtonAppBar(props) {
    const toggleSlider = (slider, open) => () => {
       setState({ ...state, [slider]: open });
    };
-
    const sideList = (slider) => (
       <Box
          className={classes.menuSliderContainer}
@@ -99,7 +98,7 @@ function ButtonAppBar(props) {
                   <ListItem button component={Link} to={"/cart-item"}>
                      <ListItemText className={classes.listItem} primary={"Cart"} />
                      <IconButton aria-label="cart">
-                        <StyledBadge badgeContent={props.cartItemLength} color="secondary">
+                        <StyledBadge badgeContent={props.cartItemsCount} color="secondary">
                            <ShoppingCartIcon />
                         </StyledBadge>
                      </IconButton>
@@ -192,7 +191,7 @@ function ButtonAppBar(props) {
                            style={{ color: "#ffffff" }}
                            onClick={() => history.push("/cart-item")}
                         >
-                           <StyledBadge badgeContent={props.cartItemLength} color="secondary">
+                           <StyledBadge badgeContent={props.cartItemsCount} color="secondary">
                               <ShoppingCartIcon />
                            </StyledBadge>
                         </IconButton>
@@ -226,8 +225,8 @@ function ButtonAppBar(props) {
                            localStorage.removeItem("userType");
                            localStorage.removeItem("persist:root");
                            localStorage.clear();
+                           history.push("/");
                            window.location.reload();
-                           history.push("/")
                         }}
                      >
                         Logout
@@ -242,8 +241,8 @@ function ButtonAppBar(props) {
 
 const mapStateToProps = (state) => {
    const userType = state?.logIn?.data?.userType ?? "";
-   const cartItemLength = (state?.cartItems?.data ?? []).length;
-   return { userType, cartItemLength };
+   const cartItemsCount = state?.cartItemsCount?.count ?? 0;
+   return { userType, cartItemsCount };
 };
 
 export default connect(mapStateToProps)(ButtonAppBar);
