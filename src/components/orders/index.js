@@ -8,8 +8,6 @@ import { connect } from "react-redux";
 import { fetchOrder } from "../../store/actions/fetch-orders";
 //? material-ui
 import { CircularProgress } from "@material-ui/core";
-//? lodash
-import _get from "lodash/get";
 
 const Orders = ({ data, isLoading, success, error, fetchOrder, orderId, ordersLength }) => {
    useEffect(() => {

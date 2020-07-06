@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { reducer as toastrReducer } from "react-redux-toastr";
 //? own Reducer
 import updateProduct from "./update-product";
 import fetchUserProducts from "./fetch-user-products";
@@ -17,4 +18,5 @@ export default combineReducers({
    cartItems: fetchCartItems,
    orders: fetchOrderReducer,
    cartItemsCount,
+   toastr: toastrReducer,
 });

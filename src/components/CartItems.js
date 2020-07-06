@@ -12,8 +12,6 @@ import { connect, useDispatch } from "react-redux";
 //? action
 import { fetchCartItems } from "../store/actions/fetch-cart-items";
 import setCartItemsCount from "../store/actions/set-cartitems-count";
-//? lodash
-import _get from "lodash/get";
 //? material ui
 import CircularProgress from "@material-ui/core/CircularProgress";
 import DeleteIcon from "@material-ui/icons/Delete";
