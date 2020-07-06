@@ -10,6 +10,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+/**
+ * Displays the order Message in a modal.
+ */
 const Modal = (props) => {
    const history = useHistory();
 

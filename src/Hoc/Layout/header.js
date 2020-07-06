@@ -18,6 +18,10 @@ import avatar from "../../Image/avatar.png";
 //? NextJs imports
 import { useHistory } from "react-router-dom";
 
+/**
+ * this is Header (app bar) component that is used inside withLayout hoc to show top bar on pages
+ */
+
 const StyledBadge = withStyles((theme) =>
    createStyles({
       badge: {
@@ -156,7 +160,7 @@ function ButtonAppBar(props) {
                   >
                      {sideList("right")}
                   </MobilRightMenuSlider>
-
+          {/* display navbar conditionaly based on userType*/}
                   {props.userType === 1 ? (
                      <Button
                         onClick={() => {

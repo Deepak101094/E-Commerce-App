@@ -25,7 +25,7 @@ export const fetchOrder = () => {
                userid: localStorage.getItem("userId"),
             },
          });
-         //  console.log(response.data.products);
+          // console.log(response);
          const data = _get(response, "data.products", []);
          let success = _get(response, "status", "") === 200 ? true : false;
          orders = {

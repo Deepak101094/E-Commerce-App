@@ -12,13 +12,16 @@ import { connect, useDispatch } from "react-redux";
 //? action
 import { fetchCartItems } from "../store/actions/fetch-cart-items";
 import setCartItemsCount from "../store/actions/set-cartitems-count";
-//? lodash
-import _get from "lodash/get";
 //? material ui
 import CircularProgress from "@material-ui/core/CircularProgress";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+/**
+ * This is Cart page where display cartItem data(product).
+ */
+
 const CartItems = ({ data, isLoading, success, error, fetchCartItems, cartItemLength }) => {
+   //?de-structuring cartItem data
    const [showModal, setshowModal] = useState(false);
    const [loading, setLoading] = useState(false);
    useEffect(() => {
@@ -72,6 +75,7 @@ const CartItems = ({ data, isLoading, success, error, fetchCartItems, cartItemLe
       }
       `}
          </style>
+         {/* show loader when fetching */}
          {isLoading ? (
             <div className="loader">
                <CircularProgress color="primary" />
@@ -79,6 +83,7 @@ const CartItems = ({ data, isLoading, success, error, fetchCartItems, cartItemLe
          ) : (
             <React.Fragment>
                {success ? (
+                  //? shows content when loader is stopped and success is true
                   <div className="cart">
                      <div className="cart-list">
                         <ul className="cart-list-container">
@@ -131,6 +136,7 @@ const CartItems = ({ data, isLoading, success, error, fetchCartItems, cartItemLe
                            Subtotal ( {data.reduce((a, c) => a + c.quantity, 0)} items) : Rs.{" "}
                            {data.reduce((a, c) => a + c.productId.price * c.quantity, 0)}
                         </h5>
+                        {/* show loader when clicked (Place Order) button */}
                         {loading ? (
                            <div style={{ textAlign: "center" }}>
                               <CircularProgress />
@@ -147,6 +153,7 @@ const CartItems = ({ data, isLoading, success, error, fetchCartItems, cartItemLe
                      </div>
                   </div>
                ) : (
+                  //? shows error message if not success
                   <p> {error} </p>
                )}
             </React.Fragment>

@@ -26,6 +26,9 @@ import ErrorIcon from "@material-ui/icons/Error";
 import WarningIcon from "@material-ui/icons/Warning";
 import Paper from "@material-ui/core/Paper";
 
+/**
+ * This is the SignUp form page.
+ */
 const useStyles = makeStyles((theme) => ({
    paper: {
       marginTop: theme.spacing(8),
@@ -62,7 +65,7 @@ const SignUp = (props) => {
    let history = useHistory();
    const [loading, setLoading] = useState(false);
 
-   const { handleSubmit, register, reset, control, errors } = useForm({
+   const { handleSubmit, register, control, errors } = useForm({
       // mode: "onBlur",
       // reValidateMode: 'onBlur',
    });
@@ -71,7 +74,7 @@ const SignUp = (props) => {
       setLoading(true);
       const { userSignUp } = props;
       userSignUp(reqBody, (response) => {
-         const { data, isLoading, success, error } = response || {};
+         const { isLoading, success } = response || {};
          setLoading(isLoading);
          if (success) {
             e.target.reset();
@@ -109,7 +112,6 @@ const SignUp = (props) => {
                                  fullWidth
                                  id="firstName"
                                  label="Name"
-                                 // error= {errors.name}
                                  inputRef={register({ required: true, minLength: 4 })}
                               />
                               {errors.name && errors.name.type === "required" && (
@@ -133,8 +135,7 @@ const SignUp = (props) => {
                                  label="Email Address"
                                  name="email"
                                  type="email"
-                                 autoComplete="email"
-                                 // error= {errors.name}
+                                 autoComplete="email"                              
                                  inputRef={register({
                                     required: true,
                                     pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
@@ -161,7 +162,6 @@ const SignUp = (props) => {
                                  type="password"
                                  id="password"
                                  autoComplete="current-password"
-                                 //  error= {errors.name}
                                  inputRef={register({ required: true, minLength: 4 })}
                               />
                               {errors.password && errors.password.type === "required" && (
@@ -194,7 +194,6 @@ const SignUp = (props) => {
                                              name: "user-type",
                                              id: "user-type",
                                           }}
-                                          // error= {errors.name}
                                        >
                                           <option aria-label="None" value="" />
                                           <option value={1}>Admin</option>
@@ -206,7 +205,6 @@ const SignUp = (props) => {
                                  name="userType"
                                  control={control}
                                  type="number"
-                                 // ref={register({ required: true })}
                               />
                               {errors.userType && errors.userType.type === "required" && (
                                  <div className={classes.errorMsg}>
@@ -215,6 +213,7 @@ const SignUp = (props) => {
                               )}
                            </Grid>
                         </Grid>
+                        {/* show loader when click on the button */}
                         {loading ? (
                            <div style={{ textAlign: "center" }}>
                               <CircularProgress />

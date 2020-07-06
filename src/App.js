@@ -3,6 +3,10 @@ import UserProducts from "./components/userProducts";
 import ProductList from "./components/ProductList";
 import Layout from "./hoc/layout";
 
+/**
+ * This is home(App) Component.Inside this component rendered different Page 
+ * @param {ProductList and UserProduct} based on userType
+ */
 class App extends Component {
    render() {
       return (

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+//?Libraries
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
@@ -9,7 +10,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import rootReducer from "./store/reducers";
 import "./index.css";
 
-//? Components
+//? own Components
 import App from "./App";
 import AddProduct from "./components/AddProduct";
 import UpdateProduct from "./components/UpdateProduct";
@@ -33,6 +34,7 @@ persistStore(store);
 
 ReactDOM.render(
    <Provider store={store}>
+   {/* rendered different component based on different Routes  */}
       <Router>
          <Switch>
             <Route exact path="/orders">

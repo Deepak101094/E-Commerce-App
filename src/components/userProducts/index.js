@@ -6,6 +6,9 @@ import { Grid } from "@material-ui/core";
 import _get from "lodash/get";
 import Product from "./Product";
 
+/**
+ * This is the UserProducts page.
+ */
 const UserProducts = ({
   fetchProducts,
   data,
@@ -13,6 +16,7 @@ const UserProducts = ({
   isLoading,
   errorMsg,
 }) => {
+  //?de-structuring  data
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -32,6 +36,7 @@ const UserProducts = ({
             
           }
         `}</style>
+        {/* show loader when fetching */}
       {isLoading ? (
         <div className="loader">
           <CircularProgress color="primary" />
@@ -42,6 +47,7 @@ const UserProducts = ({
         <div>
           <Grid container spacing={4}>
             {success ? (
+              //? shows content when loader is stopped and success is true
               (data || []).map((product) => {
                 return (
                   <Grid item xs={12} sm={6} md={4}>
@@ -50,6 +56,7 @@ const UserProducts = ({
                 );
               })
             ) : (
+              //? shows error message if not success
               <p>{errorMsg}</p>
             )}
           </Grid>
