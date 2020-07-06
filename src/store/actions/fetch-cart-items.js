@@ -7,6 +7,7 @@ import {
 import axios from "../../utility/axios/";
 //?lodash
 import _get from "lodash/get";
+import setCartItemsCount from "../../store/actions/set-cartitems-count";
 
 export const fetchCartItems = () => {
    return async (dispatch) => {
@@ -38,6 +39,7 @@ export const fetchCartItems = () => {
             type: FETCH_CART_ITEMS_SUCCESS,
             cartItems: { ...cartItems },
          });
+         dispatch(setCartItemsCount(data?.length));
       } catch (err) {
          const error = _get(err, "response.data.message", "some error occurred!");
          cartItems = {

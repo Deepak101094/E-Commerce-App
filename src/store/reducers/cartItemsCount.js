@@ -10,10 +10,7 @@ const CartItemsCount = (state = {}, action) => {
             count: payload,
          };
       default:
-         return {
-            ...state,
-            type,
-         };
+         return state;
    }
 };
 
