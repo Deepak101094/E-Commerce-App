@@ -53,25 +53,45 @@ const Orders = ({ data, isLoading, success, error, fetchOrder, orderId, ordersLe
                                  {ordersLength === 0 ? (
                                     <div>Your Order is empty</div>
                                  ) : (
-                                    (data || []).map((item) => (
-                                       <li key={item?.product?._id ?? ""}>
-                                          <div className="cart-image">
-                                             <img src={item?.product?.image ?? ""} alt="product" />
-                                          </div>
-                                          <div className="cart-name">
-                                             <div>{item?.product?.name ?? ""}</div>
-                                             <div>Qty: {item?.quantity ?? ""}</div>
-                                          </div>
-                                          <div className="cart-price">
-                                             Rs.{item?.product?.price ?? ""}
-                                          </div>
-                                       </li>
-                                    ))
+                                    (data || []).map((order) => {
+                                       const { products } = order || {};
+                                       let total = 0;
+                                       return (products || []).map((prod) => {
+                                          const { product, quantity } = prod || {};
+                                          const { name, price, image } = product || {};
+                                          total += price;
+                                          return (
+                                             <div
+                                                style={{
+                                                   display: "flex",
+                                                   justifyContent: "space-between",
+                                                }}
+                                             >
+                                                <div style={{ height: "auto", width: "60px" }}>
+                                                   <img
+                                                      style={{ height: "auto", width: "100%" }}
+                                                      src={image}
+                                                      alt="prod"
+                                                   />
+                                                </div>
+                                                <div>
+                                                   <span>{name}</span>
+                                                </div>
+                                                <div>
+                                                   <span>Rs.{price}</span>
+                                                </div>
+                                                <div>
+                                                   <span>Quantity: {quantity}</span>
+                                                </div>
+                                             </div>
+                                          );
+                                       });
+                                    })
                                  )}
                               </ul>
                            </div>
                         </div>
-                        <Order data={data} />
+                        {/* <Order data={data} /> */}
                      </div>
                   </>
                ) : (
