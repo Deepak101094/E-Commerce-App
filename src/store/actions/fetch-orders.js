@@ -25,8 +25,7 @@ export const fetchOrder = () => {
                userid: localStorage.getItem("userId"),
             },
          });
-          // console.log(response);
-         const data = _get(response, "data.products", []);
+         const data = _get(response, "data", []);
          let success = _get(response, "status", "") === 200 ? true : false;
          orders = {
             data,
@@ -39,6 +38,7 @@ export const fetchOrder = () => {
             orders: { ...orders },
          });
       } catch (err) {
+         console.log(err, "err");
          const error = _get(err, "response.data.message", "some error occurred!");
          orders = {
             data: [],

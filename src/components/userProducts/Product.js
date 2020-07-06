@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 //? utility
 import axios from "../../utility/axios";
-//?material ui
+
+//? libraries
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -13,8 +14,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
-//?import from lodash
 import _get from "lodash/get";
+import { toastr } from "react-redux-toastr";
+
 //?actions
 import setCartItemsCount from "../../store/actions/set-cartitems-count";
 
@@ -53,6 +55,7 @@ const Product = (props) => {
             const itemsCount = Array.isArray(items) ? items.length : 0;
             dispatch(setCartItemsCount(itemsCount));
             setLoading(false);
+            toastr.success("Product Added Successfully!");
          }
       });
    };
@@ -79,7 +82,7 @@ const Product = (props) => {
             </CardActionArea>
             {localStorage.getItem("userId") ? (
                <CardActions className={classes.cardActions}>
-               {/* show loader when clicked(Add-to-Cart) button */}
+                  {/* show loader when clicked(Add-to-Cart) button */}
                   {loading ? (
                      <div style={{ textAlign: "center" }}>
                         <CircularProgress />

@@ -8,13 +8,12 @@ import { useForm } from "react-hook-form";
 import layout from "../hoc/layout";
 //? action
 import { loginUser } from "../store/actions/login";
-//? material-ui
+//? libraries
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -23,22 +22,7 @@ import { CircularProgress } from "@material-ui/core";
 import ErrorIcon from "@material-ui/icons/Error";
 import WarningIcon from "@material-ui/icons/Warning";
 import Paper from "@material-ui/core/Paper";
-
-/**
- * This is Login form page.
- */
-function Copyright() {
-   return (
-      <Typography variant="body2" color="textSecondary" align="center">
-         {"Copyright © "}
-         <Link color="inherit" to="/">
-            Your Website
-         </Link>{" "}
-         {new Date().getFullYear()}
-         {"."}
-      </Typography>
-   );
-}
+import { toastr } from "react-redux-toastr";
 
 const useStyles = makeStyles((theme) => ({
    paper: {
@@ -72,10 +56,10 @@ function SignIn(props) {
    const { handleSubmit, errors, register } = useForm();
 
    const loginHandler = (reqBody, e) => {
-      //console.log(reqBody);
       setLoading(true);
       const { loginUser } = props;
       loginUser(reqBody, () => {
+         toastr.success("Login Successfully!");
          history.push("/");
       });
       e.target.reset();
@@ -146,7 +130,6 @@ function SignIn(props) {
                               <WarningIcon /> Invalid Password
                            </div>
                         )}
-                  {/* show loader when clicked button */}
                         {loading ? (
                            <div style={{ textAlign: "center" }}>
                               <CircularProgress />
@@ -178,9 +161,6 @@ function SignIn(props) {
                         </Grid>
                      </form>
                   </div>
-                  <Box mt={8}>
-                     <Copyright />
-                  </Box>
                </Container>
             </Paper>
          </Grid>
