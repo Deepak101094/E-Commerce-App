@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Order from "./Order";
 import Layout from "../../hoc/layout";
 //? redux
 import { connect } from "react-redux";
@@ -9,7 +8,11 @@ import { fetchOrder } from "../../store/actions/fetch-orders";
 //? material-ui
 import { CircularProgress } from "@material-ui/core";
 
+/**
+ * This is Orders page where we can see our product which are orderd.
+ */
 const Orders = ({ data, isLoading, success, error, fetchOrder, orderId, ordersLength }) => {
+   //?de-structuring orders data
    useEffect(() => {
       fetchOrder();
    }, []);
@@ -26,6 +29,7 @@ const Orders = ({ data, isLoading, success, error, fetchOrder, orderId, ordersLe
         margin: 1rem;
       }
     `}</style>
+         {/* show loader when fetching */}
          {isLoading ? (
             <div className="loader">
                <CircularProgress color="primary" />
@@ -33,6 +37,7 @@ const Orders = ({ data, isLoading, success, error, fetchOrder, orderId, ordersLe
          ) : (
             <React.Fragment>
                {success ? (
+                  //? shows content when loader is stopped and success is true
                   <>
                      <div className="order">
                         <Link to="/">Back to HomePage</Link>
@@ -91,10 +96,10 @@ const Orders = ({ data, isLoading, success, error, fetchOrder, orderId, ordersLe
                               </ul>
                            </div>
                         </div>
-                        {/* <Order data={data} /> */}
                      </div>
                   </>
                ) : (
+                  //? shows error message if not success
                   <p>{error}</p>
                )}
             </React.Fragment>

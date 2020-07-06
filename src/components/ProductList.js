@@ -11,6 +11,9 @@ import _get from "lodash/get";
 import MaterialTable from "material-table";
 import { Grid } from "@material-ui/core";
 
+/**
+ * This is the ProductList Page, here products displays in the Table.
+ */
 const ProductList = (props) => {
    const history = useHistory();
    const tableRef = React.createRef();

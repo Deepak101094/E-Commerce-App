@@ -1,3 +1,6 @@
+/**
+ * This component is combined All reducer in one root reducer with key value pair
+ */
 import { combineReducers } from "redux";
 import { reducer as toastrReducer } from "react-redux-toastr";
 //? own Reducer

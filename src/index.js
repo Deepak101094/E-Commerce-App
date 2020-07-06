@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+//?Libraries
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
@@ -11,7 +12,7 @@ import ReduxToastr from "react-redux-toastr";
 import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 import "./index.css";
 
-//? Components
+//? own Components
 import App from "./App";
 import AddProduct from "./components/AddProduct";
 import UpdateProduct from "./components/UpdateProduct";

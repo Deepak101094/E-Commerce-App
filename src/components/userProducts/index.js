@@ -28,6 +28,7 @@ const UserProducts = ({ fetchProducts, fetchCartItems, data, success, isLoading,
             
           }
         `}</style>
+         {/* show loader when fetching */}
          {isLoading ? (
             <div className="loader">
                <CircularProgress color="primary" />
@@ -38,6 +39,7 @@ const UserProducts = ({ fetchProducts, fetchCartItems, data, success, isLoading,
                <div>
                   <Grid container spacing={4}>
                      {success ? (
+                        //? shows content when loader is stopped and success is true
                         (data || []).map((product) => {
                            return (
                               <Grid item xs={12} sm={6} md={4}>
@@ -46,6 +48,7 @@ const UserProducts = ({ fetchProducts, fetchCartItems, data, success, isLoading,
                            );
                         })
                      ) : (
+                        //? shows error message if not success
                         <p>{errorMsg}</p>
                      )}
                   </Grid>

@@ -19,6 +19,7 @@ export const loginUser = (reqBody, cbFunc) => {
          const response = await axios.post("/admin/login", reqBody);
          const data = _get(response, "data", {});
          let success = _get(response, "status", "") === 200 ? true : false;
+         {/* setdata in the localStorage which are userId and userType    */}
          localStorage.setItem("userId", data?.userId ?? "");
          localStorage.setItem("userType", data?.userType ?? "");
          logInRes = {

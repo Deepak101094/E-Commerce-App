@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-
 //?libraries
-import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
 //? utility
 import axios from "../../utility/axios";
 
@@ -64,6 +61,7 @@ const Product = (props) => {
    };
 
    const classes = useStyles();
+   //?de-structuring product data
    const { name, price, description, image, _id } = _get(props, "product", {});
    return (
       <div className="container" maxWidth="md">
@@ -84,6 +82,7 @@ const Product = (props) => {
             </CardActionArea>
             {localStorage.getItem("userId") ? (
                <CardActions className={classes.cardActions}>
+                  {/* show loader when clicked(Add-to-Cart) button */}
                   {loading ? (
                      <div style={{ textAlign: "center" }}>
                         <CircularProgress />

@@ -12,9 +12,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -23,6 +21,10 @@ import ErrorIcon from "@material-ui/icons/Error";
 import EditIcon from "@material-ui/icons/Edit";
 import { Paper } from "@material-ui/core";
 
+
+/**
+ * This is update product form page, here admin can edit the product.
+ */
 const useStyles = makeStyles((theme) => ({
    paper: {
       marginTop: theme.spacing(8),
@@ -54,8 +56,7 @@ function UpdateProduct(props) {
    const { productData } = props;
    const { handleSubmit, errors, reset, register } = useForm({
       defaultValues: {
-         ...productData,
-         // image: image,
+         ...productData
       },
    });
    const updateProductHandler = (reqBody, e) => {
@@ -161,6 +162,7 @@ function UpdateProduct(props) {
                               )}
                            </Grid>
                         </Grid>
+                        {/* show loader when click on the  button */}
                         {loading ? (
                            <div style={{ textAlign: "center" }}>
                               <CircularProgress />
@@ -173,7 +175,6 @@ function UpdateProduct(props) {
                               reset={reset}
                               variant="contained"
                               className={classes.submit}
-                              reset={reset}
                               disabled={
                                  errors.name || errors.description || errors.price || errors.image
                               }

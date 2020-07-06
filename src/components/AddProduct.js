@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+//?libraries
 import { useHistory } from "react-router-dom";
 //?utility
 import axios from "../utility/axios";
@@ -23,6 +23,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import ErrorIcon from "@material-ui/icons/Error";
 import Paper from "@material-ui/core/Paper";
 
+/**
+ * This is the Add product form page where admine can add product!
+ */
 function Copyright() {
    return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -194,7 +197,6 @@ function AddProduct(props) {
                               reset={reset}
                               variant="contained"
                               className={classes.submit}
-                              reset={reset}
                               disabled={
                                  errors.name || errors.description || errors.price || errors.image
                               }
