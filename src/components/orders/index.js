@@ -11,7 +11,7 @@ import { CircularProgress } from "@material-ui/core";
 /**
  * This is Orders page where we can see our product which are orderd.
  */
-const Orders = ({ data, isLoading, success, error, fetchOrder, orderId, ordersLength }) => {
+const Orders = ({ data, isLoading, success, error, fetchOrder, ordersLength }) => {
    //?de-structuring orders data
    useEffect(() => {
       fetchOrder();
@@ -41,59 +41,72 @@ const Orders = ({ data, isLoading, success, error, fetchOrder, orderId, ordersLe
                   <>
                      <div className="order">
                         <Link to="/">Back to HomePage</Link>
-                        <div style={{ marginTop: "1rem" }}>
+                        {/* <div style={{ marginTop: "1rem" }}>
                            {ordersLength ? <h5>Your OrderId:- {orderId} </h5> : null}
-                        </div>
+                        </div> */}
                      </div>
                      <div className="placeorder">
                         <div className="placeorder-info">
                            <div>
-                              <ul className="cart-list-container">
+                              {/* <ul className="cart-list-container">
                                  <li>
                                     <h3>Orders</h3>
                                     <p>
                                        <b>Price</b>
                                     </p>
-                                 </li>
-                                 {ordersLength === 0 ? (
-                                    <div>Your Order is empty</div>
-                                 ) : (
-                                    (data || []).map((order) => {
-                                       const { products } = order || {};
-                                       let total = 0;
-                                       return (products || []).map((prod) => {
-                                          const { product, quantity } = prod || {};
-                                          const { name, price, image } = product || {};
-                                          total += price;
-                                          return (
+                                 </li> */}
+                              {ordersLength === 0 ? (
+                                 <div>Your Order is empty</div>
+                              ) : (
+                                 (data || []).map((order) => {
+                                    const { products } = order || {};
+                                    let total = 0;
+                                    return (products || []).map((prod) => {
+                                       const { product, quantity } = prod || {};
+                                       const { name, price, image } = product || {};
+                                       total += price;
+                                       return (
+                                          <div
+                                             style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                             }}
+                                             className="row mb-2"
+                                          >
                                              <div
+                                                className="col-md-3"
                                                 style={{
-                                                   display: "flex",
-                                                   justifyContent: "space-between",
+                                                   width: "60px",
+                                                   height: "60px",
                                                 }}
                                              >
-                                                <div style={{ height: "auto", width: "60px" }}>
-                                                   <img
-                                                      style={{ height: "auto", width: "100%" }}
-                                                      src={image}
-                                                      alt="prod"
-                                                   />
-                                                </div>
-                                                <div>
-                                                   <span>{name}</span>
-                                                </div>
-                                                <div>
-                                                   <span>Rs.{price}</span>
-                                                </div>
-                                                <div>
-                                                   <span>Quantity: {quantity}</span>
-                                                </div>
+                                                <img
+                                                   // style={{ height: "100%", width: "auto" }}
+                                                   src={image}
+                                                   alt="prod"
+                                                   height="60px"
+                                                   width="60px"
+                                                />
                                              </div>
-                                          );
-                                       });
-                                    })
-                                 )}
-                              </ul>
+                                             <div
+                                                className="col-md-3"
+                                                style={{ fontWeight: "bold" }}
+                                             >
+                                                <span>{name}</span>
+                                             </div>
+                                             <div className="col-md-3">
+                                                <span>Rs.{price}</span>
+                                             </div>
+                                             <div className="col-md-3">
+                                                <span>Quantity: {quantity}</span>
+                                             </div>
+                                          </div>
+                                       );
+                                    });
+                                 })
+                              )}
+                              {/* </ul> */}
                            </div>
                         </div>
                      </div>
@@ -111,10 +124,8 @@ const Orders = ({ data, isLoading, success, error, fetchOrder, orderId, ordersLe
 const mapStateToProps = (state) => {
    const { data, isLoading, success, error } = state?.orders ?? {};
    const ordersLength = (state?.orders?.data ?? []).length;
-   const orderId = state?.logIn?.data?.userId ?? "";
    return {
       ordersLength,
-      orderId,
       data,
       isLoading,
       success,
