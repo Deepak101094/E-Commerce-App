@@ -15,6 +15,7 @@ export const loginUser = (reqBody, cbFunc) => {
          type: LOGIN_INIT,
          logInRes: { ...logInRes },
       });
+      cbFunc({...logInRes})
       try {
          const response = await axios.post("/admin/login", reqBody);
          const data = _get(response, "data", {});
@@ -32,7 +33,7 @@ export const loginUser = (reqBody, cbFunc) => {
             type: LOGIN_SUCCESS,
             logInRes: { ...logInRes },
          });
-         cbFunc();
+         cbFunc({...logInRes});
       } catch (err) {
          const error = _get(err, "response.data.message", "some error occurred!");
          logInRes = {
@@ -45,6 +46,7 @@ export const loginUser = (reqBody, cbFunc) => {
             type: LOGIN_FAIL,
             logInRes: { ...logInRes },
          });
+         cbFunc({...logInRes})
       }
    };
 };
