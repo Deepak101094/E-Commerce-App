@@ -57,7 +57,12 @@ const Product = (props) => {
             setLoading(false);
             toastr.success("Product Added Successfully!");
          }
+      })
+      .catch(err => {
+         console.log("error", err);
+         toastr.error("Something went wrong!");
       });
+
    };
 
    const classes = useStyles();

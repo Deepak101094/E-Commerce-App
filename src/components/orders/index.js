@@ -41,20 +41,10 @@ const Orders = ({ data, isLoading, success, error, fetchOrder, ordersLength }) =
                   <>
                      <div className="order">
                         <Link to="/">Back to HomePage</Link>
-                        {/* <div style={{ marginTop: "1rem" }}>
-                           {ordersLength ? <h5>Your OrderId:- {orderId} </h5> : null}
-                        </div> */}
                      </div>
                      <div className="placeorder">
                         <div className="placeorder-info">
                            <div>
-                              {/* <ul className="cart-list-container">
-                                 <li>
-                                    <h3>Orders</h3>
-                                    <p>
-                                       <b>Price</b>
-                                    </p>
-                                 </li> */}
                               {ordersLength === 0 ? (
                                  <div>Your Order is empty</div>
                               ) : (

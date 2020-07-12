@@ -40,8 +40,8 @@ const ProductList = (props) => {
         }
       })
       .catch((err) => {
-        console.log(err, "error");
-        toastr.error("Product did't Delete");
+        // console.log(err, "error");
+        toastr.error("Something went wrong!");
       });
   };
 
